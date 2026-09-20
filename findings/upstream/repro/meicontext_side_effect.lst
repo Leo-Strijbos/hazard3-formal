@@ -1,0 +1,13 @@
+80000000: c00002b7  lui t0, 0xc0000
+80000004: 34202573  csrr a0, mcause
+80000008: 00a2a223  sw x10, 4(t0)      # print mcause (2 = illegal instruction, expected)
+8000000c: 30402573  csrr a0, mie
+80000010: 00a2a223  sw x10, 4(t0)      # print mie after the trapping write
+80000014: 00a03533  sltu a0, x0, a0      # a0 = (mie != 0)
+80000018: 00a2a423  sw a0, 8(t0)         # exit: 1 = mie changed by a trapping write (diverges), 0 = unchanged
+80000040: c00002b7  lui t0, 0xc0000
+80000044: 30402573  csrr a0, mie
+80000048: 00a2a223  sw x10, 4(t0)      # print mie before
+8000004c: be525073  csrrwi x0, 0xbe5, 4  # meicontext.msiesave; CSR absent when EXTENSION_XH3IRQ=0
+80000050: 00200513  addi a0, x0, 2
+80000054: 00a2a423  sw a0, 8(t0)         # exit 2: the write did not trap (unexpected)

@@ -44,3 +44,9 @@ mstatus_mprv <= wdata_update[17] && U_MODE;
 No U-mode means no privilege to translate for, so software cannot observe a
 wrong memory access; the visible effect is a WARL field that reads back a value
 the spec says is hardwired 0. Conformance, not corruption.
+
+## Simulation reproducer (2026-09-20)
+
+`upstream/repro/mstatus_mprv_no_umode.bin` on Hazard3's CXXRTL testbench: exit 1 (diverges) at
+v1.1.1 `8af99293`, exit 0 (agrees with Sail) on the same tree with the conformance
+patch applied. Logs in `upstream/repro/out/` and `out-fixed/`.

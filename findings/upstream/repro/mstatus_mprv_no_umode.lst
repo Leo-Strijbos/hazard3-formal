@@ -1,0 +1,15 @@
+80000000: c00002b7  lui t0, 0xc0000      # testbench IO base
+80000004: 34202573  csrr a0, mcause
+80000008: 00a2a223  sw x10, 4(t0)      # print mcause
+8000000c: 34102573  csrr a0, mepc
+80000010: 00a2a223  sw x10, 4(t0)      # print mepc
+80000014: 00300513  addi a0, x0, 3
+80000018: 00a2a423  sw a0, 8(t0)         # exit 3: unexpected trap
+80000040: 00020337  lui t1, 0x20         # t1 = 0x20000 = mstatus.MPRV
+80000044: 30032073  csrs mstatus, t1
+80000048: 30002573  csrr a0, mstatus
+8000004c: c00002b7  lui t0, 0xc0000
+80000050: 00a2a223  sw x10, 4(t0)      # print mstatus read-back
+80000054: 01155513  srli a0, a0, 17
+80000058: 00157513  andi a0, a0, 1       # a0 = MPRV bit
+8000005c: 00a2a423  sw a0, 8(t0)         # exit MPRV: 1 = readable 1 (diverges), 0 = hardwired 0

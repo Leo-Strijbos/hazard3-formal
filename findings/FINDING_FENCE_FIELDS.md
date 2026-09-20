@@ -52,3 +52,10 @@ the opcode pattern alone would make `fence` with rd=x4 write x4.
 No compiler emits FENCE with non-zero rs1/rd today. The risk is the one the
 spec names: a future extension that allocates these fields would trap on
 Hazard3 where a conforming core executes a plain fence.
+
+## Simulation reproducer (2026-09-20)
+
+`upstream/repro/fence_rd_nonzero.bin` on Hazard3's CXXRTL testbench: exit 1 (diverges) at
+v1.1.1 `8af99293`, exit 0 (agrees with Sail) on the same tree with the conformance
+patch applied. Logs in `upstream/repro/out/` and `out-fixed/`.
+On `develop` (`ba0c83c6`) it exits 0: commit `6adda670` (2026-08-22) fixed this independently.

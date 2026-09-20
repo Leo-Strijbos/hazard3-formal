@@ -80,3 +80,9 @@ of the ladder, as for fix1 (now faster: v4.1 runner, core pre-screen, ~250 lemma
 `mtvec + {26'h0, vector_sel, 2'h0}` (option 1 above). The whole ladder is re-proved on the re-patched
 model by `/var/tmp/reprove_all2.sh fix2` (log rotated to `/var/tmp/h3loop.log.pre-fix2`); nothing proven
 on the pre-fix2 model is claimed afterwards. Still untested in simulation and not reported upstream.
+
+## Simulation reproducer (2026-09-20)
+
+`upstream/repro/mtvec_vectored_unaligned.bin` on Hazard3's CXXRTL testbench: exit 1 (diverges) at
+v1.1.1 `8af99293`, exit 0 (agrees with Sail) on the same tree with the conformance
+patch applied. Logs in `upstream/repro/out/` and `out-fixed/`.

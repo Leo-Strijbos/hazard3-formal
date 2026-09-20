@@ -42,3 +42,9 @@ decode-legal signal so no undecodable CSR can have a write side effect.
 An illegal instruction must not change architectural state (priv spec §3.1.15:
 the trap is taken and the instruction is not executed). Requires executing a
 CSR write to an address no compiler emits, so exposure is deliberate code only.
+
+## Simulation reproducer (2026-09-20)
+
+`upstream/repro/meicontext_side_effect.bin` on Hazard3's CXXRTL testbench: exit 1 (diverges) at
+v1.1.1 `8af99293`, exit 0 (agrees with Sail) on the same tree with the conformance
+patch applied. Logs in `upstream/repro/out/` and `out-fixed/`.

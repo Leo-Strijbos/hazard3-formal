@@ -1,0 +1,14 @@
+80000000: c00002b7  lui t0, 0xc0000      # testbench IO base
+80000004: 34202573  csrr a0, mcause
+80000008: 00a2a223  sw x10, 4(t0)      # print mcause
+8000000c: 34102573  csrr a0, mepc
+80000010: 00a2a223  sw x10, 4(t0)      # print mepc
+80000014: 00100513  addi a0, x0, 1
+80000018: 00a2a423  sw a0, 8(t0)         # exit 1: trapped: diverges from Sail (FENCE with rd!=0 is a fence)
+80000040: 00000213  addi x4, x0, 0
+80000044: f150020f  .word 0xf150020f     # fence fm=f pred=w succ=rw rs1=x0 rd=x4
+80000048: c00002b7  lui t0, 0xc0000
+8000004c: 00020513  addi a0, x4, 0
+80000050: 00a2a223  sw x10, 4(t0)      # print x4 after the fence (should still be 0)
+80000054: 00000513  addi a0, x0, 0
+80000058: 00a2a423  sw a0, 8(t0)         # exit 0: fence retired: matches Sail

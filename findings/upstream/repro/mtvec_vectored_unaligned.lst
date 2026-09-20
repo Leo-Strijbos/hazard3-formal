@@ -1,0 +1,48 @@
+80000000: c00002b7  lui t0, 0xc0000      # testbench IO base
+80000004: 34202573  csrr a0, mcause
+80000008: 00a2a223  sw x10, 4(t0)      # print mcause
+8000000c: 34102573  csrr a0, mepc
+80000010: 00a2a223  sw x10, 4(t0)      # print mepc
+80000014: 00300513  addi a0, x0, 3
+80000018: 00a2a423  sw a0, 8(t0)         # exit 3: trap while still in direct mode (unexpected)
+80000040: 0c00006f  j main
+80000074: 14c0006f  j hexc                # vector slot 0: exceptions (BASE)
+80000078: 00000013  nop
+8000007c: 1040006f  j h7c                 # BASE | (3<<2) = 0x8000007c  (Hazard3)
+80000080: 1200006f  j h80                 # BASE + (3<<2) = 0x80000080  (Sail)
+80000100: c00002b7  main: lui t0, 0xc0000
+80000104: 80000337  lui t1, 0x80000
+80000108: 07530313  addi t1, t1, 0x75    # mtvec = 0x80000075: BASE 0x80000074, MODE vectored
+8000010c: 30531073  csrw mtvec, t1
+80000110: 30502573  csrr a0, mtvec
+80000114: 00a2a223  sw x10, 4(t0)      # print mtvec read-back (unaligned BASE retained?)
+80000118: 00800513  addi t2, x0, 8
+8000011c: 30452073  csrs mie, t2         # MSIE
+80000120: 30046073  csrsi mstatus, 8     # MIE
+80000124: 00100e13  addi t3, x0, 1
+80000128: 01c2a823  sw t3, 0x10(t0)      # testbench: assert machine software interrupt
+8000012c: 00000013  nop
+80000130: 00000013  nop
+80000134: 00000013  nop
+80000138: 00000013  nop
+8000013c: 00000013  nop
+80000140: 00000013  nop
+80000144: 00000013  nop
+80000148: 00000013  nop
+8000014c: 00200513  addi a0, x0, 2
+80000150: 00a2a423  sw a0, 8(t0)         # exit 2: no interrupt taken (unexpected)
+80000180: c00002b7  h7c: lui t0, 0xc0000
+80000184: 07c00513  addi a0, x0, 0x7c
+80000188: 00a2a223  sw x10, 4(t0)      # print entered at offset 0x7c
+8000018c: 00100513  addi a0, x0, 1
+80000190: 00a2a423  sw a0, 8(t0)         # exit 1: entered at BASE | 0xc: diverges from Sail (BASE + 0xc)
+800001a0: c00002b7  h80: lui t0, 0xc0000
+800001a4: 08000513  addi a0, x0, 0x80
+800001a8: 00a2a223  sw x10, 4(t0)      # print entered at offset 0x80
+800001ac: 00000513  addi a0, x0, 0
+800001b0: 00a2a423  sw a0, 8(t0)         # exit 0: entered at BASE + 0xc: matches Sail
+800001c0: c00002b7  hexc: lui t0, 0xc0000
+800001c4: 34202573  csrr a0, mcause
+800001c8: 00a2a223  sw x10, 4(t0)      # print mcause
+800001cc: 00300513  addi a0, x0, 3
+800001d0: 00a2a423  sw a0, 8(t0)         # exit 3: exception instead of the interrupt (unexpected)

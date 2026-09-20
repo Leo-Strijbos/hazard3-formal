@@ -41,8 +41,8 @@ PY
 # state. hazard3_csr.v's `update_nonconst` is called from two always blocks,
 # which makes yosys-slang emit two drivers and Yosys fail. `automatic` gives
 # each call its own locals, which is what the RTL already assumes.
-sed -i 's|^function \[|function automatic [|' \
-    "$dir/hazard3_csr.v" "$dir/hazard3_instr_decompress.v"
+perl -pi -e 's|^function \[|function automatic [|' \
+    "$dir/hazard3_csr.v" "$dir/hazard3_instr_decompress.v"   # perl -pi: same on GNU and BSD
 echo "TOOL: function -> function automatic (hazard3_csr.v, hazard3_instr_decompress.v) [no behavioural change]" >> "$manifest"
 
 # ---------------- CONFORMANCE patches (opt-in) ----------------

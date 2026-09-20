@@ -1,0 +1,14 @@
+80000000: c00002b7  lui t0, 0xc0000      # testbench IO base
+80000004: 34202573  csrr a0, mcause
+80000008: 00a2a223  sw x10, 4(t0)      # print mcause
+8000000c: 34102573  csrr a0, mepc
+80000010: 00a2a223  sw x10, 4(t0)      # print mepc
+80000014: 00000513  addi a0, x0, 0
+80000018: 00a2a423  sw a0, 8(t0)         # exit 0: trapped: matches Sail (illegal instruction)
+80000040: dead0137  lui sp, 0xdead0      # sp = 0xdead0000
+80000044: 00000513  addi a0, x0, 0       # x10 = 0
+80000048: 00010008  .hword 0x0008 ; c.nop   # C.ADDI4SPN rd'=x10, nzuimm=0: RESERVED
+8000004c: c00002b7  lui t0, 0xc0000
+80000050: 00a2a223  sw x10, 4(t0)      # print x10 after the reserved encoding
+80000054: 00100513  addi a0, x0, 1
+80000058: 00a2a423  sw a0, 8(t0)         # exit 1: retired as addi x10, sp, 0: diverges from Sail

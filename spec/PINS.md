@@ -2,8 +2,8 @@
 
 | component | repository | commit |
 |---|---|---|
-| Hazard3 RTL | https://github.com/Wren6991/Hazard3 | 8af992930f71a69b0e06c38734c1094f41a05ca0 |
-| Sail model base | https://github.com/lowRISC/sail-riscv (branch ibex) | 54d9ed690937d0aa11788aefc41c59c4f3bef2c0 |
+| Hazard3 RTL | https://github.com/Wren6991/Hazard3 | 8af992930f71a69b0e06c38734c1094f41a05ca0 (tag v1.1.1, head of `stable`) |
+| Sail model base | https://github.com/lowRISC/sail-riscv (branch ibex) | 81a266b6f65365b34180af7b91708265da653878 (the revision Ibex's dv/formal flake.lock pins; the working repository on the proof machine imported it as local commit 54d9ed69, content-identical) |
 | Ibex formal flow (tool environment, harness origin) | https://github.com/lowRISC/ibex | 405c6d1d8220a18b2f9196141167a5875422dee4 |
 
 The Sail model used is the base commit plus the three patches in this directory

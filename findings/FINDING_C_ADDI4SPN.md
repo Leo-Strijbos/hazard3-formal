@@ -110,3 +110,9 @@ of the proof rather than having to be anticipated.
 
 It was found incidentally: the counterexample surfaced while diagnosing an
 unrelated `WrapMcause` goal.
+
+## Simulation reproducer (2026-09-20)
+
+`upstream/repro/c_addi4spn_reserved.bin` on Hazard3's CXXRTL testbench: exit 1 (diverges) at
+v1.1.1 `8af99293`, exit 0 (agrees with Sail) on the same tree with the conformance
+patch applied. Logs in `upstream/repro/out/` and `out-fixed/`.
