@@ -4,7 +4,7 @@
 # substitution that captures its output gets the banner too. This has now
 # cost three separate bugs (witness extraction, trace rendering, step lookup).
 # Reading the ywmap directly with the system python avoids nix entirely.
-cd /opt/verif/h3formal
+cd "${H3FORMAL:-/opt/verif/h3formal}"
 python3 - "$1" <<'PY'
 import json, re, sys
 want = sys.argv[1]

@@ -54,11 +54,13 @@
 # survivor is re-proved on the rebuilt model.
 set -uo pipefail
 ROUND=${1:?round}; CANDS=${2:?candidates file}; shift 2; TARGETS=("$@")
-cd /opt/verif/h3formal
-exec >> /var/tmp/h3loop.log 2>&1
+H3FORMAL=${H3FORMAL:-/opt/verif/h3formal}; IBEX=${IBEX:-/opt/verif/ibex}
+TOOLS=${TOOLS:-/opt/verif/ablation}; LOG=${LOG:-"$LOG"}
+cd "$H3FORMAL"
+exec >> "$LOG" 2>&1
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 export H3_CONFORMANCE=1
-NIX="nix develop /opt/verif/ibex#oss-dev --command"
+NIX="nix develop $IBEX#oss-dev --command"
 R=results/$ROUND; mkdir -p "$R" build/sel results/icti
 KIND_CAP=${KIND_CAP:-600}; GOAL_KIND_CAP=${GOAL_KIND_CAP:-600}; ICTI_K=${ICTI_K:-1}
 MEM_PER=20   # two engines per candidate now (proof + icti)
@@ -66,7 +68,7 @@ MAXJOBS=${MAXJOBS:-$(( $(free -g | awk '/Mem:/{print $2}') / MEM_PER ))}
 echo "=== ROUND $ROUND (v4.1 icti_k=${ICTI_K:-1} axioms=$( [ -f "$CANDS.axiom" ] && tr '\n' ' ' < "$CANDS.axiom" )) $(date -u +%H:%M)  maxjobs=$MAXJOBS kind_cap=${KIND_CAP}s ==="
 
 cp thm/hazard3.proof "$R/proof.before"
-[ -s "$CANDS" ] && { python3 /opt/verif/ablation/h3insert.py "$CANDS" || exit 1; }
+[ -s "$CANDS" ] && { python3 "$TOOLS"/h3insert.py "$CANDS" || exit 1; }
 
 # ---- core-only pre-screen (proofs transfer; refutations decide nothing) ----
 NAMES=$(grep -oE "^[A-Za-z0-9_]+:" "$CANDS" | tr -d ':')
@@ -133,7 +135,7 @@ for x in json.load(open("build/core.ywmap"))["asserts"]:
 PY3
 )
     echo "RESULT $P RESULT: UNSAT t=$(tail -1 "$R/$P.core.t")s C=$(head -c 80 build/sel/$ROUND-core-$P.aig|head -1|awk '{print $8}') step=$S model=core (proof transfers)"; done
-  if [ -n "$DUTFAILED" ]; then echo "=== removing $(echo $DUTFAILED|wc -w) DUT-only failures: $(echo $DUTFAILED) ==="; python3 /opt/verif/ablation/h3insert.py --remove $DUTFAILED || exit 1; fi
+  if [ -n "$DUTFAILED" ]; then echo "=== removing $(echo $DUTFAILED|wc -w) DUT-only failures: $(echo $DUTFAILED) ==="; python3 "$TOOLS"/h3insert.py --remove $DUTFAILED || exit 1; fi
   echo "ROUND-$ROUND-DONE $(date -u +%H:%M)"; exit 0
 fi
 $NIX make build/all.aig > "$R/build.log" 2>&1
@@ -148,19 +150,19 @@ select_one() {   # -> sets SELF, SELC; returns 1 on refusal/bad selection
 }
 icti_one() {     # k-induction CTI from an existing select file; ICTI lines only (k = ICTI_K)
   local P=$1 F=$2 K=$ICTI_K D=results/icti/$ROUND-$P; mkdir -p "$D"
-  python3 /opt/verif/ablation/aigicti.py "$F" "$D/icti.aag" --k $K > "$D/aigicti.log" 2>&1 || { echo "ICTI $P aigicti failed"; return; }
+  python3 "$TOOLS"/aigicti.py "$F" "$D/icti.aag" --k $K > "$D/aigicti.log" 2>&1 || { echo "ICTI $P aigicti failed"; return; }
   timeout 900 $NIX rIC3 -e bmc --end $((K+1)) --witness "$D/icti.aag" 2>"$D/bmc.err" | sed -n '/^1$/,$p' > "$D/icti.aiw.full"
   if [ ! -s "$D/icti.aiw.full" ]; then echo "ICTI $P NO-INDUCTION-CTI k=$K"; return; fi
   awk -v k="$K" 'NR==3{print substr($0,1,length($0)-k); next}{print}' "$D/icti.aiw.full" > "$D/icti.aiw"
   $NIX build/aig-manip build/all.aig simulate build/all.ywmap build/all.vmap "$D/icti.aiw" "$D/icti.vcd" > "$D/sim.log" 2>&1
-  python3 /opt/verif/ablation/h3ctirep.py "$D/icti.vcd" "$P" "$D/report.txt" > /dev/null 2>&1
+  python3 "$TOOLS"/h3ctirep.py "$D/icti.vcd" "$P" "$D/report.txt" > /dev/null 2>&1
   echo "ICTI $P INDUCTION-CTI k=$K frames=$(grep -c '^#' "$D/icti.vcd") -> $D/report.txt"
   rm -f "$D/icti.aag" "$D/icti.aiw.full"   # v3.9: drop the AIG (~150 MB), KEEP icti.vcd for h3frames (v3.8 deleted it and round 29 lost its CTI detail)
 }
 prove_one() {
   local P=$1 S F
   [ -f "$R/$P.dutfail" ] && { echo "RESULT $P SKIPPED (DUT-only, failed on core)"; return; }
-  S=$(bash /var/tmp/h3step.sh "$P"); [ -n "$S" ] || { echo "RESULT $P NO-STEP"; return; }
+  S=$(bash "$TOOLS"/h3step.sh "$P"); [ -n "$S" ] || { echo "RESULT $P NO-STEP"; return; }
   if isaxiom "$P"; then
     echo "AXIOM $P assumed (never attempted, never stripped; user decision 2026-09-19 'the Oxford way') step=$S"
     echo "RESULT $P RESULT: AXIOM step=$S"; return
@@ -180,7 +182,7 @@ prove_one() {
 }
 goal_one() {     # CTI-first: 3 min diagnosis before any 20-minute proof attempt
   local P=$1 S F
-  S=$(bash /var/tmp/h3step.sh "$P"); [ -n "$S" ] || { echo "GOAL $P NO-STEP"; return; }
+  S=$(bash "$TOOLS"/h3step.sh "$P"); [ -n "$S" ] || { echo "GOAL $P NO-STEP"; return; }
   F=build/sel/$ROUND-$P.aig
   select_one "$P" "$S" "$F" || { echo "GOAL $P SELECT-REFUSED-OR-BAD"; return; }
   timeout 300 $NIX rIC3 -e bmc --end 15 "$F" > "$R/$P.bmc.log" 2>&1
@@ -199,13 +201,13 @@ N=$(echo "$NAMES" | wc -w)
 echo "=== proving $N candidates, $MAXJOBS at a time $(date -u +%H:%M) ==="
 n=0; for P in $NAMES; do prove_one "$P" & n=$((n+1)); [ $((n % MAXJOBS)) -eq 0 ] && wait; done; wait
 
-declare -A STEPOF; for P in $NAMES; do STEPOF[$P]=$(bash /var/tmp/h3step.sh "$P"); done
-FAILED=$(grep -aE "^RESULT " /var/tmp/h3loop.log | tail -n "$N" | grep -vaE "RESULT: (UNSAT|AXIOM)" | awk '{print $2}')
+declare -A STEPOF; for P in $NAMES; do STEPOF[$P]=$(bash "$TOOLS"/h3step.sh "$P"); done
+FAILED=$(grep -aE "^RESULT " "$LOG" | tail -n "$N" | grep -vaE "RESULT: (UNSAT|AXIOM)" | awk '{print $2}')
 if [ -n "$FAILED" ]; then
   echo "=== removing $(echo "$FAILED"|wc -w) unproven: $(echo $FAILED) ==="
-  python3 /opt/verif/ablation/h3insert.py --remove $FAILED || exit 1
+  python3 "$TOOLS"/h3insert.py --remove $FAILED || exit 1
   rm -f "$R"/*.coreproved          # core proofs were relative to the pre-strip layers
-  python3 /var/tmp/ywstrip.py build/all.ywmap $FAILED > "$R/ywstrip.log" 2>&1
+  python3 "$TOOLS"/ywstrip.py build/all.ywmap $FAILED > "$R/ywstrip.log" 2>&1
   echo "ywstrip rc=$?  $(cat "$R/ywstrip.log")  (no rebuild: retired in all.ywmap, real make next round)"
   # v4.0: a strip only invalidates proofs ABOVE the lowest stripped layer (same-layer lemmas are not
   # constraints of each other; lower layers never used the stripped lemma).  Steps were read before ywstrip.
@@ -216,18 +218,18 @@ if [ -n "$FAILED" ]; then
   if [ "$NS" -gt 0 ]; then
     echo "=== re-proving $NS survivors on the post-strip model $(date -u +%H:%M) ==="
     n=0; for P in $SURV; do prove_one "$P" & n=$((n+1)); [ $((n % MAXJOBS)) -eq 0 ] && wait; done; wait
-    FAILED2=$(grep -aE "^RESULT " /var/tmp/h3loop.log | tail -n "$NS" | grep -vaE "RESULT: (UNSAT|AXIOM)" | awk '{print $2}')
+    FAILED2=$(grep -aE "^RESULT " "$LOG" | tail -n "$NS" | grep -vaE "RESULT: (UNSAT|AXIOM)" | awk '{print $2}')
     if [ -n "$FAILED2" ]; then
       echo "=== survivors that did NOT re-prove, removing: $(echo $FAILED2) ==="
-      python3 /opt/verif/ablation/h3insert.py --remove $FAILED2 || exit 1
+      python3 "$TOOLS"/h3insert.py --remove $FAILED2 || exit 1
       rm -f "$R"/*.coreproved
-      python3 /var/tmp/ywstrip.py build/all.ywmap $FAILED2 > "$R/ywstrip2.log" 2>&1
+      python3 "$TOOLS"/ywstrip.py build/all.ywmap $FAILED2 > "$R/ywstrip2.log" 2>&1
       echo "ywstrip2 rc=$?  $(cat "$R/ywstrip2.log")"
     fi
   fi
 fi
 
-NEWPROVED=$(for P in $NAMES; do grep -aE "^RESULT $P RESULT: UNSAT" /var/tmp/h3loop.log | tail -1 | grep -q . && echo "$P"; done | wc -w)
+NEWPROVED=$(for P in $NAMES; do grep -aE "^RESULT $P RESULT: UNSAT" "$LOG" | tail -1 | grep -q . && echo "$P"; done | wc -w)
 if [ ${#TARGETS[@]} -gt 0 ] && [ -n "$NAMES" ] && [ "$NEWPROVED" -eq 0 ]; then echo "=== goals skipped (v3.5): no candidate proved this round, constraint set unchanged ==="; TARGETS=(); fi
 if [ ${#TARGETS[@]} -gt 0 ]; then
   echo "=== goals, CTI-first: $((${#TARGETS[@]})) targets $(date -u +%H:%M) ==="
