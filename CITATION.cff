@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this proof, harness or the findings, please cite it as below."
+title: "hazard3-formal: formal equivalence of Hazard3 and the RISC-V Sail model"
+authors:
+  - family-names: Strijbos
+    given-names: Leo
+version: 1.0.0
+date-released: 2026-09-20
+license: Apache-2.0
+repository-code: "https://github.com/leostrijbos/hazard3-formal"
+abstract: >-
+  An unbounded proof, with open-source tools, that an RV32IMC + Zicsr
+  machine-mode configuration of Hazard3 v1.1.1 (the RISC-V core in the
+  Raspberry Pi RP2350) is trace equivalent to the RISC-V Sail specification,
+  modulo one stated axiom (the multiplier/divider arithmetic), together with
+  the five Hazard3 and one Sail-model divergences the proof found.
+keywords:
+  - formal verification
+  - RISC-V
+  - Hazard3
+  - Sail
+  - k-induction
+references:
+  - type: software
+    title: "Ibex formal verification against the Sail model (ibex/dv/formal)"
+    authors:
+      - name: "lowRISC contributors"
+      - family-names: Ploix
+        given-names: Louis-Emile
+    repository-code: "https://github.com/lowRISC/ibex"
+    license: Apache-2.0
+  - type: software
+    title: "Hazard3"
+    authors:
+      - family-names: Wren
+        given-names: Luke
+    repository-code: "https://github.com/Wren6991/Hazard3"
+    version: 1.1.1
+    license: Apache-2.0
