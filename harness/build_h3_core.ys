@@ -1,0 +1,57 @@
+# build/core.aig -- the CORE-ONLY model (model A of the two-model split).
+#
+#   Hazard3 + the bus environment + the psgen properties.  No Sail model.
+#
+# Everything from `setattr` onwards is the same pass sequence as build_h3.ys /
+# build_h3_fast.ys, applied to the same flat design, so build/core.aig is the
+# same model as build/all.aig minus the (unconnected) specification instance.
+#
+# No `flatten` is needed: yosys-slang elaborates the whole hierarchy into a
+# single `top` module, which is also why signals are named `cpu.core.foo`.
+# build_h3_fast.ys's `flatten` exists only to merge in the separately-read
+# build/spec.il, which this model does not have.
+#
+# HAZARD3_RTL and AHBL_SLAVE_ASSUMPTIONS_V are substituted by the Makefile.
+
+# -DHAZARD3_RVFI_STANDALONE turns on hdl/hazard3_rvfi_monitor.vh, the core
+# author's own definition of retirement, which gate 3's agreement assertion is
+# stated against.  It is Hazard3's own switch for using the RVFI trace port
+# outside the riscv-formal harness: hazard3_core.v:6-8 and
+# hazard3_cpu_1port.v:10-12 then include hazard3_rvfi_standalone_defs.vh, which
+# defines RISCV_FORMAL and the `RVFI_OUTPUTS / `RVFI_CONN port macros, so the
+# harness supplies no boilerplate of its own.  It also removes the one
+# non-synthesisable assert in the monitor (:329-332).  See check/h3_core_common.svh
+# for the audit showing that it brings in no `assume` and no extra assertion.
+read_slang --no-implicit-memories --top top -DSYNTHESIS -DYOSYS -DHAZARD3_RVFI_STANDALONE \
+	check/h3_ahbl_master_props.sv \
+	AHBL_SLAVE_ASSUMPTIONS_V \
+	check/h3_core_top.sv \
+	-F build/hazard3.scr \
+	-I HAZARD3_RTL \
+	--single-unit --no-proc
+
+setattr -set keep 1 n:\\*
+proc
+global_clk \clk_i
+opt_muxtree_2
+opt_clean
+
+memory_nordff
+delete */t:$print
+script h3_tieoff_undriven.ys
+setundef -undriven -anyseq
+memory_map -formal
+delete -output
+expose n:\\*
+
+opt_muxtree_2
+opt_expr
+opt_dff
+opt_clean
+techmap
+simplemap
+dffunmap
+opt_clean
+stat
+aigmap
+write_aiger_2 -I -B -zinit -no-startoffset -ywmap build/core.ywmap -vmap build/core.vmap build/core.aig

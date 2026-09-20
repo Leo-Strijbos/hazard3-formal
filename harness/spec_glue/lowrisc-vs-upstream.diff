@@ -1,0 +1,977 @@
+diff --git a/model/riscv_insts_base.sail b/model/riscv_insts_base.sail
+index 26915f22..515278df 100644
+--- a/model/riscv_insts_base.sail
++++ b/model/riscv_insts_base.sail
+@@ -326,19 +326,20 @@ function clause execute(LOAD(imm, rs1, rd, is_unsigned, width, aq, rl)) = {
+      Some extensions perform additional checks on address validity. */
+   match ext_data_get_addr(rs1, offset, Read(Data), width_bytes) {
+     Ext_DataAddr_Error(e)  => { ext_handle_data_check_error(e); RETIRE_FAIL },
+-    Ext_DataAddr_OK(vaddr) => {
+-      if   check_misaligned(vaddr, width)
+-      then { handle_mem_exception(vaddr, E_Load_Addr_Align()); RETIRE_FAIL }
+-      else match translateAddr(vaddr, Read(Data)) {
+-        TR_Failure(e, _) => { handle_mem_exception(vaddr, e); RETIRE_FAIL },
+-        TR_Address(paddr, _) =>
+-
+-          match mem_read(Read(Data), paddr, width_bytes, aq, rl, false) {
+-            MemValue(result) => { X(rd) = extend_value(is_unsigned, result); RETIRE_SUCCESS },
+-            MemException(e) => { handle_mem_exception(vaddr, e); RETIRE_FAIL },
+-          },
++    Ext_DataAddr_OK(paddr) => match width_bytes {
++      1 => match mem_read(Read(Data), paddr, 1, aq, rl, false) {
++        MemValue(result) => { X(rd) = extend_value(is_unsigned, result); RETIRE_SUCCESS },
++        MemException(addr, e) => { handle_mem_exception(addr, e); RETIRE_FAIL },
++      },
++      2 => match mem_read(Read(Data), paddr, 2, aq, rl, false) {
++        MemValue(result) => { X(rd) = extend_value(is_unsigned, result); RETIRE_SUCCESS },
++        MemException(addr, e) => { handle_mem_exception(addr, e); RETIRE_FAIL },
++      },
++      4 => match mem_read(Read(Data), paddr, 4, aq, rl, false) {
++        MemValue(result) => { X(rd) = extend_value(is_unsigned, result); RETIRE_SUCCESS },
++        MemException(addr, e) => { handle_mem_exception(addr, e); RETIRE_FAIL },
+       }
+-    },
++    }
+   }
+ }
+ 
+@@ -382,26 +383,14 @@ function clause execute (STORE(imm, rs2, rs1, width, aq, rl)) = {
+      Some extensions perform additional checks on address validity. */
+   match ext_data_get_addr(rs1, offset, Write(Data), width_bytes) {
+     Ext_DataAddr_Error(e)  => { ext_handle_data_check_error(e); RETIRE_FAIL },
+-    Ext_DataAddr_OK(vaddr) =>
+-      if   check_misaligned(vaddr, width)
+-      then { handle_mem_exception(vaddr, E_SAMO_Addr_Align()); RETIRE_FAIL }
+-      else match translateAddr(vaddr, Write(Data)) {
+-        TR_Failure(e, _)    => { handle_mem_exception(vaddr, e); RETIRE_FAIL },
+-        TR_Address(paddr, _) => {
+-          let eares = mem_write_ea(paddr, width_bytes, aq, rl, false);
+-          match (eares) {
+-            MemException(e) => { handle_mem_exception(vaddr, e); RETIRE_FAIL },
+-            MemValue(_) => {
+-              let rs2_val = X(rs2);
+-              match mem_write_value(paddr, width_bytes, rs2_val[width_bytes * 8 - 1 .. 0], aq, rl, false) {
+-                MemValue(true)  => RETIRE_SUCCESS,
+-                MemValue(false) => internal_error(__FILE__, __LINE__, "store got false from mem_write_value"),
+-                MemException(e) => { handle_mem_exception(vaddr, e); RETIRE_FAIL }
+-              }
+-            }
+-          }
+-        }
++    Ext_DataAddr_OK(paddr) => {
++      let rs2_val = X(rs2);
++      match mem_write_value(paddr, width_bytes, rs2_val[width_bytes * 8 - 1 .. 0], aq, rl, false) {
++        MemValue(true)  => RETIRE_SUCCESS,
++        MemValue(false) => internal_error(__FILE__, __LINE__, "store got false from mem_write_value"),
++        MemException(addr, e) => { handle_mem_exception(addr, e); RETIRE_FAIL }
+       }
++    }
+   }
+ }
+ 
+@@ -409,118 +398,10 @@ mapping clause assembly = STORE(imm, rs2, rs1, size, aq, rl)
+   <-> "s" ^ size_mnemonic(size) ^ maybe_aq(aq) ^ maybe_rl(rl) ^ spc() ^ reg_name(rs2) ^ sep() ^ hex_bits_signed_12(imm) ^ opt_spc() ^ "(" ^ opt_spc() ^ reg_name(rs1) ^ opt_spc() ^ ")"
+ 
+ /* ****************************************************************** */
+-union clause ast = ADDIW : (bits(12), regidx, regidx)
+-
+-mapping clause encdec = ADDIW(imm, rs1, rd)
+-      if sizeof(xlen) == 64
+-  <-> imm @ rs1 @ 0b000 @ rd @ 0b0011011
+-      if sizeof(xlen) == 64
+-
+-function clause execute (ADDIW(imm, rs1, rd)) = {
+-  let result : xlenbits = sign_extend(imm) + X(rs1);
+-  X(rd) = sign_extend(result[31..0]);
+-  RETIRE_SUCCESS
+-}
+-
+-mapping clause assembly = ADDIW(imm, rs1, rd)
+-      if sizeof(xlen) == 64
+-  <-> "addiw" ^ spc() ^ reg_name(rd) ^ sep() ^ reg_name(rs1) ^ sep() ^ hex_bits_signed_12(imm)
+-      if sizeof(xlen) == 64
+-
+-/* ****************************************************************** */
+-union clause ast = RTYPEW : (regidx, regidx, regidx, ropw)
+-
+-mapping clause encdec = RTYPEW(rs2, rs1, rd, RISCV_ADDW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0000000 @ rs2 @ rs1 @ 0b000 @ rd @ 0b0111011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = RTYPEW(rs2, rs1, rd, RISCV_SUBW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0100000 @ rs2 @ rs1 @ 0b000 @ rd @ 0b0111011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = RTYPEW(rs2, rs1, rd, RISCV_SLLW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0000000 @ rs2 @ rs1 @ 0b001 @ rd @ 0b0111011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = RTYPEW(rs2, rs1, rd, RISCV_SRLW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0000000 @ rs2 @ rs1 @ 0b101 @ rd @ 0b0111011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = RTYPEW(rs2, rs1, rd, RISCV_SRAW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0100000 @ rs2 @ rs1 @ 0b101 @ rd @ 0b0111011
+-      if sizeof(xlen) == 64
+-
+-function clause execute (RTYPEW(rs2, rs1, rd, op)) = {
+-  let rs1_val = (X(rs1))[31..0];
+-  let rs2_val = (X(rs2))[31..0];
+-  let result : bits(32) = match op {
+-    RISCV_ADDW => rs1_val + rs2_val,
+-    RISCV_SUBW => rs1_val - rs2_val,
+-    RISCV_SLLW => rs1_val << (rs2_val[4..0]),
+-    RISCV_SRLW => rs1_val >> (rs2_val[4..0]),
+-    RISCV_SRAW => shift_right_arith32(rs1_val, rs2_val[4..0])
+-  };
+-  X(rd) = sign_extend(result);
+-  RETIRE_SUCCESS
+-}
+-
+-mapping rtypew_mnemonic : ropw <-> string = {
+-  RISCV_ADDW <-> "addw",
+-  RISCV_SUBW <-> "subw",
+-  RISCV_SLLW <-> "sllw",
+-  RISCV_SRLW <-> "srlw",
+-  RISCV_SRAW <-> "sraw"
+-}
+-
+-mapping clause assembly = RTYPEW(rs2, rs1, rd, op)
+-      if sizeof(xlen) == 64
+-  <-> rtypew_mnemonic(op) ^ spc() ^ reg_name(rd) ^ sep() ^ reg_name(rs1) ^ sep() ^ reg_name(rs2)
+-      if sizeof(xlen) == 64
+-
+-/* ****************************************************************** */
+-union clause ast = SHIFTIWOP : (bits(5), regidx, regidx, sopw)
+-
+-mapping clause encdec = SHIFTIWOP(shamt, rs1, rd, RISCV_SLLIW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0000000 @ shamt @ rs1 @ 0b001 @ rd @ 0b0011011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = SHIFTIWOP(shamt, rs1, rd, RISCV_SRLIW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0000000 @ shamt @ rs1 @ 0b101 @ rd @ 0b0011011
+-      if sizeof(xlen) == 64
+-mapping clause encdec = SHIFTIWOP(shamt, rs1, rd, RISCV_SRAIW)
+-      if sizeof(xlen) == 64
+-  <-> 0b0100000 @ shamt @ rs1 @ 0b101 @ rd @ 0b0011011
+-      if sizeof(xlen) == 64
+-
+-function clause execute (SHIFTIWOP(shamt, rs1, rd, op)) = {
+-  let rs1_val = (X(rs1))[31..0];
+-  let result : bits(32) = match op {
+-    RISCV_SLLIW => rs1_val << shamt,
+-    RISCV_SRLIW => rs1_val >> shamt,
+-    RISCV_SRAIW => shift_right_arith32(rs1_val, shamt)
+-  };
+-  X(rd) = sign_extend(result);
+-  RETIRE_SUCCESS
+-}
+-
+-mapping shiftiwop_mnemonic : sopw <-> string = {
+-  RISCV_SLLIW <-> "slliw",
+-  RISCV_SRLIW <-> "srliw",
+-  RISCV_SRAIW <-> "sraiw"
+-}
+-
+-mapping clause assembly = SHIFTIWOP(shamt, rs1, rd, op)
+-      if sizeof(xlen) == 64
+-  <-> shiftiwop_mnemonic(op) ^ spc() ^ reg_name(rd) ^ sep() ^ reg_name(rs1) ^ sep() ^ hex_bits_5(shamt)
+-      if sizeof(xlen) == 64
+-
+-/* ****************************************************************** */
+-union clause ast = FENCE : (bits(4), bits(4))
++union clause ast = FENCE : (bits(4), bits(4), bits(4), bits(5), bits(5))
+ 
+-mapping clause encdec = FENCE(pred, succ)
+-  <-> 0b0000 @ pred @ succ @ 0b00000 @ 0b000 @ 0b00000 @ 0b0001111
++mapping clause encdec = FENCE(pred, succ, g1, g2, g3)
++  <-> g1 @ pred @ succ @ g2 @ 0b000 @ g3 @ 0b0001111
+ 
+ function effective_fence_set(set : bits(4), fiom : bool) -> bits(4) = {
+   // The bits are IORW. If FIOM is set then I implies R and O implies W.
+@@ -529,7 +410,7 @@ function effective_fence_set(set : bits(4), fiom : bool) -> bits(4) = {
+   } else set
+ }
+ 
+-function clause execute (FENCE(pred, succ)) = {
++function clause execute (FENCE(pred, succ, g1, g2, g3)) = {
+   // If the FIOM bit in menvcfg/senvcfg is set then the I/O bits can imply R/W.
+   let fiom = is_fiom_active();
+   let pred = effective_fence_set(pred, fiom);
+@@ -579,39 +460,14 @@ mapping fence_bits : bits(4) <-> string = {
+   i : bits(1) @ o : bits(1) @ r : bits(1) @ w : bits(1) <-> bit_maybe_i(i) ^ bit_maybe_o(o) ^ bit_maybe_r(r) ^ bit_maybe_w(w)
+ }
+ 
+-mapping clause assembly = FENCE(pred, succ)
+-  <-> "fence" ^ spc() ^ fence_bits(pred) ^ sep() ^ fence_bits(succ)
+-
+ /* ****************************************************************** */
+-union clause ast = FENCE_TSO : (bits(4), bits(4))
++union clause ast = FENCEI : (bits(12), bits(5), bits(5))
+ 
+-mapping clause encdec = FENCE_TSO(pred, succ)
+-  <-> 0b1000 @ pred @ succ @ 0b00000 @ 0b000 @ 0b00000 @ 0b0001111
+-
+-function clause execute (FENCE_TSO(pred, succ)) = {
+-  match (pred, succ) {
+-    (_ : bits(2) @ 0b11, _ : bits(2) @ 0b11) => sail_barrier(Barrier_RISCV_tso),
+-    (_ : bits(2) @ 0b00, _ : bits(2) @ 0b00) => (),
+-
+-    _ => { print("FIXME: unsupported fence");
+-           () }
+-  };
+-  RETIRE_SUCCESS
+-}
+-
+-mapping clause assembly = FENCE_TSO(pred, succ)
+-  <-> "fence.tso" ^ spc() ^ fence_bits(pred) ^ sep() ^ fence_bits(succ)
+-
+-/* ****************************************************************** */
+-union clause ast = FENCEI : unit
+-
+-mapping clause encdec = FENCEI()
+-  <-> 0b000000000000 @ 0b00000 @ 0b001 @ 0b00000 @ 0b0001111
++mapping clause encdec = FENCEI(g1, g2, g3)
++  <-> g1 @ g2 @ 0b001 @ g3 @ 0b0001111
+ 
+ /* fence.i is a nop for the memory model */
+-function clause execute FENCEI() = { /* __barrier(Barrier_RISCV_i); */ RETIRE_SUCCESS }
+-
+-mapping clause assembly = FENCEI() <-> "fence.i"
++function clause execute FENCEI(g1, g2, g3) = { /* __barrier(Barrier_RISCV_i); */ RETIRE_SUCCESS }
+ 
+ /* ****************************************************************** */
+ union clause ast = ECALL : unit
+@@ -653,30 +509,6 @@ function clause execute MRET() = {
+ 
+ mapping clause assembly = MRET() <-> "mret"
+ 
+-/* ****************************************************************** */
+-union clause ast = SRET : unit
+-
+-mapping clause encdec = SRET()
+-  <-> 0b0001000 @ 0b00010 @ 0b00000 @ 0b000 @ 0b00000 @ 0b1110011
+-
+-function clause execute SRET() = {
+-  let sret_illegal : bool = match cur_privilege {
+-    User       => true,
+-    Supervisor => not(haveSupMode ()) | mstatus[TSR] == 0b1,
+-    Machine    => not(haveSupMode ())
+-  };
+-  if   sret_illegal
+-  then { handle_illegal(); RETIRE_FAIL }
+-  else if not(ext_check_xret_priv (Supervisor))
+-  then { ext_fail_xret_priv(); RETIRE_FAIL }
+-  else {
+-    set_next_pc(exception_handler(cur_privilege, CTL_SRET(), PC));
+-    RETIRE_SUCCESS
+-  }
+-}
+-
+-mapping clause assembly = SRET() <-> "sret"
+-
+ /* ****************************************************************** */
+ union clause ast = EBREAK : unit
+ 
+@@ -684,7 +516,7 @@ mapping clause encdec = EBREAK()
+   <-> 0b000000000001 @ 0b00000 @ 0b000 @ 0b00000 @ 0b1110011
+ 
+ function clause execute EBREAK() = {
+-  handle_mem_exception(PC, E_Breakpoint());
++  handle_mem_exception(0x00000000, E_Breakpoint());
+   RETIRE_FAIL
+ }
+ 
+@@ -699,33 +531,9 @@ mapping clause encdec = WFI()
+ function clause execute WFI() =
+   match cur_privilege {
+     Machine    => { platform_wfi(); RETIRE_SUCCESS },
+-    Supervisor => if   mstatus[TW] == 0b1
++    User => if   mstatus[TW] == 0b1
+                   then { handle_illegal(); RETIRE_FAIL }
+                   else { platform_wfi(); RETIRE_SUCCESS },
+-    User       => { handle_illegal(); RETIRE_FAIL }
+   }
+ 
+ mapping clause assembly = WFI() <-> "wfi"
+-
+-/* ****************************************************************** */
+-union clause ast = SFENCE_VMA : (regidx, regidx)
+-
+-mapping clause encdec = SFENCE_VMA(rs1, rs2)
+-  <-> 0b0001001 @ rs2 @ rs1 @ 0b000 @ 0b00000 @ 0b1110011
+-
+-function clause execute SFENCE_VMA(rs1, rs2) = {
+-  let addr : option(xlenbits) = if rs1 == 0b00000 then None() else Some(X(rs1));
+-  let asid : option(xlenbits) = if rs2 == 0b00000 then None() else Some(X(rs2));
+-  match cur_privilege {
+-    User       => { handle_illegal(); RETIRE_FAIL },
+-    Supervisor => match (architecture(get_mstatus_SXL(mstatus)), mstatus[TVM]) {
+-                    (Some(_), 0b1)  => { handle_illegal(); RETIRE_FAIL },
+-                    (Some(_), 0b0) => { flush_TLB(asid, addr); RETIRE_SUCCESS },
+-                    (_, _)           => internal_error(__FILE__, __LINE__, "unimplemented sfence architecture")
+-                  },
+-    Machine    => { flush_TLB(asid, addr); RETIRE_SUCCESS }
+-  }
+-}
+-
+-mapping clause assembly = SFENCE_VMA(rs1, rs2)
+-  <-> "sfence.vma" ^ spc() ^ reg_name(rs1) ^ sep() ^ reg_name(rs2)
+diff --git a/model/riscv_insts_zicsr.sail b/model/riscv_insts_zicsr.sail
+index f2980fb9..8304c2f5 100644
+--- a/model/riscv_insts_zicsr.sail
++++ b/model/riscv_insts_zicsr.sail
+@@ -32,7 +32,6 @@ function readCSR csr : csreg -> xlenbits = {
+     (0xF15,  _) => mconfigptr,
+     (0x300,  _) => mstatus.bits,
+     (0x301,  _) => misa.bits,
+-    (0x302,  _) => medeleg.bits,
+     (0x303,  _) => mideleg.bits,
+     (0x304,  _) => mie.bits,
+     (0x305,  _) => get_mtvec(),
+@@ -50,56 +49,22 @@ function readCSR csr : csreg -> xlenbits = {
+ 
+     // pmpcfgN
+     (0x3A @ idx : bits(4),  _) if idx[0] == bitzero | sizeof(xlen) == 32 => pmpReadCfgReg(unsigned(idx)),
++
+     // pmpaddrN. Unfortunately the PMP index does not nicely align with the CSR index bits.
+     (0x3B @ idx : bits(4),  _) => pmpReadAddrReg(unsigned(0b00 @ idx)),
+     (0x3C @ idx : bits(4),  _) => pmpReadAddrReg(unsigned(0b01 @ idx)),
+     (0x3D @ idx : bits(4),  _) => pmpReadAddrReg(unsigned(0b10 @ idx)),
+     (0x3E @ idx : bits(4),  _) => pmpReadAddrReg(unsigned(0b11 @ idx)),
+ 
++    (0x747,  _) => mseccfg.bits(),             // mseccfg
++    (0x757, 32) => mseccfgh,                   // mseccfgh
++
+     /* machine mode counters */
+     (0xB00,  _) => mcycle[(sizeof(xlen) - 1) .. 0],
+     (0xB02,  _) => minstret[(sizeof(xlen) - 1) .. 0],
+     (0xB80, 32) => mcycle[63 .. 32],
+     (0xB82, 32) => minstret[63 .. 32],
+ 
+-    /* vector */
+-    (0x008, _) => zero_extend(vstart),
+-    (0x009, _) => zero_extend(vxsat),
+-    (0x00A, _) => zero_extend(vxrm),
+-    (0x00F, _) => zero_extend(vcsr.bits),
+-    (0xC20, _) => vl,
+-    (0xC21, _) => vtype.bits,
+-    (0xC22, _) => vlenb,
+-
+-    /* trigger/debug */
+-    (0x7a0,  _) => ~(tselect),  /* this indicates we don't have any trigger support */
+-
+-    /* supervisor mode */
+-    (0x100,  _) => lower_mstatus(mstatus).bits,
+-    (0x102,  _) => sedeleg.bits,
+-    (0x103,  _) => sideleg.bits,
+-    (0x104,  _) => lower_mie(mie, mideleg).bits,
+-    (0x105,  _) => get_stvec(),
+-    (0x106,  _) => zero_extend(scounteren.bits),
+-    (0x10A,  _) => senvcfg.bits[sizeof(xlen) - 1 .. 0],
+-    (0x140,  _) => sscratch,
+-    (0x141,  _) => get_xret_target(Supervisor) & pc_alignment_mask(),
+-    (0x142,  _) => scause.bits,
+-    (0x143,  _) => stval,
+-    (0x144,  _) => lower_mip(mip, mideleg).bits,
+-    (0x180,  _) => satp,
+-
+-    /* user mode counters */
+-    (0xC00,  _) => mcycle[(sizeof(xlen) - 1) .. 0],
+-    (0xC01,  _) => mtime[(sizeof(xlen) - 1) .. 0],
+-    (0xC02,  _) => minstret[(sizeof(xlen) - 1) .. 0],
+-    (0xC80, 32) => mcycle[63 .. 32],
+-    (0xC81, 32) => mtime[63 .. 32],
+-    (0xC82, 32) => minstret[63 .. 32],
+-
+-    /* user mode: Zkr */
+-    (0x015,  _) => read_seed_csr(),
+-
+     _           => /* check extensions */
+                    match ext_read_CSR(csr) {
+                      Some(res) => res,
+@@ -122,7 +87,7 @@ function writeCSR (csr : csreg, value : xlenbits) -> unit = {
+     (0x303,  _) => { mideleg = legalize_mideleg(mideleg, value); Some(mideleg.bits) },
+     (0x304,  _) => { mie = legalize_mie(mie, value); Some(mie.bits) },
+     (0x305,  _) => { Some(set_mtvec(value)) },
+-    (0x306,  _) => { mcounteren = legalize_mcounteren(mcounteren, value); Some(zero_extend(mcounteren.bits)) },
++    (0x306,  _) => { Some(zero_extend(mcounteren.bits)) },
+     (0x30A, 32) => { menvcfg = legalize_menvcfg(menvcfg, menvcfg.bits[63 .. 32] @ value); Some(menvcfg.bits[31 .. 0]) },
+     (0x30A, 64) => { menvcfg = legalize_menvcfg(menvcfg, value); Some(menvcfg.bits) },
+     (0x310, 32) => { Some(mstatush.bits) }, // ignore writes for now
+@@ -130,7 +95,7 @@ function writeCSR (csr : csreg, value : xlenbits) -> unit = {
+     (0x320,  _) => { mcountinhibit = legalize_mcountinhibit(mcountinhibit, value); Some(zero_extend(mcountinhibit.bits)) },
+     (0x340,  _) => { mscratch = value; Some(mscratch) },
+     (0x341,  _) => { Some(set_xret_target(Machine, value)) },
+-    (0x342,  _) => { mcause.bits = value; Some(mcause.bits) },
++    (0x342,  _) => { mcause = legalize_mcause(value); Some(mcause.bits) },
+     (0x343,  _) => { mtval = value; Some(mtval) },
+     (0x344,  _) => { mip = legalize_mip(mip, value); Some(mip.bits) },
+ 
+@@ -146,42 +111,15 @@ function writeCSR (csr : csreg, value : xlenbits) -> unit = {
+     (0x3D @ idx : bits(4),  _) => { let idx = unsigned(0b10 @ idx); pmpWriteAddrReg(idx, value); Some(pmpReadAddrReg(idx)) },
+     (0x3E @ idx : bits(4),  _) => { let idx = unsigned(0b11 @ idx); pmpWriteAddrReg(idx, value); Some(pmpReadAddrReg(idx)) },
+ 
++    (0x747,  _) => { mseccfg = mseccfgWrite(mseccfg, value); Some(mseccfg.bits()) },
++    (0x757, 32) => { Some(mseccfgh) }, // ignore writes for now
++
+     /* machine mode counters */
+     (0xB00,  _) => { mcycle[(sizeof(xlen) - 1) .. 0] = value; Some(value) },
+     (0xB02,  _) => { minstret[(sizeof(xlen) - 1) .. 0] = value; minstret_increment = false; Some(value) },
+     (0xB80, 32) => { mcycle[63 .. 32] = value; Some(value) },
+     (0xB82, 32) => { minstret[63 .. 32] = value; minstret_increment = false; Some(value) },
+ 
+-    /* trigger/debug */
+-    (0x7a0,  _) => { tselect = value; Some(tselect) },
+-
+-    /* supervisor mode */
+-    (0x100,  _) => { mstatus = legalize_sstatus(mstatus, value); Some(mstatus.bits) },
+-    (0x102,  _) => { sedeleg = legalize_sedeleg(sedeleg, value); Some(sedeleg.bits) },
+-    (0x103,  _) => { sideleg.bits = value; Some(sideleg.bits) }, /* TODO: does this need legalization? */
+-    (0x104,  _) => { mie = legalize_sie(mie, mideleg, value); Some(mie.bits) },
+-    (0x105,  _) => { Some(set_stvec(value)) },
+-    (0x106,  _) => { scounteren = legalize_scounteren(scounteren, value); Some(zero_extend(scounteren.bits)) },
+-    (0x10A,  _) => { senvcfg = legalize_senvcfg(senvcfg, zero_extend(value)); Some(senvcfg.bits[sizeof(xlen) - 1 .. 0]) },
+-    (0x140,  _) => { sscratch = value; Some(sscratch) },
+-    (0x141,  _) => { Some(set_xret_target(Supervisor, value)) },
+-    (0x142,  _) => { scause.bits = value; Some(scause.bits) },
+-    (0x143,  _) => { stval = value; Some(stval) },
+-    (0x144,  _) => { mip = legalize_sip(mip, mideleg, value); Some(mip.bits) },
+-    (0x180,  _) => { satp = legalize_satp(cur_Architecture(), satp, value); Some(satp) },
+-
+-    /* user mode: seed (entropy source). writes are ignored */
+-    (0x015,  _) => write_seed_csr(),
+-
+-    /* vector */
+-    (0x008, _) => { let vstart_length = get_vlen_pow(); vstart = zero_extend(16, value[(vstart_length - 1) .. 0]); Some(zero_extend(vstart)) },
+-    (0x009, _) => { vxsat = value[0 .. 0]; Some(zero_extend(vxsat)) },
+-    (0x00A, _) => { vxrm = value[1 .. 0]; Some(zero_extend(vxrm)) },
+-    (0x00F, _) => { vcsr.bits = value[2 ..0]; Some(zero_extend(vcsr.bits)) },
+-    (0xC20, _) => { vl = value; Some(vl) },
+-    (0xC21, _) => { vtype.bits = value; Some(vtype.bits) },
+-    (0xC22, _) => { vlenb = value; Some(vlenb) },
+-
+     _           => ext_write_CSR(csr, value)
+   };
+   match res {
+@@ -192,10 +130,9 @@ function writeCSR (csr : csreg, value : xlenbits) -> unit = {
+ }
+ 
+ function clause execute CSR(csr, rs1, rd, is_imm, op) = {
+-  let rs1_val : xlenbits = if is_imm then zero_extend(rs1) else X(rs1);
+   let isWrite : bool = match op {
+     CSRRW  => true,
+-    _      => if is_imm then unsigned(rs1_val) != 0 else unsigned(rs1) != 0
++    _      => unsigned(rs1) != 0
+   };
+   if not(check_CSR(csr, cur_privilege, isWrite))
+   then { handle_illegal(); RETIRE_FAIL }
+@@ -204,6 +141,7 @@ function clause execute CSR(csr, rs1, rd, is_imm, op) = {
+   else {
+     let csr_val = readCSR(csr); /* could have side-effects, so technically shouldn't perform for CSRW[I] with rd == 0 */
+     if isWrite then {
++      let rs1_val : xlenbits = if is_imm then zero_extend(rs1) else X(rs1);
+       let new_val : xlenbits = match op {
+         CSRRW => rs1_val,
+         CSRRS => csr_val | rs1_val,
+diff --git a/model/riscv_mem.sail b/model/riscv_mem.sail
+index 82227ad7..d93c75ac 100644
+--- a/model/riscv_mem.sail
++++ b/model/riscv_mem.sail
+@@ -64,30 +64,30 @@ function write_kind_of_flags (aq : bool, rl : bool, con : bool) -> write_kind =
+   }
+ 
+ // only used for actual memory regions, to avoid MMIO effects
+-function phys_mem_read forall 'n, 0 < 'n <= max_mem_access . (t : AccessType(ext_access_type), paddr : xlenbits, width : int('n), aq : bool, rl: bool, res : bool, meta : bool) -> MemoryOpResult((bits(8 * 'n), mem_meta)) = {
++function phys_mem_read_word_aligned (t : AccessType(ext_access_type), paddr : xlenbits, aq: bool, rl: bool, res: bool) -> MemoryOpResult(bits(32)) = {
+   let result = (match read_kind_of_flags(aq, rl, res) {
+-    Some(rk) => Some(read_ram(rk, paddr, width, meta)),
++    Some(rk) => Some(read_ram(rk, paddr)),
+     None()   => None()
+-  }) : option((bits(8 * 'n), mem_meta));
++  }) : option(bits(32));
+   match (t, result) {
+-    (Execute(),  None()) => MemException(E_Fetch_Access_Fault()),
+-    (Read(Data), None()) => MemException(E_Load_Access_Fault()),
+-    (_,          None()) => MemException(E_SAMO_Access_Fault()),
+-    (_,      Some(v, m)) => { if   get_config_print_mem()
++    (Execute(),  None()) => MemException(paddr, E_Fetch_Access_Fault()),
++    (Read(Data), None()) => MemException(paddr, E_Load_Access_Fault()),
++    (_,          None()) => MemException(paddr, E_SAMO_Access_Fault()),
++    (_,      Some(v)) => { if   get_config_print_mem()
+                               then print_mem("mem[" ^ to_str(t) ^ "," ^ BitStr(paddr) ^ "] -> " ^ BitStr(v));
+-                              MemValue(v, m) }
++                              MemValue(v) }
+   }
+ }
+ 
+-// Check if access is permitted according to PMPs and PMAs.
+-val phys_access_check : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), Privilege, xlenbits, int('n)) -> option(ExceptionType)
+-function phys_access_check (t, p, paddr, width) = {
+-  let pmpError : option(ExceptionType) = if sys_pmp_count() == 0 then None() else pmpCheck(paddr, width, t, p);
+-  // TODO: Also check PMAs and select the highest priority fault.
+-  pmpError
+-}
++function extract_bits forall 'n, 0 < 'n <= max_mem_access . (value : bits(64), addroff: bits(2), width: int('n)) -> bits(8 * 'n) =
++  match addroff {
++    0b00 => value[width*8 - 1..0],
++    0b01 => value[width*8 - 1 + 8..8],
++    0b10 => value[width*8 - 1 + 16..16],
++    0b11 => value[width*8 - 1 + 24..24],
++  }
+ 
+-/* dispatches to MMIO regions or physical memory regions depending on physical memory map */
++/* Does either 1 or 2 memory accesses based on alignment and width */
+ function checked_mem_read forall 'n, 0 < 'n <= max_mem_access . (
+   t : AccessType(ext_access_type),
+   priv : Privilege,
+@@ -95,25 +95,33 @@ function checked_mem_read forall 'n, 0 < 'n <= max_mem_access . (
+   width : int('n),
+   aq : bool,
+   rl : bool,
+-  res: bool,
+-  meta : bool,
+-) -> MemoryOpResult((bits(8 * 'n), mem_meta)) =
+-  match phys_access_check(t, priv, paddr, width) {
+-    Some(e) => MemException(e),
+-    None() => {
+-      if   within_mmio_readable(paddr, width)
+-      then MemoryOpResult_add_meta(mmio_read(t, paddr, width), default_meta)
+-      else if within_phys_mem(paddr, width)
+-      then match ext_check_phys_mem_read(t, paddr, width, aq, rl, res, meta) {
+-        Ext_PhysAddr_OK()     => phys_mem_read(t, paddr, width, aq, rl, res, meta),
+-        Ext_PhysAddr_Error(e) => MemException(e)
+-      } else match t {
+-        Execute()  => MemException(E_Fetch_Access_Fault()),
+-        Read(Data) => MemException(E_Load_Access_Fault()),
+-        _          => MemException(E_SAMO_Access_Fault())
+-      }
++  res: bool
++) -> MemoryOpResult(bits(8 * 'n)) = {
++  let aligned = [paddr with 1..0 = 0b00];
++  let aligned_next = aligned + zero_extend(0x4);
++
++  let res_fst = (match pmpCheck(unsigned(aligned), 4, t, priv) {
++    Some(e) => MemException(paddr, e), // Use misaligned version
++    None() => phys_mem_read_word_aligned(t, aligned, aq, rl, res),
++  }) : MemoryOpResult(bits(32));
++
++  if 4 - unsigned(paddr[1..0]) < width then {
++    let res_snd = (match pmpCheck(unsigned(aligned_next), 4, t, priv) {
++      Some(e) => MemException(aligned_next, e),
++      None() => phys_mem_read_word_aligned(t, aligned_next, aq, rl, res),
++    }) : MemoryOpResult(bits(32));
++
++    match (res_fst, res_snd) {
++      (MemException(a, e), _) => MemException(a, e),
++      (MemValue(_), MemException(a, e)) => MemException(a, e),
++      (MemValue(v1), MemValue(v2)) => MemValue(extract_bits(v2 @ v1, paddr[1..0], width))
+     }
+-  }
++  } else
++    match res_fst {
++      MemException(a, e) => MemException(a, e),
++      MemValue(v) => MemValue(extract_bits(0x00000000 @ v, paddr[1..0], width))
++    }
++}
+ 
+ /* Atomic accesses can be done to MMIO regions, e.g. in kernel access to device registers. */
+ 
+@@ -128,7 +136,7 @@ function rvfi_read (addr, width, result) = {
+                        then { rvfi_mem_data[rvfi_mem_rdata] = sail_zero_extend(v, 256);
+                               rvfi_mem_data[rvfi_mem_rmask] = rvfi_encode_width_mask(width) }
+                        else { internal_error(__FILE__, __LINE__, "Expected at most 16 bytes here!") },
+-    MemException(_) => ()
++    MemException(_, _) => ()
+   };
+ }
+ $else
+@@ -136,40 +144,49 @@ val rvfi_read : forall 'n, 'n > 0. (xlenbits, int('n), MemoryOpResult((bits(8 *
+ function rvfi_read (addr, width, result) = ()
+ $endif
+ 
+-val mem_read      : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), xlenbits, int('n), bool, bool, bool)       -> MemoryOpResult(bits(8 * 'n))
+-val mem_read_priv : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), Privilege, xlenbits, int('n), bool, bool, bool)       -> MemoryOpResult(bits(8 * 'n))
+-val mem_read_meta : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), xlenbits, int('n), bool, bool, bool, bool) -> MemoryOpResult((bits(8 * 'n), mem_meta))
+-val mem_read_priv_meta : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), Privilege, xlenbits, int('n), bool, bool, bool, bool) -> MemoryOpResult((bits(8 * 'n), mem_meta))
++val mem_read      : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), xlenbits, int('n), bool, bool, bool) -> MemoryOpResult(bits(8 * 'n))
++val mem_read_priv : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), Privilege, xlenbits, int('n), bool, bool, bool) -> MemoryOpResult(bits(8 * 'n))
++val mem_read_i      : forall 'n, 0 < 'n <= max_mem_access . (AccessType(ext_access_type), xlenbits, int('n)) -> MemoryOpResult(unit)
+ 
+ /* The most generic memory read operation */
+-function mem_read_priv_meta (typ, priv, paddr, width, aq, rl, res, meta) = {
+-  let result : MemoryOpResult((bits(8 * 'n), mem_meta)) =
++function mem_read_priv (typ, priv, paddr, width, aq, rl, res) = {
++  let result : MemoryOpResult(bits(8 * 'n)) =
+     if (aq | res) & not(is_aligned_addr(paddr, width))
+-    then MemException(E_Load_Addr_Align())
++    then MemException(paddr, E_Load_Addr_Align())
+     else match (aq, rl, res) {
+       (false, true,  false) => throw(Error_not_implemented("load.rl")),
+       (false, true,  true)  => throw(Error_not_implemented("lr.rl")),
+-      (_, _, _)             => checked_mem_read(typ, priv, paddr, width, aq, rl, res, meta)
++      (_, _, _)             => checked_mem_read(typ, priv, paddr, width, aq, rl, res)
+     };
+-  rvfi_read(paddr, width, result);
+   result
+ }
+ 
+-function mem_read_meta (typ, paddr, width, aq, rl, res, meta) =
+-  mem_read_priv_meta(typ, effectivePrivilege(typ, mstatus, cur_privilege), paddr, width, aq, rl, res, meta)
+-
+-/* Specialized mem_read_meta that drops the metadata */
+-function mem_read_priv (typ, priv, paddr, width, aq, rl, res) =
+-  MemoryOpResult_drop_meta(mem_read_priv_meta(typ, priv, paddr, width, aq, rl, res, false))
+-
+ /* Specialized mem_read_priv that operates at the default effective privilege */
+ function mem_read (typ, paddr, width, aq, rel, res) =
+   mem_read_priv(typ, effectivePrivilege(typ, mstatus, cur_privilege), paddr, width, aq, rel, res)
+ 
++function mem_read_i (t, paddr, width) = {
++  let priv = effectivePrivilege(t, mstatus, cur_privilege);
++
++  let aligned = [paddr with 1..0 = 0b00];
++  let aligned_next = aligned + zero_extend(0x4);
++
++  match pmpCheck(unsigned(aligned), 4, t, priv) {
++    Some(e) => MemException(paddr, e),
++    None() =>
++      if (width == 2) | (paddr[1..0] == 0b00)
++      then MemValue(())
++      else match pmpCheck(unsigned(aligned_next), 4, t, priv) {
++        Some(e) => MemException(paddr + zero_extend(0x2), e),
++        None() => MemValue(()),
++      }
++  }
++}
++
+ val mem_write_ea : forall 'n, 0 < 'n <= max_mem_access . (xlenbits, int('n), bool, bool, bool) -> MemoryOpResult(unit)
+ function mem_write_ea (addr, width, aq, rl, con) =
+   if (rl | con) & not(is_aligned_addr(addr, width))
+-  then MemException(E_SAMO_Addr_Align())
++  then MemException(addr, E_SAMO_Addr_Align())
+   else MemValue(write_ram_ea(write_kind_of_flags(aq, rl, con), addr, width))
+ 
+ $ifdef RVFI_DII
+@@ -186,7 +203,7 @@ function rvfi_write (addr, width, value, meta, result) = {
+       } else {
+         internal_error(__FILE__, __LINE__, "Expected at most 16 bytes here!");
+       },
+-    MemException(_) => ()
++    MemException(_, _) => ()
+   }
+ }
+ $else
+@@ -194,12 +211,36 @@ val rvfi_write : forall 'n, 'n > 0. (xlenbits, int('n), bits(8 * 'n), mem_meta,
+ function rvfi_write (addr, width, value, meta, result) = ()
+ $endif
+ 
++function split_bits_byte (value : bits(8), addroff: bits(2)) -> (bits(32), bits(4), bits(32), bits(4)) =
++  match addroff {
++    0b00 => (0x000000 @ value, 0b0001, 0x00000000, 0b0000),
++    0b01 => (0x0000 @ value @ 0x00, 0b0010, 0x00000000, 0b0000),
++    0b10 => (0x00 @ value @ 0x0000, 0b0100, 0x00000000, 0b0000),
++    0b11 => (value @ 0x000000, 0b1000, 0x00000000, 0b0000),
++  }
++
++function split_bits_half (value : bits(16), addroff: bits(2)) -> (bits(32), bits(4), bits(32), bits(4)) =
++  match addroff {
++    0b00 => (0x0000 @ value, 0b0011, 0x00000000, 0b0000),
++    0b01 => (0x00 @ value @ 0x00, 0b0110, 0x00000000, 0b0000),
++    0b10 => (value @ 0x0000, 0b1100, 0x00000000, 0b0000),
++    0b11 => (value[7..0] @ 0x000000, 0b1000, 0x000000 @ value[15..8], 0b0001),
++  }
++
++function split_bits_word (value : bits(32), addroff: bits(2)) -> (bits(32), bits(4), bits(32), bits(4)) =
++  match addroff {
++    0b00 => (value, 0b1111, 0x00000000, 0b0000),
++    0b01 => (value[23..0] @ 0x00, 0b1110, 0x000000 @ value[31..24], 0b0001),
++    0b10 => (value[15..0] @ 0x0000, 0b1100, 0x0000 @ value[31..16], 0b0011),
++    0b11 => (value[7..0] @ 0x000000, 0b1000, 0x00 @ value[31..8], 0b0111),
++  }
++
+ // only used for actual memory regions, to avoid MMIO effects
+-function phys_mem_write forall 'n, 0 < 'n <= max_mem_access . (wk : write_kind, paddr : xlenbits, width : int('n), data : bits(8 * 'n), meta : mem_meta) -> MemoryOpResult(bool) = {
+-  let result = MemValue(write_ram(wk, paddr, width, data, meta));
++function phys_mem_write_word_aligned (wk : write_kind, paddr : xlenbits, data : bits(32), be : bits(4)) -> MemoryOpResult(bool) = {
++  write_ram(wk, paddr, data, be);
+   if   get_config_print_mem()
+   then print_mem("mem[" ^ BitStr(paddr) ^ "] <- " ^ BitStr(data));
+-  result
++  MemValue(true)
+ }
+ 
+ /* dispatches to MMIO regions or physical memory regions depending on physical memory map */
+@@ -213,22 +254,37 @@ function checked_mem_write forall 'n, 0 < 'n <= max_mem_access . (
+   aq : bool,
+   rl : bool,
+   con : bool,
+-) -> MemoryOpResult(bool) =
+-  match phys_access_check(typ, priv, paddr, width) {
+-    Some(e) => MemException(e),
+-    None() => {
+-      if   within_mmio_writable(paddr, width)
+-      then mmio_write(paddr, width, data)
+-      else if within_phys_mem(paddr, width)
+-      then {
+-        let wk = write_kind_of_flags(aq, rl, con);
+-        match ext_check_phys_mem_write (wk, paddr, width, data, meta) {
+-          Ext_PhysAddr_OK() => phys_mem_write(wk, paddr, width, data, meta),
+-          Ext_PhysAddr_Error(e)  => MemException(e),
+-        }
+-      } else MemException(E_SAMO_Access_Fault())
++) -> MemoryOpResult(bool) = {
++  let aligned = [paddr with 1..0 = 0b00];
++  let aligned_next = aligned + zero_extend(0x4);
++
++  let wk = write_kind_of_flags(aq, rl, con);
++
++  let (fst_data, fst_be, snd_data, snd_be) = (match width {
++    1 => split_bits_byte(data, paddr[1..0]),
++    2 => split_bits_half(data, paddr[1..0]),
++    4 => split_bits_word(data, paddr[1..0]),
++    _ => internal_error(__FILE__, __LINE__, "store got bad width")
++  }) : (bits(32), bits(4), bits(32), bits(4));
++
++  let res_fst = (match pmpCheck(unsigned(aligned), 4, typ, priv) {
++    Some(e) => MemException(paddr, e), // Use misaligned version
++    None() => phys_mem_write_word_aligned(wk, aligned, fst_data, fst_be),
++  }) : MemoryOpResult(bool);
++
++  if 4 - unsigned(paddr[1..0]) < width then {
++    let res_snd = (match pmpCheck(unsigned(aligned_next), 4, typ, priv) {
++      Some(e) => MemException(aligned_next, e),
++      None() => phys_mem_write_word_aligned(wk, aligned_next, snd_data, snd_be),
++    }) : MemoryOpResult(bool);
++
++    match (res_fst, res_snd) {
++      (MemException(a, e), _) => MemException(a, e),
++      (MemValue(_), MemException(a, e)) => MemException(a, e),
++      (MemValue(_), MemValue(_)) => MemValue(true)
+     }
+-  }
++  } else res_fst
++}
+ 
+ /* Atomic accesses can be done to MMIO regions, e.g. in kernel access to device registers. */
+ 
+@@ -240,7 +296,7 @@ function checked_mem_write forall 'n, 0 < 'n <= max_mem_access . (
+ val mem_write_value_priv_meta : forall 'n, 0 < 'n <= max_mem_access . (xlenbits, int('n), bits(8 * 'n), AccessType(ext_access_type), Privilege, mem_meta, bool, bool, bool) -> MemoryOpResult(bool)
+ function mem_write_value_priv_meta (paddr, width, value, typ, priv, meta, aq, rl, con) = {
+   if (rl | con) & not(is_aligned_addr(paddr, width))
+-  then MemException(E_SAMO_Addr_Align())
++  then MemException(paddr, E_SAMO_Addr_Align())
+   else {
+     let result = checked_mem_write(paddr, width, value, typ, priv, meta, aq, rl, con);
+     rvfi_write(paddr, width, value, meta, result);
+diff --git a/model/riscv_sys_regs.sail b/model/riscv_sys_regs.sail
+index 65d14192..27c3e3c3 100644
+--- a/model/riscv_sys_regs.sail
++++ b/model/riscv_sys_regs.sail
+@@ -96,11 +96,13 @@ val sys_enable_next = {c: "sys_enable_next", ocaml: "Platform.enable_next", _: "
+    supervisor mode is implemented and non-bare addressing modes are supported. */
+ val sys_enable_writable_fiom = {c: "sys_enable_writable_fiom", ocaml: "Platform.enable_writable_fiom", _: "sys_enable_writable_fiom"} : unit -> bool
+ 
+-/* How many PMP entries are implemented. This must be 0, 16 or 64 (this is checked at runtime). */
++/* How many PMP entries are implemented */
+ val sys_pmp_count = {c: "sys_pmp_count", ocaml: "Platform.pmp_count", _: "sys_pmp_count"} : unit -> range(0, 64)
+ /* G parameter that specifies the PMP grain size. The grain size is 2^(G+2), e.g.
+    G=0 -> 4 bytes, G=10 -> 4096 bytes. */
+ val sys_pmp_grain = {c: "sys_pmp_grain", ocaml: "Platform.pmp_grain", _: "sys_pmp_grain"} : unit -> range(0, 63)
++/* Max PMP count, is the number of hardwired to zero PMP registers + the number of real sys_pmp_count() */
++val sys_pmp_max_count = {c: "sys_pmp_max_count", ocaml: "Platform.pmp_max_count", _: "sys_pmp_max_count"} : unit -> range(0, 64)
+ 
+ /* whether misa.v was enabled at boot */
+ val sys_enable_vext = {c: "sys_enable_vext", ocaml: "Platform.enable_vext", _: "sys_enable_vext"} : unit -> bool
+@@ -228,9 +230,12 @@ bitfield Mstatus : xlenbits = {
+ register mstatus : Mstatus
+ 
+ function effectivePrivilege(t : AccessType(ext_access_type), m : Mstatus, priv : Privilege) -> Privilege =
+-  if   t != Execute() & m[MPRV] == 0b1
+-  then privLevel_of_bits(m[MPP])
+-  else priv
++  match t {
++    Execute() => priv,
++    _ =>  if m[MPRV] == 0b1
++          then privLevel_of_bits(m[MPP])
++          else priv
++  }
+ 
+ function get_mstatus_SXL(m : Mstatus) -> arch_xlen = {
+   if   sizeof(xlen) == 32
+@@ -330,7 +335,7 @@ function in32BitMode() -> bool = {
+ 
+ /* F and D extensions have to enabled both via misa.{FD} as well as mstatus.FS */
+ function haveFExt()    -> bool = (misa[F] == 0b1) & (mstatus[FS] != 0b00)
+-function haveDExt()    -> bool = (misa[D] == 0b1) & (mstatus[FS] != 0b00) & sizeof(flen) >= 64
++function haveDExt()    -> bool = (misa[D] == 0b1) & (mstatus[FS] != 0b00)
+ /* Zfh (half-precision) extension depends on misa.F and mstatus.FS */
+ function haveZfh()     -> bool = (misa[F] == 0b1) & (mstatus[FS] != 0b00)
+ /* V extension has to enable both via misa.V as well as mstatus.VS */
+@@ -344,7 +349,7 @@ function haveZcb()     -> bool = sys_enable_zcb()
+ /* Zhinx, Zfinx and Zdinx extensions (TODO: gate FCSR access on [mhs]stateen0 bit 1 when implemented) */
+ function haveZhinx()   -> bool = sys_enable_zfinx()
+ function haveZfinx()   -> bool = sys_enable_zfinx()
+-function haveZdinx()   -> bool = sys_enable_zfinx() & sizeof(flen) >= 64
++function haveZdinx()   -> bool = sys_enable_zfinx()
+ 
+ /* interrupt processing state */
+ 
+@@ -369,7 +374,7 @@ function legalize_mip(o : Minterrupts, v : xlenbits) -> Minterrupts = {
+   /* The only writable bits are the S-mode bits, and with the 'N'
+    * extension, the U-mode bits. */
+   let v = Mk_Minterrupts(v);
+-  let m = [o with SEI = v[SEI], STI = v[STI], SSI = v[SSI]];
++  let m = o;
+   if haveUsrMode() & haveNExt() then {
+     [m with UEI = v[UEI], UTI = v[UTI], USI = v[USI]]
+   } else m
+@@ -380,10 +385,7 @@ function legalize_mie(o : Minterrupts, v : xlenbits) -> Minterrupts = {
+   let m = [o with
+     MEI = v[MEI],
+     MTI = v[MTI],
+-    MSI = v[MSI],
+-    SEI = v[SEI],
+-    STI = v[STI],
+-    SSI = v[SSI]
++    MSI = v[MSI]
+   ];
+   /* The U-mode bits will be modified if we have the 'N' extension. */
+   if haveUsrMode() & haveNExt() then {
+@@ -431,12 +433,8 @@ bitfield Mtvec : xlenbits = {
+ register mtvec : Mtvec  /* Trap Vector */
+ 
+ function legalize_tvec(o : Mtvec, v : xlenbits) -> Mtvec = {
+- let v = Mk_Mtvec(v);
+- match (trapVectorMode_of_bits(v[Mode])) {
+-   TV_Direct => v,
+-   TV_Vector => v,
+-   _         => [v with Mode = o[Mode]]
+- }
++ // 256 byte aligned, always vectored
++ Mk_Mtvec(v[31..8] @ 0x01)
+ }
+ 
+ bitfield Mcause : xlenbits = {
+@@ -445,6 +443,14 @@ bitfield Mcause : xlenbits = {
+ }
+ register mcause : Mcause
+ 
++function legalize_mcause(v : xlenbits) -> Mcause = {
++  // Ibex internal interrupts
++  if v[31..30] == 0b11 then
++    Mk_Mcause([v with 30..5 = sail_ones(26)])
++  else
++    Mk_Mcause([v with 30..5 = sail_zeros(26)])
++}
++
+ /* Interpreting the trap-vector address */
+ function tvec_addr(m : Mtvec, c : Mcause) -> option(xlenbits) = {
+   let base : xlenbits = m[Base] @ 0b00;
+@@ -492,16 +498,6 @@ bitfield Counteren : bits(32) = {
+ register mcounteren : Counteren
+ register scounteren : Counteren
+ 
+-function legalize_mcounteren(c : Counteren, v : xlenbits) -> Counteren = {
+-  /* no HPM counters yet */
+-  [c with IR = [v[2]], TM = [v[1]], CY = [v[0]]]
+-}
+-
+-function legalize_scounteren(c : Counteren, v : xlenbits) -> Counteren = {
+-  /* no HPM counters yet */
+-  [c with IR = [v[2]], TM = [v[1]], CY = [v[0]]]
+-}
+-
+ bitfield Counterin : bits(32) = {
+   /* no HPM counters yet */
+   IR : 2,
+@@ -858,87 +854,3 @@ function is_fiom_active() -> bool = {
+     User => (menvcfg[FIOM] | senvcfg[FIOM]) == 0b1,
+   }
+ }
+-/* vector csrs */
+-register vstart : bits(16) /* use the largest possible length of vstart */
+-register vxsat  : bits(1)
+-register vxrm   : bits(2)
+-register vl     : xlenbits
+-register vlenb  : xlenbits
+-
+-bitfield Vtype  : xlenbits = {
+-  vill      : xlen - 1,
+-  reserved  : xlen - 2 .. 8,
+-  vma       : 7,
+-  vta       : 6,
+-  vsew      : 5 .. 3,
+-  vlmul     : 2 .. 0
+-}
+-register vtype : Vtype
+-
+-/* the dynamic selected element width (SEW) */
+-/* this returns the power of 2 for SEW */
+-val get_sew_pow : unit -> {3, 4, 5, 6}
+-function get_sew_pow() = {
+-  let SEW_pow : {3, 4, 5, 6} = match vtype[vsew] {
+-    0b000 => 3,
+-    0b001 => 4,
+-    0b010 => 5,
+-    0b011 => 6,
+-    _     => {assert(false, "invalid vsew field in vtype"); 0}
+-  };
+-  SEW_pow
+-}
+-/* this returns the actual value of SEW */
+-val get_sew : unit -> {8, 16, 32, 64}
+-function get_sew() = {
+-  match get_sew_pow() {
+-    3 => 8,
+-    4 => 16,
+-    5 => 32,
+-    6 => 64,
+-    _ => {internal_error(__FILE__, __LINE__, "invalid SEW"); 8}
+-  }
+-}
+-/* this returns the value of SEW in bytes */
+-val get_sew_bytes : unit -> {1, 2, 4, 8}
+-function get_sew_bytes() = {
+-  match get_sew_pow() {
+-    3 => 1,
+-    4 => 2,
+-    5 => 4,
+-    6 => 8,
+-    _ => {internal_error(__FILE__, __LINE__, "invalid SEW"); 1}
+-  }
+-}
+-
+-/* the vector register group multiplier (LMUL) */
+-/* this returns the power of 2 for LMUL */
+-val get_lmul_pow : unit -> {-3, -2, -1, 0, 1, 2, 3}
+-function get_lmul_pow() = {
+-  match vtype[vlmul] {
+-    0b101 => -3,
+-    0b110 => -2,
+-    0b111 => -1,
+-    0b000 => 0,
+-    0b001 => 1,
+-    0b010 => 2,
+-    0b011 => 3,
+-    _     => {assert(false, "invalid vlmul field in vtype"); 0}
+-  }
+-}
+-
+-enum agtype = { UNDISTURBED, AGNOSTIC }
+-
+-val decode_agtype : bits(1) -> agtype
+-function decode_agtype(ag) = {
+-  match ag {
+-    0b0 => UNDISTURBED,
+-    0b1 => AGNOSTIC
+-  }
+-}
+-
+-val get_vtype_vma : unit -> agtype
+-function get_vtype_vma() = decode_agtype(vtype[vma])
+-
+-val get_vtype_vta : unit -> agtype
+-function get_vtype_vta() = decode_agtype(vtype[vta])

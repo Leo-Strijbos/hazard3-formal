@@ -1,0 +1,36 @@
+# Stage A of the split Hazard3 build: lower the *Sail specification alone* and
+# cache the result as RTLIL.  See BRINGUP.md, "Cached spec elaboration".
+#
+# The specification is fixed (build/ibexspec.sv is generated once from the Sail
+# model and never changes when the harness is edited), so the expensive
+# word-level lowering of it -- proc + opt_muxtree_2, ~7 of the ~16 minutes of
+# the monolithic build -- is done here once and reused.
+#
+# Everything downstream of `flatten` in build_h3_fast.ys is left alone: this
+# script deliberately stops before memory_nordff/setundef/expose so that every
+# pass which has to see the *whole* design still sees the whole design.
+#
+# LOWRISC_SAIL_SRC is substituted by the Makefile.
+
+read_slang --top spec_api -DSYNTHESIS -DYOSYS \
+	build/ibexspec.sv spec/stub.sv spec/spec_api.sv \
+	-I LOWRISC_SAIL_SRC/lib/sv/ \
+	--single-unit --no-proc
+
+# Same as the monolithic script: keep all named wires so nothing is optimised
+# away before `expose` gets to see it.
+setattr -set keep 1 n:\\*
+# ...except spec_api's own port wires.  In the monolithic build slang elaborates
+# spec_api straight into `top`, so no `spec_api_i.<port>` alias wires exist.
+# Here yosys's `flatten` will create them; leaving them un-kept lets the
+# opt_clean right after flatten collapse them away again, so the exposed signal
+# set matches the monolithic build exactly.
+setattr -unset keep i:* o:*
+
+proc
+opt_muxtree_2
+opt_clean
+
+setattr -unset top
+stat
+write_rtlil build/spec.il

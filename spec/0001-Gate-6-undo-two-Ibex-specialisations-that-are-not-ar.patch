@@ -1,0 +1,179 @@
+From b96a1ea5c87b1c882d035613461af9e155f207ed Mon Sep 17 00:00:00 2001
+From: verif <h3@verif>
+Date: Wed, 16 Sep 2026 20:40:51 +0000
+Subject: [PATCH 1/3] Gate 6: undo two Ibex specialisations that are not
+ architectural
+
+1. legalize_tvec / legalize_mcause: restore upstream riscv/sail-riscv's
+   generic WARL behaviour, parameterised on a writable-bit mask whose
+   default (all ones) reproduces upstream bit-for-bit.
+
+   lowRISC replaced upstream's legalize_tvec with Mk_Mtvec(v[31..8] @ 0x01)
+   -- 256-byte aligned BASE, MODE hardwired to vectored -- and ADDED a
+   legalize_mcause (upstream has none; writeCSR does mcause.bits = value)
+   carrying Ibex's internal-interrupt encoding.  mtvec and mcause are WARL
+   registers; both lowRISC policies and Hazard3's are legal implementations
+   of the same architecture, so the choice belongs in configuration.
+
+2. LOAD / STORE: restore upstream's check_misaligned call.  lowRISC's memory
+   rework (b63cba3c) deleted it along with translateAddr / mem_write_ea,
+   which left check_misaligned defined but never called and
+   plat_enable_misaligned_access dead configuration; the model then split
+   every misaligned access into two granules regardless of the platform
+   flag.  Misaligned support is optional in RISC-V, so which of trap and
+   split the model does is exactly what that flag is for.
+
+Baseline: lowrisc/sail-riscv 81a266b6 (branch ibex), the revision pinned by
+ibex's flake.lock, byte-identical to $LOWRISC_SAIL_RISCV_SRC.
+---
+ model/riscv_insts_base.sail  | 21 ++++++++++--
+ model/riscv_insts_zicsr.sail |  2 +-
+ model/riscv_sys_regs.sail    | 65 +++++++++++++++++++++++++++++++-----
+ 3 files changed, 76 insertions(+), 12 deletions(-)
+
+diff --git a/model/riscv_insts_base.sail b/model/riscv_insts_base.sail
+index 515278d..3a8de35 100644
+--- a/model/riscv_insts_base.sail
++++ b/model/riscv_insts_base.sail
+@@ -326,7 +326,19 @@ function clause execute(LOAD(imm, rs1, rd, is_unsigned, width, aq, rl)) = {
+      Some extensions perform additional checks on address validity. */
+   match ext_data_get_addr(rs1, offset, Read(Data), width_bytes) {
+     Ext_DataAddr_Error(e)  => { ext_handle_data_check_error(e); RETIRE_FAIL },
+-    Ext_DataAddr_OK(paddr) => match width_bytes {
++    /* Misaligned-access support is OPTIONAL: RISC-V unprivileged spec v2.2
++       s2.6 ("Load and Store Instructions") -- "the misaligned load and store
++       instructions ... may raise a load or store address-misaligned exception"
++       -- so both trapping and splitting are architecturally legal, and which
++       one this model does is a PLATFORM PARAMETER, plat_enable_misaligned_access.
++       Upstream riscv/sail-riscv makes that call here; lowRISC's memory rework
++       (b63cba3c) deleted it along with translateAddr/mem_write_ea, leaving
++       check_misaligned defined but never called and the parameter dead, so the
++       model split unconditionally.  The call is restored. */
++    Ext_DataAddr_OK(paddr) =>
++      if   check_misaligned(paddr, width)
++      then { handle_mem_exception(paddr, E_Load_Addr_Align()); RETIRE_FAIL }
++      else match width_bytes {
+       1 => match mem_read(Read(Data), paddr, 1, aq, rl, false) {
+         MemValue(result) => { X(rd) = extend_value(is_unsigned, result); RETIRE_SUCCESS },
+         MemException(addr, e) => { handle_mem_exception(addr, e); RETIRE_FAIL },
+@@ -383,7 +395,12 @@ function clause execute (STORE(imm, rs2, rs1, width, aq, rl)) = {
+      Some extensions perform additional checks on address validity. */
+   match ext_data_get_addr(rs1, offset, Write(Data), width_bytes) {
+     Ext_DataAddr_Error(e)  => { ext_handle_data_check_error(e); RETIRE_FAIL },
+-    Ext_DataAddr_OK(paddr) => {
++    /* See the LOAD clause: restores upstream's check_misaligned call, which
++       makes plat_enable_misaligned_access live again. */
++    Ext_DataAddr_OK(paddr) =>
++      if   check_misaligned(paddr, width)
++      then { handle_mem_exception(paddr, E_SAMO_Addr_Align()); RETIRE_FAIL }
++      else {
+       let rs2_val = X(rs2);
+       match mem_write_value(paddr, width_bytes, rs2_val[width_bytes * 8 - 1 .. 0], aq, rl, false) {
+         MemValue(true)  => RETIRE_SUCCESS,
+diff --git a/model/riscv_insts_zicsr.sail b/model/riscv_insts_zicsr.sail
+index 8304c2f..3d529c7 100644
+--- a/model/riscv_insts_zicsr.sail
++++ b/model/riscv_insts_zicsr.sail
+@@ -95,7 +95,7 @@ function writeCSR (csr : csreg, value : xlenbits) -> unit = {
+     (0x320,  _) => { mcountinhibit = legalize_mcountinhibit(mcountinhibit, value); Some(zero_extend(mcountinhibit.bits)) },
+     (0x340,  _) => { mscratch = value; Some(mscratch) },
+     (0x341,  _) => { Some(set_xret_target(Machine, value)) },
+-    (0x342,  _) => { mcause = legalize_mcause(value); Some(mcause.bits) },
++    (0x342,  _) => { mcause = legalize_mcause(mcause, value); Some(mcause.bits) },
+     (0x343,  _) => { mtval = value; Some(mtval) },
+     (0x344,  _) => { mip = legalize_mip(mip, value); Some(mip.bits) },
+ 
+diff --git a/model/riscv_sys_regs.sail b/model/riscv_sys_regs.sail
+index 27c3e3c..7357d8d 100644
+--- a/model/riscv_sys_regs.sail
++++ b/model/riscv_sys_regs.sail
+@@ -107,6 +107,21 @@ val sys_pmp_max_count = {c: "sys_pmp_max_count", ocaml: "Platform.pmp_max_count"
+ /* whether misa.v was enabled at boot */
+ val sys_enable_vext = {c: "sys_enable_vext", ocaml: "Platform.enable_vext", _: "sys_enable_vext"} : unit -> bool
+ 
++/* --- WARL policy configuration -------------------------------------------
++   mtvec and mcause are WARL registers.  The architecture does not fix which
++   of their bits an implementation must make writable, so a model that fixes
++   them describes ONE implementation rather than the architecture.  These two
++   hooks carry the implementation's writable-bit mask; bits they clear keep
++   their previous value, which is the WARL-legal behaviour for a field an
++   implementation does not implement.
++
++   BOTH DEFAULT TO ALL-ONES, and with all-ones legalize_tvec and
++   legalize_mcause below reduce EXACTLY to upstream riscv/sail-riscv.  A
++   platform that wants a narrower policy states it here rather than in the
++   body of the legalizer. */
++val sys_tvec_wmask = {c: "sys_tvec_wmask", ocaml: "Platform.tvec_wmask", _: "sys_tvec_wmask"} : unit -> xlenbits
++val sys_mcause_wmask = {c: "sys_mcause_wmask", ocaml: "Platform.mcause_wmask", _: "sys_mcause_wmask"} : unit -> xlenbits
++
+ /* This function allows an extension to veto a write to Misa
+    if it would violate an alignment restriction on
+    unsetting C. If it returns true the write will have no effect. */
+@@ -432,9 +447,31 @@ bitfield Mtvec : xlenbits = {
+ }
+ register mtvec : Mtvec  /* Trap Vector */
+ 
++/* mtvec is WARL.  RISC-V privileged spec v1.12 s3.1.7, "Machine Trap-Vector
++   Base-Address Register": "The mtvec register is an MXLEN-bit WARL read/write
++   register"; the BASE field "must always be aligned on a 4-byte boundary";
++   MODE encodings 0 (Direct) and 1 (Vectored) are defined and ">=2" is
++   Reserved.  An implementation is free to hardwire BASE bits (making its
++   effective alignment coarser than 4 bytes) and free to hardwire MODE.  All
++   of those are legal implementations of the same architecture, so the model
++   must be parameterised rather than fixed to one core's choice.
++
++   lowRISC replaced upstream's legalizer with `Mk_Mtvec(v[31..8] @ 0x01)`
++   -- 256-byte aligned BASE, MODE hardwired to Vectored -- which is Ibex's
++   policy and not the architecture's.  Restored to upstream, with the
++   writable-bit mask in front:
++
++     sys_tvec_wmask() == 0xFFFFFFFF  =>  bit-for-bit upstream riscv/sail-riscv.
++
++   The reserved-MODE arm is upstream's: the write is WARL-legalized by keeping
++   the previous MODE, which is one architecturally permitted response. */
+ function legalize_tvec(o : Mtvec, v : xlenbits) -> Mtvec = {
+- // 256 byte aligned, always vectored
+- Mk_Mtvec(v[31..8] @ 0x01)
++ let v = Mk_Mtvec((v & sys_tvec_wmask()) | (o.bits & ~(sys_tvec_wmask())));
++ match (trapVectorMode_of_bits(v[Mode])) {
++   TV_Direct => v,
++   TV_Vector => v,
++   _         => [v with Mode = o[Mode]]
++ }
+ }
+ 
+ bitfield Mcause : xlenbits = {
+@@ -443,13 +480,23 @@ bitfield Mcause : xlenbits = {
+ }
+ register mcause : Mcause
+ 
+-function legalize_mcause(v : xlenbits) -> Mcause = {
+-  // Ibex internal interrupts
+-  if v[31..30] == 0b11 then
+-    Mk_Mcause([v with 30..5 = sail_ones(26)])
+-  else
+-    Mk_Mcause([v with 30..5 = sail_zeros(26)])
+-}
++/* mcause is WARL.  RISC-V privileged spec v1.12 s3.1.15, "Machine Cause
++   Register": "The Exception Code field ... is a WARL field, so it is not
++   guaranteed to hold the value of an illegal exception code", and s3.1.15
++   requires only that the register can represent the causes the implementation
++   can itself generate.  Hardwiring the upper Exception Code bits to zero is
++   therefore architecturally legal, and so is full writability.
++
++   UPSTREAM riscv/sail-riscv HAS NO LEGALIZER HERE AT ALL: riscv_insts_zicsr
++   writes `mcause.bits = value`.  lowRISC ADDED this function and put Ibex's
++   internal-interrupt encoding (smear bits 30..5 to all-ones when v[31:30] is
++   0b11, else to all-zeros) into it.  That encoding is Ibex's, not the
++   architecture's, so it is replaced by the writable-bit mask:
++
++     sys_mcause_wmask() == 0xFFFFFFFF  =>  the identity, i.e. exactly
++     upstream's `mcause.bits = value`. */
++function legalize_mcause(o : Mcause, v : xlenbits) -> Mcause =
++  Mk_Mcause((v & sys_mcause_wmask()) | (o.bits & ~(sys_mcause_wmask())))
+ 
+ /* Interpreting the trap-vector address */
+ function tvec_addr(m : Mtvec, c : Mcause) -> option(xlenbits) = {
+-- 
+2.43.0
+

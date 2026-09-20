@@ -1,0 +1,14 @@
+hazard3-formal
+
+Derived from:
+- lowRISC/ibex dv/formal (Apache-2.0): the Sail-equivalence harness structure
+  (follower, ghost state, goal definitions, proof-tree format, psgen flow).
+- Wren6991/hazard3 (Apache-2.0): the RTL under verification, pinned commit in
+  spec/PINS.md; six conformance patches applied by harness/patch_hazard3_rtl.sh.
+- riscv/sail-riscv via lowRISC/sail-riscv branch ibex (BSD-2-Clause): the
+  specification model, pinned commit in spec/PINS.md, three local commits
+  (Gate 6, 7, 8) carried as patches in spec/.
+- tools/aig-manip and harness/yosys_formal (Apache-2.0, lowRISC contributors,
+  original author Louis-Emile Ploix): AIG selection/simulation and the Yosys
+  formal passes from the Ibex flow, used with small local additions.
+- rIC3, Yosys, yosys-slang, ABC: engines used as-is.

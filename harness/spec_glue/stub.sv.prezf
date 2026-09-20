@@ -1,0 +1,123 @@
+// Copyright lowRISC contributors.
+// Copyright 2024 University of Oxford, see also CREDITS.md.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// Original author: Louis-Emile Ploix
+// SPDX-License-Identifier: Apache-2.0
+
+`include "sail.sv"
+
+/*
+Provides stubs (mostly) for the native functions the Sail expects to see, mostly
+handling config stuff.
+*/
+
+function automatic logic[127:0] sail_emod_int(logic[127:0] x, logic[127:0] y);
+    // This one is unsigned, but the rest should be signed
+    return x % y;
+endfunction
+
+function automatic logic[127:0] sail_pow_int(logic[127:0] x, logic[127:0] y);
+    // These are Sail integers, so operations on them should be signed
+    return signed'(x) ** signed'(y);
+endfunction
+
+function automatic logic[127:0] sail_tmod_int(logic[127:0] x, logic[127:0] y);
+    return signed'(x) % signed'(y);
+endfunction
+
+function automatic logic[127:0] sail_tdiv_int(logic[127:0] x, logic[127:0] y);
+    return signed'(x) / signed'(y);
+endfunction
+
+function automatic sail_bits sail_shift_bits_left(sail_bits x, sail_bits y);
+    return {x.size, x.bits << y.bits};
+endfunction
+
+function automatic sail_bits sail_shift_bits_right(sail_bits x, sail_bits y);
+    return {x.size, x.bits >> y.bits};
+endfunction
+
+function automatic sail_unit sail_decimal_string_of_bits(logic [11:0] x);
+    return SAIL_UNIT;
+endfunction
+function automatic logic sail_elf_tohost(sail_unit u); return 0; endfunction
+function automatic logic sail_get_config_print_mem(sail_unit u); return 0; endfunction
+function automatic logic sail_get_config_print_platform(sail_unit u); return 0; endfunction
+function automatic logic sail_get_config_print_reg(sail_unit u); return 0; endfunction
+function automatic logic sail_get_config_print_instr(sail_unit u); return 0; endfunction
+function automatic logic sail_get_config_print_exception(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_clint_base(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_clint_size(sail_unit u); return 0; endfunction
+function automatic logic sail_plat_enable_dirty_update(sail_unit u); return 0; endfunction
+// MISALIGNED ACCESS SUPPORT.  Hazard3 traps a misaligned load/store
+// (hdl/hazard3_core.v:613-616, x_unaligned_addr -> EXCEPT_LOAD_ALIGN /
+// EXCEPT_STORE_ALIGN).  Misaligned support is optional in RISC-V
+// (unprivileged spec v2.2 s2.6), so 0 is the architecturally correct
+// description of this platform.
+//
+// HISTORY.  Gate 4 set this 1 -> 0 with that justification and nobody checked
+// it.  Gate 5 measured that the flag was DEAD in the lowRISC fork: its only
+// reader, check_misaligned (riscv_insts_base.sail:315), was never called
+// because lowRISC's memory rework (b63cba3c) deleted the call sites from the
+// LOAD and STORE clauses, so the model split misaligned accesses whatever
+// this returned.  MemNoSecondGranule found it, at depth 5, on `sw x31,-1(x31)`.
+//
+// GATE 6: the call sites are RESTORED in sail-riscv-h3 (upstream
+// riscv/sail-riscv has them), so this flag is live again and 0 now means what
+// it says.  Setting it back to 1 is the negative control: MemNoSecondGranule
+// must go back to CEX.
+function automatic logic sail_plat_enable_misaligned_access(sail_unit u); return 0; endfunction
+
+// ----------------------------------------------------------------------------
+// WARL POLICY CONFIGURATION (gate 6).  See sail-riscv-h3/model/riscv_sys_regs.sail.
+//
+// mtvec and mcause are WARL; which bits an implementation makes writable is an
+// implementation choice, not an architectural one.  The Sail model is
+// parameterised on these two masks and defaults to 0xFFFFFFFF, which is
+// bit-for-bit upstream riscv/sail-riscv.  The values below are HAZARD3's
+// choice, transcribed from the RTL, and each is CHECKED against the DUT by a
+// property rather than trusted:
+//
+//   mtvec: hdl/hazard3_csr.v:295 `mtvec_reg <= update_nonconst(mtvec_reg,
+//   MTVEC_WMASK)` with MTVEC_WMASK = 32'hfffffffd (hdl/hazard3_config.vh:253,
+//   not overridden by check/h3_core_common.svh) -- BASE[31:2] writable (4-byte
+//   aligned), MODE[0] writable (direct or vectored), MODE[1] hardwired.  The
+//   readback at :860-866 returns {mtvec[31:2], 1'b0, irq_vector_enable}, so the
+//   unwritable bit reads 0; MtvecModeNeverReserved is the obligation.
+//
+//   mcause: hdl/hazard3_csr.v:371 `{mcause_irq, mcause_code} <=
+//   {wdata_update[31], wdata_update[3:0]}` -- bit 31 and bits 3:0 writable,
+//   everything else hardwired 0 (readback :836-842 is {irq, 27'h0, code[3:0]});
+//   McauseWarlZeros is the obligation.
+function automatic logic[31:0] sail_sys_tvec_wmask(sail_unit u); return 32'hfffffffd; endfunction
+function automatic logic[31:0] sail_sys_mcause_wmask(sail_unit u); return 32'h8000000f; endfunction
+function automatic logic sail_plat_enable_pmp(sail_unit u); return 0; endfunction
+function automatic sail_unit sail_platform_barrier(t_barrier_kind k); return SAIL_UNIT; endfunction
+function automatic sail_unit sail_platform_write_mem_ea(
+    t_write_kind a, logic [63:0] b, sail_bits c, logic [127:0] d
+); return SAIL_UNIT; endfunction
+function automatic logic[15:0] sail_plat_get_16_random_bits(sail_unit u); return 0; endfunction
+function automatic logic sail_plat_htif_tohost(sail_unit u); return 0; endfunction
+function automatic logic sail_plat_mtval_has_illegal_inst_bits(sail_unit u); return 1; endfunction
+function automatic logic[31:0] sail_plat_ram_base(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_ram_size(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_rom_base(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_rom_size(sail_unit u); return 0; endfunction
+function automatic sail_unit sail_plat_term_write(logic[7:0] u); return SAIL_UNIT; endfunction
+function automatic sail_unit sail_print_mem_access(sail_unit u); return SAIL_UNIT; endfunction
+function automatic sail_unit sail_print_platform(sail_unit u); return SAIL_UNIT; endfunction
+function automatic sail_unit sail_print_reg(sail_unit u); return SAIL_UNIT; endfunction
+function automatic sail_unit sail_string_of_int(logic[127:0] u); return SAIL_UNIT; endfunction
+function automatic logic sail_sys_enable_fdext(sail_unit u); return 0; endfunction
+function automatic logic sail_sys_enable_rvc(sail_unit u); return 1; endfunction
+function automatic logic sail_sys_enable_writable_misa(sail_unit u); return 0; endfunction
+function automatic logic sail_sys_enable_zfinx(sail_unit u); return 0; endfunction
+function automatic sail_unit sail_cancel_reservation(sail_unit u); return SAIL_UNIT; endfunction
+function automatic logic[31:0] sail_plat_uart_base(sail_unit u); return 0; endfunction
+function automatic logic[31:0] sail_plat_uart_size(sail_unit u); return 0; endfunction
+function automatic logic[6:0] sail_sys_pmp_count(sail_unit u); return 7'd4; endfunction
+function automatic logic[6:0] sail_sys_pmp_max_count(sail_unit u); return 7'd16; endfunction
+function automatic sail_unit sail_load_reservation(logic[31:0] u); return SAIL_UNIT; endfunction
+function automatic logic sail_speculate_conditional(sail_unit u); return 0; endfunction
+function automatic logic[63:0] sail_sys_pmp_grain(sail_unit u); return 0; endfunction
+function automatic logic sail_sys_enable_writable_fiom(sail_unit u); return 0; endfunction

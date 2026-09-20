@@ -1,0 +1,11 @@
+# build products and large proof artefacts are not tracked
+build/
+*.aig
+*.aag
+*.aiw
+*.vcd
+*.il
+*.sv.bak
+.DS_Store
+__pycache__/
+_extract/

@@ -1,0 +1,602 @@
+# Hazard3 formal harness: proof source.
+#
+# Step 0 holds every property that is expected to PROVE.  Step 1 holds the
+# properties that are expected to FAIL -- negative controls and two documented
+# model artefacts -- and is commented out by default so that the shipped model
+# contains only provable properties.
+#
+# Everything here mentions only signals inside `cpu` (plus the AHB5 master
+# contract, which mentions only `top`'s bus wires, all of which are driven by
+# `cpu`).  Nothing mentions the Sail specification, which is why the identical
+# property set is built into BOTH models -- build/all.aig and build/core.aig.
+#
+# Support wires are defined in check/h3_core_common.svh, each annotated with the
+# Hazard3 RTL line it restates.
+
+lemma hazard3
+  Trivial: have (1'b1)
+
+  # --- Gate 1: the AHB5 master contract -----------------------------------
+  # Transcribed from hazard3/test/formal/common/ahbl_master_assertions.v (see
+  # check/h3_ahbl_master_props.sv).  These are the harness self-check: with
+  # Hazard3's own slave assumptions constraining the bus inputs, the core must
+  # never violate the master side of the protocol.
+  AhbAphAligned:       have (h3_ahb_aph_aligned)
+  AhbAphSize:          have (h3_ahb_aph_size)
+  AhbAphStable:        have (h3_ahb_aph_stable)
+  AhbSeqAfterActive:   have (h3_ahb_seq_after_active)
+  AhbSeqAddr:          have (h3_ahb_seq_addr)
+  AhbExclNoPipeline:   have (h3_ahb_excl_no_pipeline)
+  AhbDphWdataStable:   have (h3_ahb_dph_wdata_stable)
+  AhbDphExclReserved:  have (h3_ahb_dph_excl_reserved)
+
+  # --- Gate 2: core-only lemmas, in the style of the Ibex lemma writers ----
+  FetchAligned:        have (h3_fetch_addr_word_aligned)
+  PendingFetchesBound: have (h3_pending_fetches_bounded)
+  FlushLePending:      have (h3_flush_le_pending)
+  DataVldHasPending:   have (h3_data_vld_implies_pending)
+  CirVldBounded:       have (h3_cir_vld_bounded)
+  BypassSel1Legal:     have (h3_bypass_sel1_legal)
+  BypassSel2Legal:     have (h3_bypass_sel2_legal)
+  BusDphMutex:         have (h3_bus_dph_mutex)
+  PowerStateAwake:     have (h3_power_state_awake)
+  MuldivBusyHasOp:     have (h3_muldiv_busy_implies_op)
+  DcsrDebugBitsZero:   have (h3_dcsr_debug_bits_zero)
+
+  # --- Gate 2a: regression tests for the undriven-register tie-off ---------
+  # Both of these were MEASURED FALSE at gate 1 (counterexample at BMC depth 1,
+  # the signature of a free signal) because yosys left the register undriven and
+  # `setundef -undriven -anyseq` made it free.  h3_tieoff_undriven.ys now
+  # restores the constant the RTL actually means.  They are here, in step 0, so
+  # that a future change to the build script that loses the tie-off is caught.
+  AmoPhaseZero:        have (h3_amo_phase_zero)
+  DebugModeZero:       have (h3_debug_mode_zero)
+
+  # Flattening sanity check: cpu.core.csr_u.irq is reported "undriven" by
+  # ./probe_undriven.sh, and this decides whether that means it is a SEPARATE
+  # free signal from the top-level `irq` (which would be a silent harness bug
+  # the moment an IRQ environment is added) or merely an alias wire.
+  CsrIrqAlias:         have (h3_irq_alias_ok)
+
+  # --- Gate 2b: the abstraction function, prototyped on mepc ---------------
+  # check/peek/h3_abs.svh.  pre_mepc = cpu.core.csr_u.mepc, read directly;
+  # the harness never reconstructs the next-state value.
+  #
+  # MepcStableBetweenCommits -- (i) pre_mepc does not move except at a commit
+  #   point.  This is what the ghost mechanism (gate 4) needs in order to carry
+  #   the specification's answer from one comparison point to the next.
+  # MepcChangeHasCause       -- (ii) pre_mepc moves only for a trap entry or the
+  #   retirement of a CSR instruction naming 0x341.  Strictly stronger than (i).
+  # MepcAligned              -- (iii) well-formedness: MEPC_MASK clears bit 0.
+  MepcStableBetweenCommits: have (h3_mepc_stable_between_commits)
+  MepcChangeHasCause:       have (h3_mepc_change_has_cause)
+  MepcAligned:              have (h3_mepc_aligned)
+
+  # --- Gate 3: THE COMMIT POINT -------------------------------------------
+  # check/peek/h3_commit.svh.  Three events, at two pipeline boundaries plus
+  # the trap machinery:
+  #   h3_x_advance  X->M handoff  (CSR writes, architectural PC)
+  #   h3_retire     M->W crossing (register file, memory, "cannot be squashed")
+  #   h3_trap_entry trapreg_update_enter (mepc/mcause/mstatus, PC redirect)
+  # with h3_trap_exit (MRET) as a fourth architectural event that is NOT a trap
+  # entry, and h3_refetch as a microarchitectural non-event.
+
+  # 3a. Derivation lemmas -- the RTL facts the definitions lean on.
+  # XAdvanceIsNoStall    |df_cir_use == !(x_stall || d_starved), i.e. the uop
+  #                      and lspair terms of d_stall are dead in this config,
+  #                      so |df_cir_use is two of the three terms of the X/M
+  #                      pipe register's bubble condition (core.v:1280).
+  # NoRefetchException   EXCEPT_REFETCH is unreachable: both producers are
+  #                      parameter-guarded off (csr.v:1275-1281 needs
+  #                      PMP_REGIONS or DEBUG_SUPPORT, decode.v:514 needs
+  #                      EXTENSION_ZIFENCEI).
+  # XProgressMatchesMonitor  our pipe-register-derived "a real instruction is
+  #                      loaded into M" equals the monitor's form.  NOT
+  #                      syntactic: it needs |df_cir_use -> (trap_enter_soon
+  #                      <-> trap handshake), from core.v:414-415.
+  XAdvanceIsNoStall:        have (h3_x_advance_is_no_stall)
+  NoRefetchException:       have (h3_no_refetch_exception)
+  XProgressMatchesMonitor:  have (h3_x_progress_matches_monitor)
+
+  # 3b. Agreement with the core author's own monitor.
+  # hdl/hazard3_rvfi_monitor.vh is compiled into this model
+  # (-DHAZARD3_RVFI_STANDALONE; see check/h3_core_common.svh).  These say our commit point IS his, with the
+  # delay made explicit: rvfm_m_valid is h3_m_valid, and rvfi_valid is
+  # h3_retire delayed by exactly one register.
+  # RvfiTrapExcludesMret proves the REFETCH/MRET exclusions at :28-32 are on
+  # rvfi_TRAP and not on rvfi_valid -- a retiring MRET is valid and untrapped.
+  MValidAgreesRvfi:         have (h3_m_valid_agrees_rvfi)
+  RetireAgreesRvfiValid:    have (h3_retire_agrees_rvfi_valid)
+  RvfiTrapExcludesMret:     have (h3_rvfi_trap_excludes_mret)
+
+  # 3c. Coverage: no architectural state changes outside a commit event.
+  # This is the half that matters -- a change outside every commit point is
+  # state the harness would never compare.
+  # RegWriteAtRetire        the register file write port fires only on a retire
+  #                         cycle.  The obligation the X->M handoff alone could
+  #                         not discharge, and the reason the definition needs
+  #                         two pipeline boundaries.
+  # PcChangeHasCommit       the architectural PC (decode_u.pc) moves only on an
+  #                         X->M handoff or a trap-machinery redirect.
+  # PcChangeHasArchCommit   the same with EXCEPT_REFETCH excluded: only the two
+  #                         ARCHITECTURAL redirects are allowed.  This is the
+  #                         discriminating test of the REFETCH decision.
+  # McauseChangeHasCause    mcause moves only on trap ENTRY or a retiring CSR
+  #                         write to 0x342.  Note the absence of a trap-exit
+  #                         term: MRET must not touch mcause.
+  # MstatusMieChangeHasCause  mstatus.MIE is the one bit all three
+  #                         architectural events write, so all three terms are
+  #                         needed -- the positive half of the MRET decision.
+  RegWriteAtRetire:         have (h3_reg_write_at_retire)
+  PcChangeHasCommit:        have (h3_pc_change_has_commit)
+  PcChangeHasArchCommit:    have (h3_pc_change_has_arch_commit)
+  McauseChangeHasCause:     have (h3_mcause_change_has_cause)
+  MstatusMieChangeHasCause: have (h3_mstatus_mie_change_has_cause)
+
+  # 3d. What holds INSTEAD of mutual exclusion.
+  # h3_retire and h3_trap_entry are deliberately NOT exclusive
+  # (NegRetireTrapExclusive in step 1 must fail).  What is exclusive is the
+  # effect, and what is guaranteed is the coincidence:
+  # ExceptionSuppressesWrite  an exception replaces the instruction in M, so it
+  #                           suppresses that instruction's register write
+  #                           (core.v:1504-1510).
+  # ExceptionTrapRetires      an exception trap always coincides with the
+  #                           completion of the instruction that raised it --
+  #                           which is why rvfi_valid && rvfi_trap is one
+  #                           report and why exception entry, unlike interrupt
+  #                           entry, is never an instruction-less event.
+  # TrapExitRetires           MRET commits its trap-exit effects on the cycle it
+  #                           retires as an instruction.
+  # TrapKindsPartition        the handshake is exactly one of entry/exit/refetch.
+  ExceptionSuppressesWrite: have (h3_exception_suppresses_write)
+  ExceptionTrapRetires:     have (h3_exception_trap_retires)
+  TrapExitRetires:          have (h3_trap_exit_retires)
+  TrapKindsPartition:       have (h3_trap_kinds_partition)
+
+  # --- Gate 4: THE ABSTRACTION, COMPLETED ---------------------------------
+  # check/peek/h3_abs.svh.  Six CSRs (mstatus, mie, mcause, mtvec, mscratch,
+  # mepc -- mtval does not exist), the architectural PC, and the register file.
+  # Design (b) throughout: every pre_* is a READ of committed state, never a
+  # reconstruction of a write.
+
+  # 4a. THE RE-ENCODINGS ARE THE ARCHITECTURAL VALUES.  mstatus is assembled
+  # from five scattered bits, mcause is widened from {irq, code[3:0]} and mtvec
+  # has a WARL'd mode field, so each is restated independently in the harness
+  # and then proved equal to the CSR file's own read-data path
+  # (hdl/hazard3_csr.v:740-745, a pure combinational case on `addr`).  Nothing
+  # here reads a read-ENABLE, so none of them is vacuous.  This check did not
+  # exist at gate 2 and is worth more than the prose justifying the encodings.
+  AbsMepcIsRdata:           have (h3_abs_mepc_is_rdata)
+  AbsMscratchIsRdata:       have (h3_abs_mscratch_is_rdata)
+  AbsMtvecIsRdata:          have (h3_abs_mtvec_is_rdata)
+  AbsMieIsRdata:            have (h3_abs_mie_is_rdata)
+  AbsMcauseIsRdata:         have (h3_abs_mcause_is_rdata)
+  AbsMstatusIsRdata:        have (h3_abs_mstatus_is_rdata)
+  # The constants handed to the specification as read-only CSRs.  If the
+  # configuration drifts, these fail rather than silently mis-specifying.
+  AbsMisaIsRdata:           have (h3_abs_misa_is_rdata)
+  AbsIdsAreRdata:           have (h3_abs_ids_are_rdata)
+  # The two registers the abstraction reports as constant zero because the
+  # design makes them so, not because the harness assumes it.
+  AbsMtvalIsZero:           have (h3_abs_mtval_is_zero)
+  AbsMcounterenIsZero:      have (h3_abs_mcounteren_is_zero)
+  # U_MODE = 0, so there is no privilege state to track and no pre_priv.
+  MModeIsM:                 have (h3_m_mode_is_m)
+  # The harness sizes the instruction from its own encoding rather than reading
+  # hazard3_decode.v's pc_seq_next; this says the two agree.
+  PreNextPcMatchesSeqNext:  have (h3_pre_nextpc_matches_seq_next)
+  # Well-formedness of the three assembled registers.
+  RegX0Zero:                have (h3_reg_x0_zero)
+  MtvecModeLegal:           have (h3_mtvec_mode_legal)
+  MieReservedZero:          have (h3_mie_reserved_zero)
+  # GATE 6.  The obligation attached to the legalize_tvec edit: the stored
+  # reserved MODE bit is hardwired zero, so sys_tvec_wmask()'s cleared bit 1 is
+  # an accurate description of this DUT and not a guess.  See
+  # check/peek/h3_abs.svh section 4e, and the three NegMtvec* controls for the
+  # other half of the claim.
+  MtvecReservedBitHardwired: have (h3_mtvec_reserved_bit_hardwired)
+
+  # 4b. STABLE BETWEEN COMMITS, generalised from gate 2's mepc to all six.
+  # This is what lets the specification's answer, produced at query N, still be
+  # comparable against the DUT at query N+1 -- the whole basis of design (b).
+  MscratchStableBetweenCommits: have (h3_mscratch_stable_between_commits)
+  MtvecStableBetweenCommits:    have (h3_mtvec_stable_between_commits)
+  MieStableBetweenCommits:      have (h3_mie_stable_between_commits)
+  McauseStableBetweenCommits:   have (h3_mcause_stable_between_commits)
+  MstatusStableBetweenCommits:  have (h3_mstatus_stable_between_commits)
+
+  # 4c. CHANGES ONLY FOR A NAMED ARCHITECTURAL REASON.  Note the ABSENCES:
+  #   mscratch / mtvec / mie have NO trap term -- the trap machinery writes
+  #     mepc, mcause and mstatus and nothing else;
+  #   mcause has trap ENTRY but not trap EXIT -- MRET must not touch it;
+  #   mstatus has all three -- the gate-3 MRET decision, now over the whole
+  #     register rather than the MIE bit (NegMstatusNoTrapExit is the control).
+  #   mie's cause list carries TWO addresses, MIE and MEICONTEXT
+  #     (hdl/hazard3_csr.v:335-341), which is the one irregular register.
+  MscratchChangeHasCause:   have (h3_mscratch_change_has_cause)
+  MtvecChangeHasCause:      have (h3_mtvec_change_has_cause)
+  MieChangeHasCause:        have (h3_mie_change_has_cause)
+  McauseChangeHasCauseFull: have (h3_mcause_change_has_cause_full)
+  MstatusChangeHasCause:    have (h3_mstatus_change_has_cause)
+  # The register file.  h3_reg_probe is an arbitrary-but-constant register
+  # index (sampled from a free wire during reset, the same device as
+  # mhartid_val), so this ONE property says "for every register index" and
+  # costs 32 bits of history instead of 1024.  With gate 3's RegWriteAtRetire
+  # it is the register-file half of the commit point: the architectural file
+  # changes only at a retirement that names that register.
+  RegChangeHasWrite:        have (h3_reg_change_has_write)
+
+  # --- Gate 4: THE FOLLOWER ------------------------------------------------
+  # check/peek/h3_follower.svh.  Everything below is core-only: it mentions the
+  # follower's own registers and the core, never the specification's outputs,
+  # so it means exactly the same thing on build/core.aig and build/all.aig.
+
+  # 4d. INTEGRITY.  A follower that is never occupied, or occupied while the
+  # pipeline is empty, or holding a different instruction from the one in M,
+  # makes every gate-5 goal true for the wrong reason.
+  # FollowerMatchesMValid   the follower's occupancy (set on progress, cleared
+  #                         on retire) equals h3_m_valid (followed from the X/M
+  #                         pipe register's own bubble condition).  Two
+  #                         independent formulations; Ibex's ValidExists.
+  # FollowerEmptyIsBubble   when the follower is empty the X/M pipe register
+  #                         really is holding the bubble pattern
+  #                         (hdl/hazard3_core.v:1281-1288).  Nothing is ever
+  #                         recorded for a bubble.
+  # FollowerPcMatchesMonitor / FollowerInstrMatchesMonitor
+  #                         the followed PC and instruction bits are the ones
+  #                         the core author's own monitor records for stage M
+  #                         (rvfm_xm_pc, rvfm_m_instr), which are loaded on a
+  #                         DIFFERENT condition (!x_stall), so this is a real
+  #                         cross-check of the load condition.
+  # FollowerRdMatchesPipe   against the core, not the monitor: xm_rd is what
+  #                         drives the register file's write address.
+  FollowerMatchesMValid:        have (h3_follower_matches_m_valid)
+  FollowerEmptyIsBubble:        have (h3_follower_empty_is_bubble)
+  FollowerPcMatchesMonitor:     have (h3_follower_pc_matches_monitor)
+  FollowerInstrMatchesMonitor:  have (h3_follower_instr_matches_monitor)
+  FollowerRdMatchesPipe:        have (h3_follower_rd_matches_pipe)
+  # The two halves of hdl/hazard3_core.v:1396-1404's comment, which gate 5
+  # needs in order to compare mepc: an exception returns to the M
+  # instruction's PC (the follower's), an interrupt to the X instruction's.
+  FollowerPcIsExceptionReturn:  have (h3_follower_pc_is_exception_return)
+  IrqReturnIsPrePc:             have (h3_irq_return_is_pre_pc)
+  # What the follower recorded about the instruction's exception agrees with
+  # the pipe register.  ONE DIRECTION ONLY -- see NegFollowerExceptExact.
+  FollowerExceptImpliesPipe:      have (h3_follower_except_implies_pipe)
+  FollowerFetchErrIsInstrFault:   have (h3_follower_fetch_err_is_instr_fault)
+  # An interrupt query is instruction-less and must not load the follower.
+  IrqQueryLoadsNothing:           have (h3_irq_query_loads_nothing)
+  # THE LEMMA THAT REPLACES IBEX'S DUT POST-STATE SNAPSHOT.  A CSR write can
+  # only land on a cycle where the instruction in M retires at the same time, so
+  # during a retire cycle the CSR file still holds the RETIRING instruction's
+  # post-state and gate 5 can compare against pre_* one query later instead of
+  # against a snapshot the abstraction cannot build.  Hazard3's form of Ibex's
+  # `instr_will_progress = (~wbexc_exists | wbexc_finishing) & ...`, which there
+  # is a definition and here is a theorem about the stall logic.
+  XProgressEmptiesM:              have (h3_x_progress_empties_m)
+
+  # 4e. GHOST CARRY.  While an instruction is in flight, the ghost holds the
+  # same specification post-state the follower recorded for it -- i.e. no query
+  # happened in between that the follower did not see.  Ibex's SpecPastWbexc /
+  # SpecPastReg.  These are the FIRST properties in this harness that mention
+  # the specification's outputs, so on build/core.aig they are proved against a
+  # free specification (which is a real statement about the follower's
+  # bookkeeping) and on build/all.aig against the Sail model.
+  GhostMatchesFollowerPc:       have (h3_ghost_matches_follower_pc)
+  GhostMatchesFollowerMstatus:  have (h3_ghost_matches_follower_mstatus)
+  GhostMatchesFollowerMie:      have (h3_ghost_matches_follower_mie)
+  GhostMatchesFollowerMcause:   have (h3_ghost_matches_follower_mcause)
+  GhostMatchesFollowerMtvec:    have (h3_ghost_matches_follower_mtvec)
+  GhostMatchesFollowerMscratch: have (h3_ghost_matches_follower_mscratch)
+  GhostMatchesFollowerMepc:     have (h3_ghost_matches_follower_mepc)
+  GhostRegMatchesFollower:      have (h3_ghost_reg_matches_follower)
+  GhostX0Unknown:               have (h3_ghost_x0_unknown)
+
+  # --- Gate 5: THE HARNESS THE GOALS STAND ON ------------------------------
+  # check/peek/h3_mem.svh plus three additions to check/peek/h3_follower.svh.
+  # Core-only, so they mean the same thing on both models and belong in the
+  # regression set above the marker.
+  #
+  # FollowerExceptExact  THE NAMED DELIVERABLE OF THIS GATE.  At gate 4 this was
+  #                      NegFollowerExceptExact, it was in step 1, and it FAILED
+  #                      at BMC depth 6: an instruction can leave X with
+  #                      xm_except == EXCEPT_NONE and pick up an exception later,
+  #                      in M, from a data-phase bus fault (core.v:1289-1296).
+  #                      The follower now tracks that acquisition
+  #                      (h3_fol_except), so its record is exact.  The old
+  #                      snapshot-only form is kept as
+  #                      NegFollowerExceptSnapshot and must STILL FAIL, which is
+  #                      what says the flip is because the follower got better
+  #                      and not because bus faults became unreachable
+  #                      (NegNeverMemFault is the control for that).
+  # FollowerOwnsDphase   a data phase in flight belongs to the instruction the
+  #                      follower is holding.  The memory-side twin of
+  #                      FollowerEmptyIsBubble, and what entitles StoreWData and
+  #                      MemRdataIsSpecData to read the follower's record against
+  #                      the live bus one or more cycles after the query.
+  # MemAphIsProgress     a data-side address phase is accepted ONLY on a cycle
+  #                      where the instruction that issued it leaves X.
+  #                      core.v:484 puts `bus_aph_req_d && !bus_aph_ready_d`
+  #                      inside x_stall and :779-788 suppresses the request for
+  #                      every other reason the instruction might not progress.
+  #                      THIS IS THE LEMMA THAT COLLAPSES IBEX'S `FstEnd` INTO
+  #                      `En`: in Ibex the request going out and the instruction
+  #                      progressing are different cycles and need separate
+  #                      obligations; here they are the same cycle.
+  FollowerExceptExact:          have (h3_follower_except_exact)
+  FollowerOwnsDphase:           have (h3_follower_owns_dphase)
+  MemAphIsProgress:             have (h3_mem_aph_is_progress)
+
+# ===========================================================================
+  /
+
+  # --- CTI-derived (loop turn 1), step 0 so the spike can assume them ----
+  CtiRdAddrMatchesInsn:   have (h3_cti_rd_addr_matches_insn)
+  CtiFolInstrMatchesRvfi: have (h3_cti_fol_instr_matches_rvfi)
+  /
+
+  # --- SPIKE: bounded class-restricted post-state compare --------------
+  SpikeAddSame:   have (h3_spike_add_same)
+  SpikeAddLag:    have (h3_spike_add_lag)
+  SpikeAddReach:  have (h3_spike_add_reach)   # MUST FAIL
+  SpikeAddiSame:   have (h3_spike_addi_same)
+  SpikeAddiLag:    have (h3_spike_addi_lag)
+  SpikeAddiReach:  have (h3_spike_addi_reach)   # MUST FAIL
+  SpikeXorSame:   have (h3_spike_xor_same)
+  SpikeXorLag:    have (h3_spike_xor_lag)
+  SpikeXorReach:  have (h3_spike_xor_reach)   # MUST FAIL
+  SpikeSlliSame:   have (h3_spike_slli_same)
+  SpikeSlliLag:    have (h3_spike_slli_lag)
+  SpikeSlliReach:  have (h3_spike_slli_reach)   # MUST FAIL
+  SpikeLuiSame:   have (h3_spike_lui_same)
+  SpikeLuiLag:    have (h3_spike_lui_lag)
+  SpikeLuiReach:  have (h3_spike_lui_reach)   # MUST FAIL
+
+# GATE 5 GOALS
+# ===========================================================================
+# Everything ABOVE this marker is regression: it is core-only or
+# specification-as-free-data, it proves on BOTH build/core.aig and build/all.aig,
+# and sweep.sh checks it on both.  Everything BELOW asserts that the
+# SPECIFICATION'S VALUE IS CORRECT, so it is meaningful on build/all.aig ONLY --
+# on build/core.aig the `spec_*` wires are free inputs and every one of these is
+# falsifiable at depth 1 for a reason that has nothing to do with Hazard3.
+# ./goals.sh proves them, against all.aig, four at a time (gate 4's OOM rule).
+#
+# These four are Ibex's five (dv/formal/README.md, "Top Level Goals") minus
+# liveness, which is out of scope by decision -- see check/peek/h3_goals.svh's
+# header for exactly what that costs.
+#
+#   Wrap*    at each query the specification's inputs equal its own outputs from
+#            the previous query.  Ibex thm/riscv.proof:168-176.
+#   Load*    \  the memory requests Hazard3 makes are the ones the specification
+#   Store*   /  makes, same addresses, same data, same byte lanes.
+#   NoMem    an instruction the specification says touches no memory makes no
+#            data-side bus transfer.  Ibex thm/mem.proof:102, restated over the
+#            specification rather than over a second decoder in the harness --
+#            see h3_goals.svh for why that deviation is deliberate.
+#
+# THEY ARE NOT EXPECTED TO PROVE YET.  On Ibex the same four needed ~130 helper
+# lemmas; finding those is gate 6.  What this gate claims is that each one is
+# STATED CORRECTLY and fails, if it fails, for a reason that can be read off a
+# counterexample.  BRINGUP.md's gate-5 section records which is which.
+
+  # SpecEnUnreach / SpecEnUnreachIdex -- Ibex's thm/ibex.proof:299.  The strong
+  # form is expected to FAIL and is stated anyway: spec/main.sail:68-81 returns
+  # MAINRES_NOIFERR whenever the Sail fetch succeeds, and riscv_mem.sail:168-183
+  # makes mem_read_i a PMP-and-alignment check that, with an empty PMP and an
+  # aligned PC, always does.  So a MAIN_IFERR query always sets int_err.
+  SpecEnUnreach:                have (h3_spec_en_unreach)
+  SpecEnUnreachIdex:            have (h3_spec_en_unreach_idex)
+
+  # --- GOAL 1: Wrap ---------------------------------------------------------
+  WrapPc:                       have (h3_wrap_pc)
+  WrapMstatus:                  have (h3_wrap_mstatus)
+  WrapMie:                      have (h3_wrap_mie)
+  WrapMcause:                   have (h3_wrap_mcause)
+  WrapMtvec:                    have (h3_wrap_mtvec)
+  WrapMscratch:                 have (h3_wrap_mscratch)
+  WrapMepc:                     have (h3_wrap_mepc)
+  WrapRegA:                     have (h3_wrap_reg_a)
+  WrapRegB:                     have (h3_wrap_reg_b)
+
+  # --- GOAL 4: NoMem, and the direction check that goes with it -------------
+  NoMem:                        have (h3_no_mem)
+  MemWe:                        have (h3_mem_we_matches)
+  MemNoSecondGranule:           have (h3_mem_no_second_granule)
+
+  # --- GOAL 2: Load ---------------------------------------------------------
+  LoadEn:                       have (h3_load_en)
+  LoadAddr:                     have (h3_load_addr)
+
+  # --- GOAL 3: Store --------------------------------------------------------
+  StoreEn:                      have (h3_store_en)
+  StoreAddr:                    have (h3_store_addr)
+  StoreBe:                      have (h3_store_be)
+  StoreWData:                   have (h3_store_wdata)
+
+# ---------------------------------------------------------------------------
+# Step 1: properties that MUST FAIL.  Uncomment the block below, rebuild, and
+#   build/aig-manip build/core.aig select build/sel-neg.aig build/core.ywmap 1 <Name>
+#   rIC3 -e bmc build/sel-neg.aig     # expect RESULT: SAT, exit code 10
+# ./neg_check.sh does all of that against a throwaway build/neg.aig.
+#
+# NegControl        -- non-vacuity.  fetch_addr[2] toggles as soon as the
+#                      frontend gets one fetch granted, so this is false at BMC
+#                      depth 3.  If it ever proved, `rst_ni` would never be going
+#                      high and every `disable iff (~rst_ni)` property would be
+#                      vacuous.
+#
+# The three below are the non-vacuity controls for MepcChangeHasCause.  Each is
+# MepcChangeHasCause with one term deleted.  If any of them PROVED,
+# MepcChangeHasCause would be true for an uninteresting reason:
+#
+# NegMepcNeverMoves -- mepc never changes at all (the model cannot reach a trap
+#                      or a CSR write, so the abstraction is never exercised).
+# NegMepcOnlyTrap   -- the "retiring CSR write to mepc" disjunct is dead.
+# NegMepcOnlyCsr    -- the "trap entry" disjunct is dead.
+#
+# GATE 3.  Every obligation in 3c/3d is an implication guarded by a commit
+# event, so every event needs a witness or its guard is vacuous:
+#
+# NegNeverRetire       -- an instruction never crosses M/W.
+# NegNeverRvfiValid    -- the author's monitor never reports a retirement
+#                         either (so RetireAgreesRvfiValid is not 0 == 0).
+# NegNeverRegWrite     -- the register file is never written.
+# NegNeverTrapEntry    -- no trap is ever entered.
+# NegNeverIrqTrap      -- no INTERRUPT is ever taken (the instruction-less
+#                         commit event; if this proved, the whole second event
+#                         would be dead machinery).
+# NegNeverExcTrap      -- no EXCEPTION is ever taken.
+# NegNeverTrapExit     -- no MRET ever retires (the MRET decision would be
+#                         untested).
+#
+# NegRetireTrapExclusive -- THE IMPORTANT ONE.  If this PROVED, retire and trap
+#                         entry would be mutually exclusive, one commit
+#                         predicate would cover both, and the two-event
+#                         structure would be unnecessary.  It must fail.
+#
+# GATE 4.  The abstraction's non-vacuity, one per ghosted register: if a
+# register can never move, its StableBetweenCommits / ChangeHasCause pair is
+# true for an uninteresting reason.
+#
+# GATE 6.  The load-bearing half of the WARL fix.  lowRISC's legalize_tvec says
+# mtvec is 256-byte aligned with MODE hardwired to vectored; these say Hazard3's
+# is not, so that reverting it to upstream's WARL form changes the model's
+# answer rather than tidying it:
+#
+# NegMtvecBaseLowZero       -- BASE below bit 8 is writable (not 256-byte aligned).
+# NegMtvecModeNeverVectored -- MODE can be set to vectored ...
+# NegMtvecModeNeverCleared  -- ... and written back to direct, so it is a
+#                              writable field and not the constant 0x1.
+# NegMcauseNeverCsrWritten  -- mcause moves for a reason other than trap entry,
+#                              i.e. legalize_mcause is actually reached.
+#
+# NegMscratchNeverMoves / NegMtvecNeverMoves / NegMieNeverMoves /
+# NegMcauseNeverMoves / NegMstatusNeverMoves / NegRegProbeNeverMoves
+#
+# NegMstatusNoTrapExit -- MstatusChangeHasCause with the trap-exit term deleted.
+#                         The positive half of the MRET decision, restated over
+#                         the whole of mstatus rather than the MIE bit.
+# NegNoUncheckableCsr  -- a CSR access at an address the harness calls
+#                         uncheckable is reachable, so the ghost's clearing
+#                         path is not dead code.
+#
+# GATE 4, the follower.  Every obligation in 4d/4e is guarded by h3_fol_valid,
+# so the guard needs a witness or the whole gate is vacuous:
+#
+# NegFollowerNeverValid     -- the follower never holds an instruction.
+# NegFollowerNeverExcepts   -- it never holds an EXCEPTING instruction.
+# NegFollowerNeverWritesReg -- the specification never writes a register for the
+#                              in-flight instruction, i.e. GhostRegMatchesFollower
+#                              is 0 == 0.
+# NegHasGhostNever          -- the ghost is never valid.
+# NegGhostRegNeverKnown     -- the ghost register file is never written.
+# NegGhost<X>AlwaysZero     -- one per ghosted register: the ghost never takes a
+#                              non-reset value, i.e. it is dead weight and every
+#                              comparison against it is trivially satisfied.
+# NegNeverIferrQuery /
+# NegNeverIrqQuery          -- the specification is queried in each of its three
+#                              modes.  MAIN_IDEX is covered by NegNeverRetire.
+#
+# GATE 5.  The controls for the four goals and for the late-exception fix.
+#
+# NegFollowerExceptSnapshot -- WAS NegFollowerExceptExact at gate 4, where it was
+#                         the measurement of the late-exception gap.  Gate 5
+#                         closed the gap by making the follower track the
+#                         exception an instruction picks up in M, so
+#                         FollowerExceptExact is now in step 0.  This is that
+#                         property restated over the SNAPSHOT, and it must still
+#                         fail -- otherwise the late term is dead machinery and
+#                         the flip means nothing.
+# NegNeverMemFault     -- and this is the other half of the same argument: the
+#                         data-phase bus fault is still REACHABLE.  If it proved,
+#                         FollowerExceptExact would be true because nothing ever
+#                         happens.  (Ibex assumes bus errors away --
+#                         check/protocol/mem.sv:38.  This harness does not; it
+#                         drops the ghost instead, which is strictly weaker.)
+# NegNeverMemAph / NegNeverMemRead / NegNeverMemWrite
+#                      -- Hazard3 issues data-side reads and writes at all.
+#                         Without these, NoMem, MemWe, LoadAddr, StoreAddr and
+#                         StoreBe are all `!h3_mem_aph || ...` over a constant
+#                         false antecedent.
+# NegAlwaysMemAph      -- and the converse for NoMem specifically: some query
+#                         makes NO memory request, so NoMem is not the vacuous
+#                         reading of itself.
+# NegNeverWrapPoint    -- a query happens with the ghost valid, i.e. Wrap's guard
+#                         is reachable.  THE control for goal 1.
+# NegNeverWrapReg      -- an instruction reads a register the ghost knows a value
+#                         for, i.e. WrapRegA/WrapRegB are not 0 -> x.
+# NegSpecNeverReads /
+# NegSpecNeverWrites   -- the SPECIFICATION asks for a load, and for a store.
+#                         These are the controls that make LoadEn/StoreEn
+#                         statements about Sail rather than about a free wire,
+#                         and they are in neg_check_all.sh for that reason.
+# NegNeverStoreDphase  -- StoreWData's three-deep guard is reachable.
+# NegNeverLoadDphaseEnd -- the memory assumption's antecedent is reachable.  If
+#                         it proved, the specification would never be told
+#                         anything about memory and every load would be compared
+#                         against an unconstrained word.
+#
+# NegNestedTrapAssume -- a soundness check on enabling the RVFI monitor.
+#                         hazard3_csr.v:1554-1555 would `assume(except == NONE
+#                         || except == MRET)` whenever in_trap.  It sits inside
+#                         `ifdef RISCV_FORMAL, which -DHAZARD3_RVFI_STANDALONE
+#                         defines, but that is nested inside `ifdef
+#                         HAZARD3_ASSERTIONS, which this flow does not define.
+#                         This property is that assumption's body over its own
+#                         guard (in_trap reproduced in the harness), so if the
+#                         assumption got in, it would PROVE.  It must FAIL.
+#                         Independently: the AIGER constraint count is C=5
+#                         before and after this gate.
+#  /
+#  NegControl:             have (h3_neg_control)
+#  NegMepcNeverMoves:      have (h3_neg_mepc_never_moves)
+#  NegMepcOnlyTrap:        have (h3_neg_mepc_only_trap)
+#  NegMepcOnlyCsr:         have (h3_neg_mepc_only_csr)
+#  NegNeverRetire:         have (h3_neg_never_retire)
+#  NegNeverRvfiValid:      have (h3_neg_never_rvfi_valid)
+#  NegNeverRegWrite:       have (h3_neg_never_reg_write)
+#  NegNeverTrapEntry:      have (h3_neg_never_trap_entry)
+#  NegNeverIrqTrap:        have (h3_neg_never_irq_trap)
+#  NegNeverExcTrap:        have (h3_neg_never_exc_trap)
+#  NegNeverTrapExit:       have (h3_neg_never_trap_exit)
+#  NegRetireTrapExclusive: have (h3_neg_retire_trap_exclusive)
+#  NegNestedTrapAssume:    have (h3_neg_nested_trap_assume)
+#  NegMscratchNeverMoves:       have (h3_neg_mscratch_never_moves)
+#  NegMtvecNeverMoves:          have (h3_neg_mtvec_never_moves)
+#  NegMieNeverMoves:            have (h3_neg_mie_never_moves)
+#  NegMcauseNeverMoves:         have (h3_neg_mcause_never_moves)
+#  NegMstatusNeverMoves:        have (h3_neg_mstatus_never_moves)
+#  NegMstatusNoTrapExit:        have (h3_neg_mstatus_no_trap_exit)
+#  NegMtvecBaseLowZero:         have (h3_neg_mtvec_base_low_zero)
+#  NegMtvecModeNeverVectored:   have (h3_neg_mtvec_mode_never_vectored)
+#  NegMtvecModeNeverCleared:    have (h3_neg_mtvec_mode_never_cleared)
+#  NegMcauseNeverCsrWritten:    have (h3_neg_mcause_never_csr_written)
+#  NegRegProbeNeverMoves:       have (h3_neg_reg_probe_never_moves)
+#  NegNoUncheckableCsr:         have (h3_neg_no_uncheckable_csr)
+#  NegFollowerNeverValid:       have (h3_neg_follower_never_valid)
+#  NegFollowerNeverExcepts:     have (h3_neg_follower_never_excepts)
+#  NegFollowerNeverWritesReg:   have (h3_neg_follower_never_writes_reg)
+#  NegFollowerExceptSnapshot:   have (h3_neg_follower_except_snapshot)
+#  NegNeverMemAph:              have (h3_neg_never_mem_aph)
+#  NegNeverMemRead:             have (h3_neg_never_mem_read)
+#  NegNeverMemWrite:            have (h3_neg_never_mem_write)
+#  NegNeverMemFault:            have (h3_neg_never_mem_fault)
+#  NegAlwaysMemAph:             have (h3_neg_always_mem_aph)
+#  NegNeverWrapPoint:           have (h3_neg_never_wrap_point)
+#  NegNeverWrapReg:             have (h3_neg_never_wrap_reg)
+#  NegSpecNeverReads:           have (h3_neg_spec_never_reads)
+#  NegSpecNeverWrites:          have (h3_neg_spec_never_writes)
+#  NegNeverStoreDphase:         have (h3_neg_never_store_dphase)
+#  NegNeverLoadDphaseEnd:       have (h3_neg_never_load_dphase_end)
+#  NegHasGhostNever:            have (h3_neg_has_ghost_never)
+#  NegGhostRegNeverKnown:       have (h3_neg_ghost_reg_never_known)
+#  NegGhostPcAlwaysZero:        have (h3_neg_ghost_pc_always_zero)
+#  NegGhostMstatusAlwaysZero:   have (h3_neg_ghost_mstatus_always_zero)
+#  NegGhostMieAlwaysZero:       have (h3_neg_ghost_mie_always_zero)
+#  NegGhostMcauseAlwaysZero:    have (h3_neg_ghost_mcause_always_zero)
+#  NegGhostMtvecAlwaysZero:     have (h3_neg_ghost_mtvec_always_zero)
+#  NegGhostMscratchAlwaysZero:  have (h3_neg_ghost_mscratch_always_zero)
+#  NegGhostMepcAlwaysZero:      have (h3_neg_ghost_mepc_always_zero)
+#  NegNeverIferrQuery:          have (h3_neg_never_iferr_query)
+#  NegNeverIrqQuery:            have (h3_neg_never_irq_query)

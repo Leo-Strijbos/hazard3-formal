@@ -1,0 +1,26 @@
+81a266b6 Move CSR register access
+dd559805 Update WFI Illegal case for User mode
+05bcf4cb Don't throw illegal exception immediately after C_ILLEGAL decode
+93c01cbd Switch to a decompress+execute model for compressed instructions
+f62f2acc Add instruction memory reads
+6cd843ad Relax fence decoding
+93788e9a Remove S** bits from mie
+5faf997c Remove definitions of extensions Ibex doesn't have
+2e3ab102 Remove instructions that don't exist.
+3547e9af Reset EBREAK mtval to 0
+cdd98f60 Correct C_LUI preconditions
+cd1f0ca6 Correct mtval for memory operations
+8a16afab Correct Load register assignment
+e298a971 Correct decompression for Ibex
+4a946b33 Merge https://github.com/HamzaKh01/sail-riscv into ibex
+2d3434e1 Make the CSR instruction better represent ibex
+bae8f76c Fix PMP issue which was missed in an earlier commit
+02fc3a91 Merge pull request #1 from mndstrmr/ibex
+b63cba3c Extensively rework memory
+3261bd2d Fix PMP overflow issues
+11a7ec08 Rework PMP to recognise misaligned operations properly
+63723350 Simply memory by removing unused MMIO
+4196ed48 Remove further VEXT definitions
+9b9cb127 Comment out parts of vmem that don't compile
+a9043a49 Remove VEXT references entirely we can just not compile that in
+720cf415 Added support of Smepmp

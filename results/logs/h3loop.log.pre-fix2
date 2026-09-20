@@ -1,0 +1,1688 @@
+=== MODEL CHANGE fix1 2026-09-19 09:35: RTL conformance patches MPRV/MEICONTEXT/FENCE_FIELDS + Sail Gate 8 (TW). Old log: /var/tmp/h3loop.log.pre-fix1. Every lemma re-proved below. maxjobs=18 ===
+core build rc=0  aig 777559 38366 4762 18713 734431 167 6 0 0
+PATCH_MANIFEST: 5 conformance patches: C.ADDI4SPN reserved nzuimm==0 now traps ;mstatus.MPRV read-only 0 when U_MODE=0 ;meicontext write to mie gated on EXTENSION_XH3IRQ ;FENCE ignores rs1/rd instead of trapping ;FENCE decode forces rs1/rs2/rd to x0 ;
+=== re-proving ALL 147 lemmas (steps 0..27) on the fixed model: core pre-screen 09:36 ===
+CORE AhbDphExclReserved PROVED-ON-CORE t=13.94s C=6 step=0 (transfers to all.aig)
+CORE AbsMtvalIsZero PROVED-ON-CORE t=14.04s C=6 step=0 (transfers to all.aig)
+CORE AbsMstatusIsRdata PROVED-ON-CORE t=14.06s C=6 step=0 (transfers to all.aig)
+CORE AbsMcounterenIsZero PROVED-ON-CORE t=14.42s C=6 step=0 (transfers to all.aig)
+CORE AbsMisaIsRdata PROVED-ON-CORE t=14.10s C=6 step=0 (transfers to all.aig)
+CORE AhbExclNoPipeline PROVED-ON-CORE t=14.07s C=6 step=0 (transfers to all.aig)
+CORE AhbAphSize PROVED-ON-CORE t=13.97s C=6 step=0 (transfers to all.aig)
+CORE AhbSeqAfterActive PROVED-ON-CORE t=14.06s C=6 step=0 (transfers to all.aig)
+CORE AhbSeqAddr PROVED-ON-CORE t=14.10s C=6 step=0 (transfers to all.aig)
+CORE AbsMcauseIsRdata PROVED-ON-CORE t=13.89s C=6 step=0 (transfers to all.aig)
+CORE AbsMieIsRdata PROVED-ON-CORE t=13.98s C=6 step=0 (transfers to all.aig)
+CORE AbsMepcIsRdata PROVED-ON-CORE t=13.97s C=6 step=0 (transfers to all.aig)
+CORE AbsMtvecIsRdata PROVED-ON-CORE t=13.74s C=6 step=0 (transfers to all.aig)
+CORE AbsIdsAreRdata PROVED-ON-CORE t=14.09s C=6 step=0 (transfers to all.aig)
+CORE AbsMscratchIsRdata PROVED-ON-CORE t=13.57s C=6 step=0 (transfers to all.aig)
+CORE AhbAphAligned not-proved-on-core (goes to all.aig)
+CORE AhbDphWdataStable not-proved-on-core (goes to all.aig)
+CORE AhbAphStable not-proved-on-core (goes to all.aig)
+build rc=0  aig 12276159 1815172 4762 66092 10456225 167 6 0 0
+ibexspec.sv regenerated, TW/zifencei hits: 5
+CORE DebugModeZero PROVED-ON-CORE t=13.52s C=6 step=0 (transfers to all.aig)
+CORE ExceptionSuppressesWrite PROVED-ON-CORE t=13.72s C=6 step=0 (transfers to all.aig)
+CORE AmoPhaseZero PROVED-ON-CORE t=13.63s C=6 step=0 (transfers to all.aig)
+CORE CirVldBounded PROVED-ON-CORE t=13.75s C=6 step=0 (transfers to all.aig)
+CORE FetchAligned PROVED-ON-CORE t=13.76s C=6 step=0 (transfers to all.aig)
+CORE DcsrDebugBitsZero PROVED-ON-CORE t=13.75s C=6 step=0 (transfers to all.aig)
+CORE CsrIrqAlias PROVED-ON-CORE t=13.75s C=6 step=0 (transfers to all.aig)
+CORE BypassSel2Legal PROVED-ON-CORE t=13.56s C=6 step=0 (transfers to all.aig)
+CORE BypassSel1Legal PROVED-ON-CORE t=13.30s C=6 step=0 (transfers to all.aig)
+CORE FollowerExceptExact not-proved-on-core (goes to all.aig)
+CORE FollowerEmptyIsBubble not-proved-on-core (goes to all.aig)
+CORE FollowerExceptImpliesPipe not-proved-on-core (goes to all.aig)
+CORE BusDphMutex not-proved-on-core (goes to all.aig)
+CORE FlushLePending not-proved-on-core (goes to all.aig)
+CORE DataVldHasPending not-proved-on-core (goes to all.aig)
+CORE FollowerInstrMatchesMonitor not-proved-on-core (goes to all.aig)
+CORE FollowerFetchErrIsInstrFault not-proved-on-core (goes to all.aig)
+CORE ExceptionTrapRetires not-proved-on-core (goes to all.aig)
+CORE IrqQueryLoadsNothing PROVED-ON-CORE t=13.64s C=6 step=0 (transfers to all.aig)
+CORE FollowerMatchesMValid PROVED-ON-CORE t=13.85s C=6 step=0 (transfers to all.aig)
+CORE MModeIsM PROVED-ON-CORE t=13.51s C=6 step=0 (transfers to all.aig)
+CORE GhostX0Unknown PROVED-ON-CORE t=13.78s C=6 step=0 (transfers to all.aig)
+CORE MValidAgreesRvfi PROVED-ON-CORE t=13.80s C=6 step=0 (transfers to all.aig)
+CORE IrqReturnIsPrePc PROVED-ON-CORE t=13.65s C=6 step=0 (transfers to all.aig)
+CORE FollowerOwnsDphase not-proved-on-core (goes to all.aig)
+CORE FollowerRdMatchesPipe not-proved-on-core (goes to all.aig)
+CORE FollowerPcMatchesMonitor not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMcause not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMtvec not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerPc not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMepc not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMscratch not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMie not-proved-on-core (goes to all.aig)
+CORE GhostMatchesFollowerMstatus not-proved-on-core (goes to all.aig)
+CORE GhostRegMatchesFollower not-proved-on-core (goes to all.aig)
+CORE FollowerPcIsExceptionReturn not-proved-on-core (goes to all.aig)
+CORE MtvecReservedBitHardwired PROVED-ON-CORE t=13.62s C=6 step=0 (transfers to all.aig)
+CORE MieReservedZero PROVED-ON-CORE t=13.76s C=6 step=0 (transfers to all.aig)
+CORE MepcAligned PROVED-ON-CORE t=13.80s C=6 step=0 (transfers to all.aig)
+CORE MtvecModeLegal PROVED-ON-CORE t=13.96s C=6 step=0 (transfers to all.aig)
+CORE MieStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE MstatusMieChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MieChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MstatusStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE MstatusChangeHasCause not-proved-on-core (goes to all.aig)
+CORE McauseChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MepcStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE McauseStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE McauseChangeHasCauseFull not-proved-on-core (goes to all.aig)
+CORE MepcChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MscratchStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE MscratchChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MtvecChangeHasCause not-proved-on-core (goes to all.aig)
+CORE MemAphIsProgress not-proved-on-core (goes to all.aig)
+CORE TrapKindsPartition PROVED-ON-CORE t=13.55s C=6 step=0 (transfers to all.aig)
+CORE Trivial PROVED-ON-CORE t=13.53s C=6 step=0 (transfers to all.aig)
+CORE XProgressEmptiesM PROVED-ON-CORE t=13.56s C=6 step=0 (transfers to all.aig)
+CORE NoRefetchException PROVED-ON-CORE t=13.70s C=6 step=0 (transfers to all.aig)
+CORE RvfiTrapExcludesMret PROVED-ON-CORE t=13.85s C=6 step=0 (transfers to all.aig)
+CORE RegX0Zero PROVED-ON-CORE t=13.82s C=6 step=0 (transfers to all.aig)
+CORE MuldivBusyHasOp PROVED-ON-CORE t=13.77s C=6 step=0 (transfers to all.aig)
+CORE RegChangeHasWrite PROVED-ON-CORE t=14.05s C=6 step=0 (transfers to all.aig)
+CORE TrapExitRetires not-proved-on-core (goes to all.aig)
+CORE XAdvanceIsNoStall not-proved-on-core (goes to all.aig)
+CORE PowerStateAwake not-proved-on-core (goes to all.aig)
+CORE RetireAgreesRvfiValid not-proved-on-core (goes to all.aig)
+CORE PcChangeHasCommit not-proved-on-core (goes to all.aig)
+CORE MtvecStableBetweenCommits not-proved-on-core (goes to all.aig)
+CORE PcChangeHasArchCommit not-proved-on-core (goes to all.aig)
+CORE PendingFetchesBound not-proved-on-core (goes to all.aig)
+CORE RegWriteAtRetire not-proved-on-core (goes to all.aig)
+CORE PreNextPcMatchesSeqNext not-proved-on-core (goes to all.aig)
+CORE CtiSpecPostMtvecReservedZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMscratchFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecReadIsLoadInsn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostMieReservedZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecWriteIsStoreInsn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolIntErrIsFetchErr refuted-on-core (decides nothing; goes to all.aig)
+CORE XProgressMatchesMonitor PROVED-ON-CORE t=12.78s C=6 step=0 (transfers to all.aig)
+CORE CtiPastPreMtvecReservedZero PROVED-ON-CORE t=13.00s C=98 step=2 (transfers to all.aig)
+CORE CtiXProgressAphAccepted PROVED-ON-CORE t=13.14s C=107 step=3 (transfers to all.aig)
+CORE CtiPastValidAgree PROVED-ON-CORE t=13.24s C=98 step=2 (transfers to all.aig)
+CORE CtiAphReqAccepted PROVED-ON-CORE t=13.05s C=98 step=2 (transfers to all.aig)
+CORE CtiGhostMtvecReservedZero PROVED-ON-CORE t=13.11s C=107 step=3 (transfers to all.aig)
+CORE CtiCsrWenIsQuery PROVED-ON-CORE t=13.30s C=98 step=2 (transfers to all.aig)
+CORE CtiHasRegImpliesHasGhost PROVED-ON-CORE t=13.12s C=98 step=2 (transfers to all.aig)
+CORE CtiMemopRaisesAph PROVED-ON-CORE t=12.99s C=98 step=2 (transfers to all.aig)
+CORE CtiMscratchChangeIsQuery PROVED-ON-CORE t=12.70s C=110 step=4 (transfers to all.aig)
+CORE CtiCirRawPassthrough PROVED-ON-CORE t=12.20s C=98 step=2 (transfers to all.aig)
+CORE CtiFolInstrMatchesRvfi PROVED-ON-CORE t=11.61s C=97 step=1 (transfers to all.aig)
+CORE CtiFolMemNotBoth PROVED-ON-CORE t=13.70s C=118 step=6 (transfers to all.aig)
+CORE CtiSpecMemNotBoth PROVED-ON-CORE t=13.95s C=114 step=5 (transfers to all.aig)
+CORE CtiHasGhostImpliesPastValid PROVED-ON-CORE t=14.11s C=114 step=5 (transfers to all.aig)
+CORE CtiFolValidImpliesPastValid PROVED-ON-CORE t=14.07s C=114 step=5 (transfers to all.aig)
+CORE CtiMStoreHasNoRd PROVED-ON-CORE t=13.86s C=124 step=10 (transfers to all.aig)
+CORE CtiCirLengthAgreesRaw PROVED-ON-CORE t=13.89s C=119 step=7 (transfers to all.aig)
+CORE CtiDExceptLegal PROVED-ON-CORE t=13.95s C=125 step=11 (transfers to all.aig)
+CORE CtiDMemopLegal PROVED-ON-CORE t=14.02s C=125 step=11 (transfers to all.aig)
+CORE CtiXmExceptLegal PROVED-ON-CORE t=14.29s C=127 step=12 (transfers to all.aig)
+CORE CtiXmMemopLegal PROVED-ON-CORE t=13.98s C=127 step=12 (transfers to all.aig)
+CORE CtiXStoreHasNoRd PROVED-ON-CORE t=14.05s C=123 step=9 (transfers to all.aig)
+CORE CtiCirInvalidAgreesRaw PROVED-ON-CORE t=14.11s C=131 step=14 (transfers to all.aig)
+CORE CtiCsrWenIsUncompressed PROVED-ON-CORE t=13.26s C=114 step=5 (transfers to all.aig)
+CORE CtiMwResultIsRegfile PROVED-ON-CORE t=13.86s C=120 step=8 (transfers to all.aig)
+CORE CtiRs1SelectTracksRd PROVED-ON-CORE t=16.68s C=120 step=8 (transfers to all.aig)
+CORE CtiRs2SelectTracksRd PROVED-ON-CORE t=13.18s C=120 step=8 (transfers to all.aig)
+CORE CtiRs2BypassIsPreRegsV2 PROVED-ON-CORE t=15.48s C=129 step=13 (transfers to all.aig)
+CORE CtiRs1BypassIsPreRegs PROVED-ON-CORE t=16.26s C=129 step=13 (transfers to all.aig)
+CORE CtiSpecMepcFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMcauseFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMieFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMtvecFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMtvec refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMie refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiCirUopFlagsZero PROVED-ON-CORE t=13.25s C=131 step=14 (transfers to all.aig)
+CORE CtiXmSleepImpliesNoMemop PROVED-ON-CORE t=13.15s C=134 step=15 (transfers to all.aig)
+CORE CtiMieChangeIsQuery PROVED-ON-CORE t=13.18s C=141 step=20 (transfers to all.aig)
+CORE CtiMtvecChangeIsQuery PROVED-ON-CORE t=13.12s C=144 step=22 (transfers to all.aig)
+CORE CtiNoProgressDuringExcEntry PROVED-ON-CORE t=13.53s C=149 step=25 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=13.21s C=140 step=19 (transfers to all.aig)
+CORE CtiNoBreakFlags PROVED-ON-CORE t=13.27s C=134 step=15 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir32 PROVED-ON-CORE t=12.83s C=137 step=17 (transfers to all.aig)
+CORE CtiRs1PredecodeAgreesCir32 PROVED-ON-CORE t=12.77s C=137 step=17 (transfers to all.aig)
+CORE CtiStoreDataIsRegfile PROVED-ON-CORE t=13.52s C=136 step=16 (transfers to all.aig)
+CORE CtiRs2StoreBypassIsPreRegs PROVED-ON-CORE t=14.42s C=131 step=14 (transfers to all.aig)
+CORE CtiCirVldTracksBufLevel PROVED-ON-CORE t=11.34s C=150 step=26 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir16V3 PROVED-ON-CORE t=11.75s C=151 step=27 (transfers to all.aig)
+CORE CtiRs1PredecodeAgreesCir16V3 PROVED-ON-CORE t=11.14s C=151 step=27 (transfers to all.aig)
+=== core pre-screen done 10:25: 86 of 147 proved on core ===
+/var/tmp/reprove_all.sh: line 68: wait: pid 584930 is not a child of this shell
+=== all.aig pass: 61 lemmas not proved on core 10:25 ===
+REPROVE AbsMtvalIsZero RESULT: UNSAT t=14.04s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMscratchIsRdata RESULT: UNSAT t=13.57s C=6 step=0 model=core (proof transfers)
+REPROVE AhbSeqAfterActive RESULT: UNSAT t=14.06s C=6 step=0 model=core (proof transfers)
+REPROVE AhbSeqAddr RESULT: UNSAT t=14.10s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMstatusIsRdata RESULT: UNSAT t=14.06s C=6 step=0 model=core (proof transfers)
+REPROVE AhbExclNoPipeline RESULT: UNSAT t=14.07s C=6 step=0 model=core (proof transfers)
+REPROVE AhbAphSize RESULT: UNSAT t=13.97s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMepcIsRdata RESULT: UNSAT t=13.97s C=6 step=0 model=core (proof transfers)
+REPROVE AbsIdsAreRdata RESULT: UNSAT t=14.09s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMieIsRdata RESULT: UNSAT t=13.98s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMisaIsRdata RESULT: UNSAT t=14.10s C=6 step=0 model=core (proof transfers)
+REPROVE AhbDphExclReserved RESULT: UNSAT t=13.94s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMtvecIsRdata RESULT: UNSAT t=13.74s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMcauseIsRdata RESULT: UNSAT t=13.89s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMcounterenIsZero RESULT: UNSAT t=14.42s C=6 step=0 model=core (proof transfers)
+=== step-0 IC3 pass (prove1.sh method: rIC3 default engine, 1800 s, core.aig, no constraints), 4-wide: 48 lemmas 10:27: AhbAphAligned AhbAphStable AhbDphWdataStable BusDphMutex DataVldHasPending ExceptionTrapRetires FlushLePending FollowerEmptyIsBubble FollowerExceptExact FollowerExceptImpliesPipe FollowerFetchErrIsInstrFault FollowerInstrMatchesMonitor FollowerOwnsDphase FollowerPcIsExceptionReturn FollowerPcMatchesMonitor FollowerRdMatchesPipe GhostMatchesFollowerMcause GhostMatchesFollowerMepc GhostMatchesFollowerMie GhostMatchesFollowerMscratch GhostMatchesFollowerMstatus GhostMatchesFollowerMtvec GhostMatchesFollowerPc GhostRegMatchesFollower McauseChangeHasCause McauseChangeHasCauseFull McauseStableBetweenCommits MemAphIsProgress MepcChangeHasCause MepcStableBetweenCommits MieChangeHasCause MieStableBetweenCommits MscratchChangeHasCause MscratchStableBetweenCommits MstatusChangeHasCause MstatusMieChangeHasCause MstatusStableBetweenCommits MtvecChangeHasCause MtvecStableBetweenCommits PcChangeHasArchCommit PcChangeHasCommit PendingFetchesBound PowerStateAwake PreNextPcMatchesSeqNext RegWriteAtRetire RetireAgreesRvfiValid TrapExitRetires XAdvanceIsNoStall ===
+REPROVE BusDphMutex RESULT: UNSAT t=12.53s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbAphAligned RESULT: UNSAT t=47.25s step=0 engine=ic3 model=core (spec-free; proof transfers)
+=== step-0 IC3 pass B (reverse order, skips lemmas s0 already started; prove1.sh method: rIC3 default engine, 1800 s, core.aig, no constraints), 8-wide: 46 lemmas 10:30: XAdvanceIsNoStall TrapExitRetires RetireAgreesRvfiValid RegWriteAtRetire PreNextPcMatchesSeqNext PowerStateAwake PendingFetchesBound PcChangeHasCommit PcChangeHasArchCommit MtvecStableBetweenCommits MtvecChangeHasCause MstatusStableBetweenCommits MstatusMieChangeHasCause MstatusChangeHasCause MscratchStableBetweenCommits MscratchChangeHasCause MieStableBetweenCommits MieChangeHasCause MepcStableBetweenCommits MepcChangeHasCause MemAphIsProgress McauseStableBetweenCommits McauseChangeHasCauseFull McauseChangeHasCause GhostRegMatchesFollower GhostMatchesFollowerPc GhostMatchesFollowerMtvec GhostMatchesFollowerMstatus GhostMatchesFollowerMscratch GhostMatchesFollowerMie GhostMatchesFollowerMepc GhostMatchesFollowerMcause FollowerRdMatchesPipe FollowerPcMatchesMonitor FollowerPcIsExceptionReturn FollowerOwnsDphase FollowerInstrMatchesMonitor FollowerFetchErrIsInstrFault FollowerExceptImpliesPipe FollowerExceptExact FollowerEmptyIsBubble FlushLePending ExceptionTrapRetires DataVldHasPending AhbDphWdataStable AhbAphStable ===
+REPROVE XAdvanceIsNoStall RESULT: UNSAT t=13.13s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RetireAgreesRvfiValid RESULT: UNSAT t=13.15s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasCommit RESULT: UNSAT t=13.21s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE TrapExitRetires RESULT: UNSAT t=13.29s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PreNextPcMatchesSeqNext RESULT: UNSAT t=13.31s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RegWriteAtRetire RESULT: UNSAT t=13.31s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PendingFetchesBound RESULT: UNSAT t=13.81s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PowerStateAwake RESULT: UNSAT t=14.72s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusChangeHasCause RESULT: UNSAT t=12.90s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchStableBetweenCommits RESULT: UNSAT t=12.95s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasArchCommit RESULT: UNSAT t=12.96s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecStableBetweenCommits RESULT: UNSAT t=13.00s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchChangeHasCause RESULT: UNSAT t=13.01s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusMieChangeHasCause RESULT: UNSAT t=13.15s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecChangeHasCause RESULT: UNSAT t=13.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusStableBetweenCommits RESULT: UNSAT t=13.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCauseFull RESULT: UNSAT t=12.68s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCause RESULT: UNSAT t=12.70s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseStableBetweenCommits RESULT: UNSAT t=12.79s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcStableBetweenCommits RESULT: UNSAT t=13.02s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieChangeHasCause RESULT: UNSAT t=13.08s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieStableBetweenCommits RESULT: UNSAT t=13.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcChangeHasCause RESULT: UNSAT t=13.23s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MemAphIsProgress RESULT: UNSAT t=15.04s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMepc RESULT: UNSAT t=12.68s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMtvec RESULT: UNSAT t=12.80s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMstatus RESULT: UNSAT t=12.88s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerPc RESULT: UNSAT t=12.89s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMscratch RESULT: UNSAT t=12.89s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMie RESULT: UNSAT t=12.96s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMcause RESULT: UNSAT t=12.99s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostRegMatchesFollower RESULT: UNSAT t=14.32s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerInstrMatchesMonitor RESULT: UNSAT t=12.60s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerRdMatchesPipe RESULT: UNSAT t=13.22s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerOwnsDphase RESULT: UNSAT t=13.22s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptImpliesPipe RESULT: UNSAT t=13.27s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptExact RESULT: UNSAT t=13.50s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcMatchesMonitor RESULT: UNSAT t=13.81s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerFetchErrIsInstrFault RESULT: UNSAT t=17.62s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbDphWdataStable RESULT: UNSAT t=263.41s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcIsExceptionReturn RESULT: UNSAT t=315.95s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerEmptyIsBubble RESULT: UNSAT t=12.57s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FlushLePending RESULT: UNSAT t=12.85s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE DataVldHasPending RESULT: UNSAT t=13.09s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbDphWdataStable  t=400.79s C=6 step=0
+REPROVE AhbAphStable  t=401.05s C=6 step=0
+REPROVE AhbAphAligned  t=401.16s C=6 step=0
+REPROVE AmoPhaseZero RESULT: UNSAT t=13.63s C=6 step=0 model=core (proof transfers)
+REPROVE ExceptionSuppressesWrite RESULT: UNSAT t=13.72s C=6 step=0 model=core (proof transfers)
+REPROVE BypassSel2Legal RESULT: UNSAT t=13.56s C=6 step=0 model=core (proof transfers)
+REPROVE BypassSel1Legal RESULT: UNSAT t=13.30s C=6 step=0 model=core (proof transfers)
+REPROVE FetchAligned RESULT: UNSAT t=13.76s C=6 step=0 model=core (proof transfers)
+REPROVE CsrIrqAlias RESULT: UNSAT t=13.75s C=6 step=0 model=core (proof transfers)
+REPROVE DebugModeZero RESULT: UNSAT t=13.52s C=6 step=0 model=core (proof transfers)
+REPROVE CirVldBounded RESULT: UNSAT t=13.75s C=6 step=0 model=core (proof transfers)
+REPROVE DcsrDebugBitsZero RESULT: UNSAT t=13.75s C=6 step=0 model=core (proof transfers)
+REPROVE AhbAphStable RESULT: UNSAT t=616.40s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerEmptyIsBubble RESULT: UNSAT t=13.22s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FlushLePending RESULT: UNSAT t=13.59s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE DataVldHasPending RESULT: UNSAT t=13.94s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE ExceptionTrapRetires RESULT: UNSAT t=202.10s step=0 engine=ic3 model=core (spec-free; proof transfers)
+=== step-0 IC3 pass B done 10:39: 46 of 46 proved ===
+STEP0-IC3B-DONE
+REPROVE ExceptionTrapRetires RESULT: UNSAT t=204.40s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerInstrMatchesMonitor RESULT: UNSAT t=12.61s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptImpliesPipe RESULT: UNSAT t=13.10s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptExact RESULT: UNSAT t=13.30s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerFetchErrIsInstrFault RESULT: UNSAT t=17.61s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerRdMatchesPipe RESULT: UNSAT t=13.51s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerOwnsDphase RESULT: UNSAT t=13.68s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcMatchesMonitor RESULT: UNSAT t=14.10s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcIsExceptionReturn RESULT: UNSAT t=337.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMepc RESULT: UNSAT t=12.38s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMie RESULT: UNSAT t=12.44s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMscratch RESULT: UNSAT t=12.45s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMcause RESULT: UNSAT t=12.53s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMtvec RESULT: UNSAT t=12.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerPc RESULT: UNSAT t=12.29s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMstatus RESULT: UNSAT t=12.33s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostRegMatchesFollower RESULT: UNSAT t=13.93s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCause RESULT: UNSAT t=12.49s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCauseFull RESULT: UNSAT t=12.50s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseStableBetweenCommits RESULT: UNSAT t=12.65s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MemAphIsProgress RESULT: UNSAT t=14.91s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieStableBetweenCommits RESULT: UNSAT t=12.75s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieChangeHasCause RESULT: UNSAT t=12.77s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcStableBetweenCommits RESULT: UNSAT t=12.79s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcChangeHasCause RESULT: UNSAT t=12.91s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusChangeHasCause RESULT: UNSAT t=12.44s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusMieChangeHasCause RESULT: UNSAT t=12.79s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchStableBetweenCommits RESULT: UNSAT t=12.82s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchChangeHasCause RESULT: UNSAT t=12.83s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasArchCommit RESULT: UNSAT t=12.64s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecChangeHasCause RESULT: UNSAT t=12.76s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecStableBetweenCommits RESULT: UNSAT t=12.80s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusStableBetweenCommits RESULT: UNSAT t=12.81s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PreNextPcMatchesSeqNext RESULT: UNSAT t=13.12s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasCommit RESULT: UNSAT t=13.13s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PendingFetchesBound RESULT: UNSAT t=13.72s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PowerStateAwake RESULT: UNSAT t=14.48s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE XAdvanceIsNoStall RESULT: UNSAT t=13.09s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RetireAgreesRvfiValid RESULT: UNSAT t=13.12s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RegWriteAtRetire RESULT: UNSAT t=13.27s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE TrapExitRetires RESULT: UNSAT t=13.28s step=0 engine=ic3 model=core (spec-free; proof transfers)
+=== step-0 IC3 pass done 10:49: 48 of 48 proved ===
+STEP0-IC3-DONE
+REPROVE FollowerInstrMatchesMonitor  t=400.65s C=6 step=0
+REPROVE FollowerEmptyIsBubble  t=401.34s C=6 step=0
+REPROVE DataVldHasPending  t=401.48s C=6 step=0
+REPROVE FollowerFetchErrIsInstrFault  t=401.61s C=6 step=0
+REPROVE ExceptionTrapRetires  t=401.73s C=6 step=0
+REPROVE FlushLePending  t=401.51s C=6 step=0
+REPROVE FollowerExceptImpliesPipe  t=401.64s C=6 step=0
+REPROVE FollowerExceptExact  t=401.66s C=6 step=0
+REPROVE BusDphMutex  t=401.72s C=6 step=0
+REPROVE IrqQueryLoadsNothing RESULT: UNSAT t=13.64s C=6 step=0 model=core (proof transfers)
+REPROVE IrqReturnIsPrePc RESULT: UNSAT t=13.65s C=6 step=0 model=core (proof transfers)
+REPROVE GhostX0Unknown RESULT: UNSAT t=13.78s C=6 step=0 model=core (proof transfers)
+REPROVE MModeIsM RESULT: UNSAT t=13.51s C=6 step=0 model=core (proof transfers)
+REPROVE FollowerMatchesMValid RESULT: UNSAT t=13.85s C=6 step=0 model=core (proof transfers)
+REPROVE MValidAgreesRvfi RESULT: UNSAT t=13.80s C=6 step=0 model=core (proof transfers)
+REPROVE GhostRegMatchesFollower RESULT: UNSAT t=191.34s C=6 step=0
+REPROVE GhostMatchesFollowerMie  t=401.54s C=6 step=0
+REPROVE FollowerPcMatchesMonitor  t=401.46s C=6 step=0
+REPROVE FollowerOwnsDphase  t=401.91s C=6 step=0
+REPROVE GhostMatchesFollowerMepc  t=401.67s C=6 step=0
+REPROVE GhostMatchesFollowerMcause  t=401.64s C=6 step=0
+REPROVE GhostMatchesFollowerMstatus  t=401.88s C=6 step=0
+REPROVE GhostMatchesFollowerMscratch  t=401.85s C=6 step=0
+REPROVE FollowerRdMatchesPipe  t=401.83s C=6 step=0
+REPROVE GhostMatchesFollowerPc  t=401.88s C=6 step=0
+REPROVE FollowerPcIsExceptionReturn  t=402.27s C=6 step=0
+REPROVE GhostMatchesFollowerMtvec  t=402.04s C=6 step=0
+REPROVE MtvecModeLegal RESULT: UNSAT t=13.96s C=6 step=0 model=core (proof transfers)
+REPROVE MtvecReservedBitHardwired RESULT: UNSAT t=13.62s C=6 step=0 model=core (proof transfers)
+REPROVE MepcAligned RESULT: UNSAT t=13.80s C=6 step=0 model=core (proof transfers)
+REPROVE MieReservedZero RESULT: UNSAT t=13.76s C=6 step=0 model=core (proof transfers)
+REPROVE MieChangeHasCause  t=400.77s C=6 step=0
+REPROVE MscratchStableBetweenCommits  t=400.77s C=6 step=0
+REPROVE MtvecChangeHasCause  t=400.70s C=6 step=0
+REPROVE MieStableBetweenCommits  t=400.84s C=6 step=0
+REPROVE MstatusMieChangeHasCause  t=400.65s C=6 step=0
+REPROVE MscratchChangeHasCause  t=400.75s C=6 step=0
+REPROVE McauseStableBetweenCommits  t=400.65s C=6 step=0
+REPROVE McauseChangeHasCause  t=401.67s C=6 step=0
+REPROVE MstatusChangeHasCause  t=401.87s C=6 step=0
+REPROVE MepcChangeHasCause  t=401.97s C=6 step=0
+REPROVE MepcStableBetweenCommits  t=401.78s C=6 step=0
+REPROVE McauseChangeHasCauseFull  t=401.80s C=6 step=0
+REPROVE MemAphIsProgress  t=402.19s C=6 step=0
+REPROVE MstatusStableBetweenCommits  t=402.28s C=6 step=0
+REPROVE RvfiTrapExcludesMret RESULT: UNSAT t=13.85s C=6 step=0 model=core (proof transfers)
+REPROVE RegChangeHasWrite RESULT: UNSAT t=14.05s C=6 step=0 model=core (proof transfers)
+REPROVE NoRefetchException RESULT: UNSAT t=13.70s C=6 step=0 model=core (proof transfers)
+REPROVE XProgressEmptiesM RESULT: UNSAT t=13.56s C=6 step=0 model=core (proof transfers)
+REPROVE Trivial RESULT: UNSAT t=13.53s C=6 step=0 model=core (proof transfers)
+REPROVE RegX0Zero RESULT: UNSAT t=13.82s C=6 step=0 model=core (proof transfers)
+REPROVE MuldivBusyHasOp RESULT: UNSAT t=13.77s C=6 step=0 model=core (proof transfers)
+REPROVE TrapKindsPartition RESULT: UNSAT t=13.55s C=6 step=0 model=core (proof transfers)
+REPROVE XAdvanceIsNoStall  t=400.84s C=6 step=0
+REPROVE MtvecStableBetweenCommits  t=400.60s C=6 step=0
+REPROVE RetireAgreesRvfiValid  t=401.66s C=6 step=0
+REPROVE PowerStateAwake  t=401.72s C=6 step=0
+REPROVE PreNextPcMatchesSeqNext  t=401.84s C=6 step=0
+REPROVE TrapExitRetires  t=401.76s C=6 step=0
+REPROVE PcChangeHasCommit  t=401.80s C=6 step=0
+REPROVE PcChangeHasArchCommit  t=401.98s C=6 step=0
+REPROVE PendingFetchesBound  t=402.09s C=6 step=0
+REPROVE RegWriteAtRetire  t=402.35s C=6 step=0
+REPROVE CtiPastPreMtvecReservedZero RESULT: UNSAT t=13.00s C=98 step=2 model=core (proof transfers)
+REPROVE CtiCsrWenIsQuery RESULT: UNSAT t=13.30s C=98 step=2 model=core (proof transfers)
+REPROVE CtiAphReqAccepted RESULT: UNSAT t=13.05s C=98 step=2 model=core (proof transfers)
+REPROVE CtiCirRawPassthrough RESULT: UNSAT t=12.20s C=98 step=2 model=core (proof transfers)
+REPROVE CtiHasRegImpliesHasGhost RESULT: UNSAT t=13.12s C=98 step=2 model=core (proof transfers)
+REPROVE CtiMscratchChangeIsQuery RESULT: UNSAT t=12.70s C=110 step=4 model=core (proof transfers)
+REPROVE XProgressMatchesMonitor RESULT: UNSAT t=12.78s C=6 step=0 model=core (proof transfers)
+REPROVE CtiFolInstrMatchesRvfi RESULT: UNSAT t=11.61s C=97 step=1 model=core (proof transfers)
+REPROVE CtiPastValidAgree RESULT: UNSAT t=13.24s C=98 step=2 model=core (proof transfers)
+REPROVE CtiMemopRaisesAph RESULT: UNSAT t=12.99s C=98 step=2 model=core (proof transfers)
+REPROVE CtiXProgressAphAccepted RESULT: UNSAT t=13.14s C=107 step=3 model=core (proof transfers)
+REPROVE CtiGhostMtvecReservedZero RESULT: UNSAT t=13.11s C=107 step=3 model=core (proof transfers)
+REPROVE CtiSpecPostMtvecReservedZero RESULT: UNSAT t=150.81s C=98 step=2
+REPROVE CtiSpecReadIsLoadInsn RESULT: UNSAT t=150.26s C=110 step=4
+REPROVE CtiSpecWriteIsStoreInsn RESULT: UNSAT t=152.57s C=110 step=4
+REPROVE CtiGhostMieReservedZero RESULT: UNSAT t=153.86s C=107 step=3
+REPROVE CtiSpecMscratchFrame RESULT: UNSAT t=154.70s C=110 step=4
+REPROVE CtiFolIntErrIsFetchErr RESULT: UNSAT t=216.66s C=98 step=2
+REPROVE CtiRs1SelectTracksRd RESULT: UNSAT t=16.68s C=120 step=8 model=core (proof transfers)
+REPROVE CtiMwResultIsRegfile RESULT: UNSAT t=13.86s C=120 step=8 model=core (proof transfers)
+REPROVE CtiDMemopLegal RESULT: UNSAT t=14.02s C=125 step=11 model=core (proof transfers)
+REPROVE CtiRs2SelectTracksRd RESULT: UNSAT t=13.18s C=120 step=8 model=core (proof transfers)
+REPROVE CtiXmExceptLegal RESULT: UNSAT t=14.29s C=127 step=12 model=core (proof transfers)
+REPROVE CtiHasGhostImpliesPastValid RESULT: UNSAT t=14.11s C=114 step=5 model=core (proof transfers)
+REPROVE CtiMStoreHasNoRd RESULT: UNSAT t=13.86s C=124 step=10 model=core (proof transfers)
+REPROVE CtiCirLengthAgreesRaw RESULT: UNSAT t=13.89s C=119 step=7 model=core (proof transfers)
+REPROVE CtiXmMemopLegal RESULT: UNSAT t=13.98s C=127 step=12 model=core (proof transfers)
+REPROVE CtiCirInvalidAgreesRaw RESULT: UNSAT t=14.11s C=131 step=14 model=core (proof transfers)
+REPROVE CtiDExceptLegal RESULT: UNSAT t=13.95s C=125 step=11 model=core (proof transfers)
+REPROVE CtiFolValidImpliesPastValid RESULT: UNSAT t=14.07s C=114 step=5 model=core (proof transfers)
+REPROVE CtiRs2BypassIsPreRegsV2 RESULT: UNSAT t=15.48s C=129 step=13 model=core (proof transfers)
+REPROVE CtiRs1BypassIsPreRegs RESULT: UNSAT t=16.26s C=129 step=13 model=core (proof transfers)
+REPROVE CtiCsrWenIsUncompressed RESULT: UNSAT t=13.26s C=114 step=5 model=core (proof transfers)
+REPROVE CtiFolMemNotBoth RESULT: UNSAT t=13.70s C=118 step=6 model=core (proof transfers)
+REPROVE CtiXStoreHasNoRd RESULT: UNSAT t=14.05s C=123 step=9 model=core (proof transfers)
+REPROVE CtiSpecMemNotBoth RESULT: UNSAT t=13.95s C=114 step=5 model=core (proof transfers)
+REPROVE CtiXmSleepImpliesNoMemop RESULT: UNSAT t=13.15s C=134 step=15 model=core (proof transfers)
+REPROVE CtiStoreDataIsRegfile RESULT: UNSAT t=13.52s C=136 step=16 model=core (proof transfers)
+REPROVE CtiGhostTracksMscratch RESULT: UNSAT t=13.21s C=140 step=19 model=core (proof transfers)
+REPROVE CtiRs2StoreBypassIsPreRegs RESULT: UNSAT t=14.42s C=131 step=14 model=core (proof transfers)
+REPROVE CtiMieChangeIsQuery RESULT: UNSAT t=13.18s C=141 step=20 model=core (proof transfers)
+REPROVE CtiNoProgressDuringExcEntry RESULT: UNSAT t=13.53s C=149 step=25 model=core (proof transfers)
+REPROVE CtiCirUopFlagsZero RESULT: UNSAT t=13.25s C=131 step=14 model=core (proof transfers)
+REPROVE CtiMtvecChangeIsQuery RESULT: UNSAT t=13.12s C=144 step=22 model=core (proof transfers)
+REPROVE CtiRs2PredecodeAgreesCir32 RESULT: UNSAT t=12.83s C=137 step=17 model=core (proof transfers)
+REPROVE CtiRs1PredecodeAgreesCir32 RESULT: UNSAT t=12.77s C=137 step=17 model=core (proof transfers)
+REPROVE CtiNoBreakFlags RESULT: UNSAT t=13.27s C=134 step=15 model=core (proof transfers)
+REPROVE CtiSpecMieFrame RESULT: UNSAT t=153.43s C=141 step=20
+REPROVE CtiSpecMcauseFrame RESULT: UNSAT t=154.46s C=147 step=24
+REPROVE CtiSpecMtvecFrame RESULT: UNSAT t=157.34s C=144 step=22
+REPROVE CtiGhostTracksMie RESULT: UNSAT t=159.90s C=143 step=21
+REPROVE CtiSpecMepcFrame RESULT: UNSAT t=186.02s C=147 step=24
+REPROVE CtiFollowerPostIsDutMscratchV2 RESULT: UNSAT t=194.28s C=139 step=18
+REPROVE CtiGhostTracksMtvec RESULT: UNSAT t=196.00s C=146 step=23
+REPROVE CtiRs1PredecodeAgreesCir16V3 RESULT: UNSAT t=11.14s C=151 step=27 model=core (proof transfers)
+REPROVE CtiCirVldTracksBufLevel RESULT: UNSAT t=11.34s C=150 step=26 model=core (proof transfers)
+REPROVE CtiRs2PredecodeAgreesCir16V3 RESULT: UNSAT t=11.75s C=151 step=27 model=core (proof transfers)
+=== re-prove complete 11:42: 147 of 147 re-proved; NOT re-proved (left in place, NOT stripped):  ===
+=== goals, CTI-first: 20 targets 11:42 ===
+ICTI WrapMie NO-INDUCTION-CTI k=1
+ICTI WrapMtvec NO-INDUCTION-CTI k=1
+ICTI WrapMscratch NO-INDUCTION-CTI k=1
+ICTI MemNoSecondGranule NO-INDUCTION-CTI k=1
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI NoMem INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-NoMem/report.txt
+GOAL-CTI NoMem (not attempted with kind; CTI is next round's material)
+ICTI SpecEnUnreach INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-SpecEnUnreach/report.txt
+GOAL-CTI SpecEnUnreach (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapMstatus INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapMstatus/report.txt
+GOAL-CTI WrapMstatus (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI MemWe INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-MemWe/report.txt
+GOAL-CTI MemWe (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI LoadEn INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-LoadEn/report.txt
+GOAL-CTI LoadEn (not attempted with kind; CTI is next round's material)
+ICTI SpecEnUnreachIdex NO-INDUCTION-CTI k=1
+RESULT WrapMie RESULT: UNSAT t=165.48s C=153 step=28 (GOAL)
+RESULT WrapMtvec RESULT: UNSAT t=163.24s C=153 step=28 (GOAL)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+RESULT WrapMscratch RESULT: UNSAT t=164.26s C=153 step=28 (GOAL)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+RESULT MemNoSecondGranule RESULT: UNSAT t=150.82s C=153 step=28 (GOAL)
+RESULT SpecEnUnreachIdex RESULT: UNSAT t=151.58s C=153 step=28 (GOAL)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/fix1-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+=== chain_check3 on every goal ===
+CHAIN LoadAddr: VERDICT: NOT PROVEN (MISSING)
+CHAIN LoadEn: VERDICT: NOT PROVEN (MISSING)
+CHAIN MemNoSecondGranule: VERDICT: PROVEN on this model — every constraint present and validly proven
+CHAIN MemWe: VERDICT: NOT PROVEN (MISSING)
+CHAIN NoMem: VERDICT: NOT PROVEN (MISSING)
+CHAIN SpecEnUnreach: VERDICT: NOT PROVEN (MISSING)
+CHAIN SpecEnUnreachIdex: VERDICT: PROVEN on this model — every constraint present and validly proven
+CHAIN StoreAddr: VERDICT: NOT PROVEN (MISSING)
+CHAIN StoreBe: VERDICT: NOT PROVEN (MISSING)
+CHAIN StoreEn: VERDICT: NOT PROVEN (MISSING)
+CHAIN StoreWData: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapMcause: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapMepc: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapMie: VERDICT: PROVEN on this model — every constraint present and validly proven
+CHAIN WrapMscratch: VERDICT: PROVEN on this model — every constraint present and validly proven
+CHAIN WrapMstatus: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapMtvec: VERDICT: PROVEN on this model — every constraint present and validly proven
+CHAIN WrapPc: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapRegA: VERDICT: NOT PROVEN (MISSING)
+CHAIN WrapRegB: VERDICT: NOT PROVEN (MISSING)
+ROUND-fix1-DONE 12:03
+=== ROUND 17 staging 12:08: 8 candidates in 2 layers (mstatus hardwired-zero x3, CtiSpecMstatusFrame, CtiGhostTracks{Mcause,Mepc}V2 re-submitted; then CtiGhostTracks{Mstatus,Pc}V2), goals WrapMstatus WrapMcause WrapMepc WrapPc ===
+=== ROUND round17 (v3.6) 12:08  maxjobs=18 kind_cap=400s ===
+inserted 8 candidates at a new layer: CtiMstatusHardwiredZero CtiSpecPostMstatusHardwiredZero CtiSpecMstatusFrame CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostMstatusHardwiredZero CtiGhostTracksMstatusV2 CtiGhostTracksPcV2
+core build rc=0  aig 778438 38366 4762 18718 735310 175 6 0 0
+=== core pre-screen of 8 candidates 12:09 ===
+CORE CtiSpecPostMstatusHardwiredZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMepcV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcauseV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMstatusFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMstatusV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMstatusHardwiredZero PROVED-ON-CORE t=11.19s C=153 step=28 (transfers to all.aig)
+CORE CtiGhostMstatusHardwiredZero PROVED-ON-CORE t=11.02s C=158 step=29 (transfers to all.aig)
+=== core pre-screen done 12:09: 2 proved on core ===
+build rc=0  aig 12277038 1815172 4762 66097 10457104 175 6 0 0
+=== proving 8 candidates, 18 at a time 12:17 ===
+RESULT CtiMstatusHardwiredZero RESULT: UNSAT t=11.19s C=153 step=28 model=core (proof transfers)
+RESULT CtiGhostMstatusHardwiredZero RESULT: UNSAT t=11.02s C=158 step=29 model=core (proof transfers)
+ICTI CtiSpecPostMstatusHardwiredZero INDUCTION-CTI k=1 frames=3 -> results/icti/round17-CtiSpecPostMstatusHardwiredZero/report.txt
+RESULT CtiSpecMstatusFrame RESULT: UNSAT t=165.57s C=153 step=28
+ICTI CtiGhostTracksPcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round17-CtiGhostTracksPcV2/report.txt
+ICTI CtiGhostTracksMepcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round17-CtiGhostTracksMepcV2/report.txt
+ICTI CtiGhostTracksMcauseV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round17-CtiGhostTracksMcauseV2/report.txt
+ICTI CtiGhostTracksMstatusV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round17-CtiGhostTracksMstatusV2/report.txt
+ICTI CtiSpecMstatusFrame NO-INDUCTION-CTI k=1
+RESULT CtiSpecPostMstatusHardwiredZero  t=400.71s C=153 step=28
+RESULT CtiGhostTracksPcV2  t=401.04s C=158 step=29
+RESULT CtiGhostTracksMepcV2  t=401.18s C=153 step=28
+RESULT CtiGhostTracksMstatusV2  t=401.10s C=158 step=29
+RESULT CtiGhostTracksMcauseV2  t=401.24s C=153 step=28
+=== removing 5 unproven: CtiSpecPostMstatusHardwiredZero CtiGhostTracksPcV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksMcauseV2 ===
+removed 5: CtiSpecPostMstatusHardwiredZero CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksPcV2
+ywstrip rc=0  retired 5: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksPcV2 CtiSpecPostMstatusHardwiredZero  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 3 survivors on the post-strip model 12:29 ===
+RESULT CtiMstatusHardwiredZero RESULT: UNSAT t=147.09s C=153 step=28
+ICTI CtiMstatusHardwiredZero NO-INDUCTION-CTI k=1
+RESULT CtiGhostMstatusHardwiredZero RESULT: UNSAT t=153.27s C=155 step=29
+RESULT CtiSpecMstatusFrame RESULT: UNSAT t=158.08s C=153 step=28
+ICTI CtiGhostMstatusHardwiredZero NO-INDUCTION-CTI k=1
+ICTI CtiSpecMstatusFrame NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 4 targets 12:38 ===
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round17-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round17-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round17-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapMstatus INDUCTION-CTI k=1 frames=3 -> results/icti/round17-WrapMstatus/report.txt
+GOAL-CTI WrapMstatus (not attempted with kind; CTI is next round's material)
+ROUND-round17-DONE 12:46
+=== ROUND 18 staging 12:46: CtiCirIsDecompressedRaw (.dut, reference decompressor) + CtiWb{Addi,Add,Xor,Lui} (follower-form writeback value over M residency); goals LoadAddr StoreAddr ===
+=== ROUND round18 (v3.6) 12:46  maxjobs=18 kind_cap=400s ===
+inserted 5 candidates at a new layer: CtiCirIsDecompressedRaw CtiWbAddi CtiWbAdd CtiWbXor CtiWbLui
+core build rc=0  aig 791202 38744 4762 19264 747696 175 6 0 0
+=== core pre-screen of 5 candidates 12:47 ===
+CORE CtiWbLui refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiCirIsDecompressedRaw REFUTED-ON-CORE (DUT-only: a real CEX, skipping all.aig)
+CORE CtiWbAdd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAddi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbXor refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 12:47: 0 proved on core ===
+build rc=0  aig 12289802 1815550 4762 66643 10469490 175 6 0 0
+=== proving 5 candidates, 18 at a time 12:55 ===
+RESULT CtiCirIsDecompressedRaw SKIPPED (DUT-only, failed on core)
+RESULT CtiWbLui RESULT: UNSAT t=150.79s C=156 step=30
+ICTI CtiWbLui NO-INDUCTION-CTI k=1
+RESULT CtiWbAddi RESULT: UNSAT t=223.29s C=156 step=30
+ICTI CtiWbAddi NO-INDUCTION-CTI k=1
+RESULT CtiWbXor RESULT: UNSAT t=258.81s C=156 step=30
+RESULT CtiWbAdd RESULT: UNSAT t=337.39s C=156 step=30
+ICTI CtiWbXor NO-INDUCTION-CTI k=1
+ICTI CtiWbAdd NO-INDUCTION-CTI k=1
+=== removing 1 unproven: CtiCirIsDecompressedRaw ===
+removed 1: CtiCirIsDecompressedRaw
+ywstrip rc=0  retired 1: CtiCirIsDecompressedRaw  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 4 survivors on the post-strip model 13:08 ===
+RESULT CtiWbLui RESULT: UNSAT t=149.29s C=156 step=30
+ICTI CtiWbLui NO-INDUCTION-CTI k=1
+RESULT CtiWbAddi RESULT: UNSAT t=223.23s C=156 step=30
+RESULT CtiWbXor RESULT: UNSAT t=254.99s C=156 step=30
+ICTI CtiWbAddi NO-INDUCTION-CTI k=1
+RESULT CtiWbAdd RESULT: UNSAT t=334.17s C=156 step=30
+ICTI CtiWbXor NO-INDUCTION-CTI k=1
+ICTI CtiWbAdd NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 13:22 ===
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round18-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round18-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ROUND-round18-DONE 13:31
+=== ROUND 19 staging 13:31: CtiCirIsDecompressedRawV2 (cir == decomp|32'd3, frontend.v:882) + CtiCirInvalidIsDecompressedRaw, both .dut; goals LoadAddr StoreAddr ===
+=== ROUND round19 (v3.6) 13:31  maxjobs=18 kind_cap=400s ===
+inserted 2 candidates at a new layer: CtiCirIsDecompressedRawV2 CtiCirInvalidIsDecompressedRaw
+core build rc=0  aig 791997 38744 4762 19290 748491 176 6 0 0
+=== core pre-screen of 2 candidates 13:31 ===
+CORE CtiCirInvalidIsDecompressedRaw PROVED-ON-CORE t=10.73s C=160 step=31 (transfers to all.aig)
+CORE CtiCirIsDecompressedRawV2 PROVED-ON-CORE t=14.68s C=160 step=31 (transfers to all.aig)
+=== core pre-screen done 13:33: 2 proved on core ===
+build rc=0  aig 12290597 1815550 4762 66669 10470285 176 6 0 0
+=== proving 2 candidates, 18 at a time 13:41 ===
+RESULT CtiCirIsDecompressedRawV2 RESULT: UNSAT t=14.68s C=160 step=31 model=core (proof transfers)
+RESULT CtiCirInvalidIsDecompressedRaw RESULT: UNSAT t=10.73s C=160 step=31 model=core (proof transfers)
+=== goals, CTI-first: 2 targets 13:41 ===
+ICTI StoreAddr NO-INDUCTION-CTI k=1
+ICTI LoadAddr NO-INDUCTION-CTI k=1
+RESULT StoreAddr RESULT: UNSAT t=196.68s C=162 step=32 (GOAL)
+RESULT LoadAddr RESULT: UNSAT t=222.12s C=162 step=32 (GOAL)
+ROUND-round19-DONE 13:54
+=== ROUND 20 staging 13:55: CtiWb{Auipc,Sub,Sll,Slt,Sltu,Srl,Sra,Or,And,Slli,Srli,Srai} (writeback value, follower form); no goals ===
+=== ROUND round20 (v3.6) 13:55  maxjobs=18 kind_cap=400s ===
+inserted 12 candidates at a new layer: CtiWbAuipc CtiWbSub CtiWbSll CtiWbSlt CtiWbSltu CtiWbSrl CtiWbSra CtiWbOr CtiWbAnd CtiWbSlli CtiWbSrli CtiWbSrai
+core build rc=0  aig 792671 38744 4762 19304 749165 188 6 0 0
+=== core pre-screen of 12 candidates 13:55 ===
+CORE CtiWbSltu refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAuipc refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrl refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSra refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSub refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAnd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSll refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlt refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbOr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrai refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 13:56: 0 proved on core ===
+build rc=0  aig 12291271 1815550 4762 66683 10470959 188 6 0 0
+=== proving 12 candidates, 18 at a time 14:04 ===
+RESULT CtiWbAuipc RESULT: UNSAT t=182.20s C=162 step=32
+ICTI CtiWbAuipc NO-INDUCTION-CTI k=1
+RESULT CtiWbSrli RESULT: UNSAT t=264.97s C=162 step=32
+RESULT CtiWbSrai RESULT: UNSAT t=268.23s C=162 step=32
+RESULT CtiWbSrl RESULT: UNSAT t=269.50s C=162 step=32
+RESULT CtiWbSlli RESULT: UNSAT t=270.62s C=162 step=32
+RESULT CtiWbSra RESULT: UNSAT t=276.94s C=162 step=32
+RESULT CtiWbOr RESULT: UNSAT t=278.17s C=162 step=32
+RESULT CtiWbAnd RESULT: UNSAT t=289.67s C=162 step=32
+RESULT CtiWbSll RESULT: UNSAT t=285.49s C=162 step=32
+ICTI CtiWbSrli NO-INDUCTION-CTI k=1
+ICTI CtiWbSrai NO-INDUCTION-CTI k=1
+ICTI CtiWbSlli NO-INDUCTION-CTI k=1
+ICTI CtiWbSrl NO-INDUCTION-CTI k=1
+ICTI CtiWbSra NO-INDUCTION-CTI k=1
+RESULT CtiWbSltu RESULT: UNSAT t=347.56s C=162 step=32
+ICTI CtiWbAnd NO-INDUCTION-CTI k=1
+ICTI CtiWbOr NO-INDUCTION-CTI k=1
+RESULT CtiWbSlt RESULT: UNSAT t=367.42s C=162 step=32
+ICTI CtiWbSll NO-INDUCTION-CTI k=1
+RESULT CtiWbSub  t=400.53s C=162 step=32
+ICTI CtiWbSltu NO-INDUCTION-CTI k=1
+ICTI CtiWbSlt NO-INDUCTION-CTI k=1
+ICTI CtiWbSub NO-INDUCTION-CTI k=1
+=== removing 1 unproven: CtiWbSub ===
+removed 1: CtiWbSub
+ywstrip rc=0  retired 1: CtiWbSub  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 11 survivors on the post-strip model 14:17 ===
+RESULT CtiWbAuipc RESULT: UNSAT t=176.55s C=162 step=32
+ICTI CtiWbAuipc NO-INDUCTION-CTI k=1
+RESULT CtiWbSrli RESULT: UNSAT t=255.67s C=162 step=32
+RESULT CtiWbSrai RESULT: UNSAT t=260.18s C=162 step=32
+RESULT CtiWbSlli RESULT: UNSAT t=262.85s C=162 step=32
+RESULT CtiWbSrl RESULT: UNSAT t=263.18s C=162 step=32
+RESULT CtiWbSra RESULT: UNSAT t=266.34s C=162 step=32
+RESULT CtiWbOr RESULT: UNSAT t=268.64s C=162 step=32
+RESULT CtiWbSll RESULT: UNSAT t=276.51s C=162 step=32
+RESULT CtiWbAnd RESULT: UNSAT t=279.98s C=162 step=32
+ICTI CtiWbSrli NO-INDUCTION-CTI k=1
+ICTI CtiWbSlli NO-INDUCTION-CTI k=1
+ICTI CtiWbSrai NO-INDUCTION-CTI k=1
+RESULT CtiWbSltu RESULT: UNSAT t=340.56s C=162 step=32
+ICTI CtiWbSrl NO-INDUCTION-CTI k=1
+ICTI CtiWbAnd NO-INDUCTION-CTI k=1
+ICTI CtiWbSra NO-INDUCTION-CTI k=1
+ICTI CtiWbOr NO-INDUCTION-CTI k=1
+RESULT CtiWbSlt RESULT: UNSAT t=360.06s C=162 step=32
+ICTI CtiWbSll NO-INDUCTION-CTI k=1
+ICTI CtiWbSltu NO-INDUCTION-CTI k=1
+ICTI CtiWbSlt NO-INDUCTION-CTI k=1
+ROUND-round20-DONE 14:30
+=== ROUND 21 staging 14:31: CtiWb{Slti,Sltiu,Xori,Ori,Andi,Jal,Jalr} + CtiSpecPostMstatusHardwiredZero (re-submitted above its DUT rung); goals LoadAddr StoreAddr WrapRegA ===
+=== ROUND round21 (v3.6) 14:31  maxjobs=18 kind_cap=400s ===
+inserted 8 candidates at a new layer: CtiWbSlti CtiWbSltiu CtiWbXori CtiWbOri CtiWbAndi CtiWbJal CtiWbJalr CtiSpecPostMstatusHardwiredZero
+core build rc=0  aig 793322 38744 4762 19353 749816 195 6 0 0
+=== core pre-screen of 8 candidates 14:31 ===
+CORE CtiWbJal refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlti refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecPostMstatusHardwiredZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbJalr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbXori refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbOri refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAndi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSltiu refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 14:31: 0 proved on core ===
+build rc=0  aig 12291922 1815550 4762 66732 10471610 195 6 0 0
+=== proving 8 candidates, 18 at a time 14:39 ===
+RESULT CtiSpecPostMstatusHardwiredZero RESULT: UNSAT t=160.70s C=173 step=33
+RESULT CtiWbJal RESULT: UNSAT t=161.95s C=173 step=33
+RESULT CtiWbJalr RESULT: UNSAT t=162.48s C=173 step=33
+ICTI CtiWbJal NO-INDUCTION-CTI k=1
+ICTI CtiWbJalr NO-INDUCTION-CTI k=1
+ICTI CtiSpecPostMstatusHardwiredZero NO-INDUCTION-CTI k=1
+RESULT CtiWbAndi RESULT: UNSAT t=195.07s C=173 step=33
+RESULT CtiWbSlti RESULT: UNSAT t=198.91s C=173 step=33
+RESULT CtiWbSltiu RESULT: UNSAT t=199.70s C=173 step=33
+RESULT CtiWbXori RESULT: UNSAT t=203.81s C=173 step=33
+RESULT CtiWbOri RESULT: UNSAT t=210.61s C=173 step=33
+ICTI CtiWbSltiu NO-INDUCTION-CTI k=1
+ICTI CtiWbSlti NO-INDUCTION-CTI k=1
+ICTI CtiWbAndi NO-INDUCTION-CTI k=1
+ICTI CtiWbXori NO-INDUCTION-CTI k=1
+ICTI CtiWbOri NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 3 targets 14:48 ===
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round21-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr NO-INDUCTION-CTI k=1
+ICTI LoadAddr NO-INDUCTION-CTI k=1
+RESULT StoreAddr RESULT: UNSAT t=197.35s C=181 step=34 (GOAL)
+RESULT LoadAddr RESULT: UNSAT t=219.54s C=181 step=34 (GOAL)
+ROUND-round21-DONE 15:02
+=== ROUND 22 staging 15:02: NO candidates — sweep of all 11 open goals after rounds 18-21 ===
+=== ROUND round22 (v3.6) 15:02  maxjobs=18 kind_cap=400s ===
+core build rc=0  aig 793322 38744 4762 19353 749816 195 6 0 0
+=== core pre-screen of 0 candidates 15:02 ===
+=== core pre-screen done 15:02: 0 proved on core ===
+build rc=0  aig 12291922 1815550 4762 66732 10471610 195 6 0 0
+=== proving 0 candidates, 18 at a time 15:03 ===
+=== goals, CTI-first: 11 targets 15:03 ===
+RESULT SpecEnUnreach REFUTED in depth 5 C=181 (GOAL — read it)
+ICTI StoreEn NO-INDUCTION-CTI k=1
+ICTI StoreBe NO-INDUCTION-CTI k=1
+ICTI LoadEn NO-INDUCTION-CTI k=1
+ICTI MemWe NO-INDUCTION-CTI k=1
+ICTI NoMem NO-INDUCTION-CTI k=1
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round22-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round22-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round22-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round22-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+RESULT StoreEn RESULT: UNSAT t=157.56s C=181 step=34 (GOAL)
+ICTI StoreWData NO-INDUCTION-CTI k=1
+RESULT LoadEn RESULT: UNSAT t=152.44s C=181 step=34 (GOAL)
+RESULT StoreBe RESULT: UNSAT t=154.83s C=181 step=34 (GOAL)
+RESULT MemWe RESULT: UNSAT t=154.89s C=181 step=34 (GOAL)
+RESULT NoMem RESULT: UNSAT t=154.43s C=181 step=34 (GOAL)
+RESULT StoreWData RESULT: UNSAT t=209.44s C=181 step=34 (GOAL)
+ROUND-round22-DONE 15:15
+=== ROUND 23 staging 15:15: 16 compressed writeback classes + CtiWbSub (KIND_CAP=900, runner v3.7); goals WrapRegA WrapRegB ===
+=== ROUND round23 (v3.7 cap=900) 15:15  maxjobs=18 kind_cap=900s ===
+inserted 17 candidates at a new layer: CtiWbCAddi CtiWbCJal CtiWbCLi CtiWbCLui16sp CtiWbCSrli CtiWbCSrai CtiWbCAndi CtiWbCSub CtiWbCXor CtiWbCOr CtiWbCAnd CtiWbCAddi4spn CtiWbCSlli CtiWbCMv CtiWbCAdd CtiWbCJalr CtiWbSub
+core build rc=0  aig 799738 38744 4762 19404 756232 212 6 0 0
+=== core pre-screen of 17 candidates 15:16 ===
+CORE CtiWbCAddi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSrli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCLui16sp refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCXor refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCLi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSrai refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAnd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSlli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSub refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAddi4spn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCJal refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSub refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAndi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCOr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCMv refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAdd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCJalr refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 15:16: 0 proved on core ===
+build rc=0  aig 12298338 1815550 4762 66783 10478026 212 6 0 0
+=== proving 17 candidates, 18 at a time 15:24 ===
+RESULT CtiWbCAddi4spn RESULT: UNSAT t=194.94s C=181 step=34
+RESULT CtiWbCJal RESULT: UNSAT t=195.25s C=181 step=34
+ICTI CtiWbCAddi4spn NO-INDUCTION-CTI k=1
+ICTI CtiWbCLi NO-INDUCTION-CTI k=1
+RESULT CtiWbCMv RESULT: UNSAT t=225.67s C=181 step=34
+RESULT CtiWbCJalr RESULT: UNSAT t=238.82s C=181 step=34
+RESULT CtiWbCLi RESULT: UNSAT t=242.51s C=181 step=34
+RESULT CtiWbCLui16sp RESULT: UNSAT t=243.38s C=181 step=34
+RESULT CtiWbCAnd RESULT: UNSAT t=244.15s C=181 step=34
+RESULT CtiWbCAndi RESULT: UNSAT t=247.59s C=181 step=34
+ICTI CtiWbCJal NO-INDUCTION-CTI k=1
+ICTI CtiWbCJalr NO-INDUCTION-CTI k=1
+RESULT CtiWbCSrli RESULT: UNSAT t=284.11s C=181 step=34
+RESULT CtiWbCOr RESULT: UNSAT t=295.94s C=181 step=34
+ICTI CtiWbCLui16sp NO-INDUCTION-CTI k=1
+RESULT CtiWbCSrai RESULT: UNSAT t=299.78s C=181 step=34
+ICTI CtiWbCMv NO-INDUCTION-CTI k=1
+ICTI CtiWbCAndi NO-INDUCTION-CTI k=1
+ICTI CtiWbCAnd NO-INDUCTION-CTI k=1
+RESULT CtiWbCAddi RESULT: UNSAT t=311.57s C=181 step=34
+ICTI CtiWbCSrai NO-INDUCTION-CTI k=1
+RESULT CtiWbCXor RESULT: UNSAT t=315.84s C=181 step=34
+ICTI CtiWbCXor NO-INDUCTION-CTI k=1
+ICTI CtiWbCOr NO-INDUCTION-CTI k=1
+RESULT CtiWbCSlli RESULT: UNSAT t=334.07s C=181 step=34
+ICTI CtiWbCSrli NO-INDUCTION-CTI k=1
+ICTI CtiWbCAddi NO-INDUCTION-CTI k=1
+RESULT CtiWbCSub RESULT: UNSAT t=370.17s C=181 step=34
+ICTI CtiWbCSlli NO-INDUCTION-CTI k=1
+ICTI CtiWbCSub NO-INDUCTION-CTI k=1
+RESULT CtiWbCAdd RESULT: UNSAT t=441.46s C=181 step=34
+RESULT CtiWbSub RESULT: UNSAT t=462.26s C=181 step=34
+ICTI CtiWbCAdd NO-INDUCTION-CTI k=1
+ICTI CtiWbSub NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 15:38 ===
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round23-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round23-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ROUND-round23-DONE 15:46
+=== ROUND 24 staging 15:47: CtiFolSpecWxAddrIsRd + CtiFolSpecWxEnIsRd, then CtiRegMatch01..31 (per-register ghost == DUT with the M-window excuse); goals WrapRegA WrapRegB ===
+=== ROUND round24 (v3.7 cap=400) 15:47  maxjobs=18 kind_cap=400s ===
+inserted 33 candidates at a new layer: CtiFolSpecWxAddrIsRd CtiFolSpecWxEnIsRd CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31
+core build rc=0  aig 800860 38744 4762 19404 757354 245 6 0 0
+=== core pre-screen of 33 candidates 15:47 ===
+CORE CtiRegMatch09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolSpecWxEnIsRd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolSpecWxAddrIsRd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch30 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch27 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch28 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 15:48: 0 proved on core ===
+build rc=0  aig 12299460 1815550 4762 66783 10479148 245 6 0 0
+=== proving 33 candidates, 18 at a time 15:56 ===
+RESULT CtiFolSpecWxEnIsRd REFUTED in depth 5 C=198
+ICTI CtiRegMatch12 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch12/report.txt
+ICTI CtiRegMatch01 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch01/report.txt
+ICTI CtiRegMatch07 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch07/report.txt
+ICTI CtiRegMatch15 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch15/report.txt
+ICTI CtiRegMatch08 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch08/report.txt
+ICTI CtiRegMatch02 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch02/report.txt
+ICTI CtiRegMatch10 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch10/report.txt
+ICTI CtiRegMatch13 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch13/report.txt
+ICTI CtiRegMatch11 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch11/report.txt
+ICTI CtiRegMatch16 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch16/report.txt
+ICTI CtiRegMatch04 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch04/report.txt
+ICTI CtiRegMatch06 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch06/report.txt
+ICTI CtiRegMatch09 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch09/report.txt
+ICTI CtiRegMatch14 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch14/report.txt
+ICTI CtiRegMatch03 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch03/report.txt
+RESULT CtiFolSpecWxAddrIsRd RESULT: UNSAT t=304.42s C=198 step=35
+ICTI CtiRegMatch05 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch05/report.txt
+ICTI CtiFolSpecWxAddrIsRd NO-INDUCTION-CTI k=1
+RESULT CtiRegMatch04  t=400.59s C=200 step=36
+RESULT CtiRegMatch13  t=401.63s C=200 step=36
+RESULT CtiRegMatch02  t=402.40s C=200 step=36
+RESULT CtiRegMatch01  t=402.43s C=200 step=36
+RESULT CtiRegMatch08  t=402.47s C=200 step=36
+RESULT CtiRegMatch11  t=402.57s C=200 step=36
+RESULT CtiRegMatch14  t=402.47s C=200 step=36
+RESULT CtiRegMatch12  t=402.75s C=200 step=36
+RESULT CtiRegMatch07  t=402.72s C=200 step=36
+RESULT CtiRegMatch15  t=402.72s C=200 step=36
+RESULT CtiRegMatch06  t=402.69s C=200 step=36
+RESULT CtiRegMatch03  t=402.80s C=200 step=36
+RESULT CtiRegMatch16  t=402.91s C=200 step=36
+RESULT CtiRegMatch05  t=403.03s C=200 step=36
+RESULT CtiRegMatch09  t=402.88s C=200 step=36
+RESULT CtiRegMatch10  t=402.94s C=200 step=36
+ICTI CtiRegMatch17 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch17/report.txt
+ICTI CtiRegMatch23 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch23/report.txt
+ICTI CtiRegMatch22 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch22/report.txt
+ICTI CtiRegMatch25 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch25/report.txt
+ICTI CtiRegMatch26 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch26/report.txt
+ICTI CtiRegMatch18 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch18/report.txt
+ICTI CtiRegMatch30 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch30/report.txt
+ICTI CtiRegMatch20 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch20/report.txt
+ICTI CtiRegMatch19 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch19/report.txt
+ICTI CtiRegMatch24 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch24/report.txt
+ICTI CtiRegMatch28 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch28/report.txt
+ICTI CtiRegMatch31 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch31/report.txt
+ICTI CtiRegMatch29 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch29/report.txt
+ICTI CtiRegMatch21 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch21/report.txt
+ICTI CtiRegMatch27 INDUCTION-CTI k=1 frames=3 -> results/icti/round24-CtiRegMatch27/report.txt
+RESULT CtiRegMatch29  t=401.43s C=200 step=36
+RESULT CtiRegMatch24  t=402.49s C=200 step=36
+RESULT CtiRegMatch19  t=402.44s C=200 step=36
+RESULT CtiRegMatch22  t=402.59s C=200 step=36
+RESULT CtiRegMatch23  t=402.90s C=200 step=36
+RESULT CtiRegMatch27  t=402.79s C=200 step=36
+RESULT CtiRegMatch25  t=402.87s C=200 step=36
+RESULT CtiRegMatch20  t=403.08s C=200 step=36
+RESULT CtiRegMatch28  t=403.04s C=200 step=36
+RESULT CtiRegMatch30  t=403.17s C=200 step=36
+RESULT CtiRegMatch21  t=402.97s C=200 step=36
+RESULT CtiRegMatch18  t=403.14s C=200 step=36
+RESULT CtiRegMatch26  t=403.20s C=200 step=36
+RESULT CtiRegMatch31  t=403.10s C=200 step=36
+RESULT CtiRegMatch17  t=403.25s C=200 step=36
+=== removing 32 unproven: CtiFolSpecWxEnIsRd CtiRegMatch04 CtiRegMatch13 CtiRegMatch02 CtiRegMatch01 CtiRegMatch08 CtiRegMatch11 CtiRegMatch14 CtiRegMatch12 CtiRegMatch07 CtiRegMatch15 CtiRegMatch06 CtiRegMatch03 CtiRegMatch16 CtiRegMatch05 CtiRegMatch09 CtiRegMatch10 CtiRegMatch29 CtiRegMatch24 CtiRegMatch19 CtiRegMatch22 CtiRegMatch23 CtiRegMatch27 CtiRegMatch25 CtiRegMatch20 CtiRegMatch28 CtiRegMatch30 CtiRegMatch21 CtiRegMatch18 CtiRegMatch26 CtiRegMatch31 CtiRegMatch17 ===
+removed 32: CtiFolSpecWxEnIsRd CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31
+ywstrip rc=0  retired 32: CtiFolSpecWxEnIsRd CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 1 survivors on the post-strip model 16:20 ===
+RESULT CtiFolSpecWxAddrIsRd RESULT: UNSAT t=165.86s C=198 step=35
+ICTI CtiFolSpecWxAddrIsRd NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 16:29 ===
+GOAL-BMC WrapRegB no-cex-to-depth 5 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round24-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round24-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ROUND-round24-DONE 16:37
+=== ROUND 25 staging 16:37: CtiWbLoad (m_result == spec wX at retire, 32-bit + C.LW/C.LWSP) + CtiWbCsr (checkable CSR reads); goals WrapRegA WrapRegB ===
+=== ROUND round25 (v3.7 cap=600) 16:37  maxjobs=18 kind_cap=600s ===
+inserted 2 candidates at a new layer: CtiWbLoad CtiWbCsr
+core build rc=0  aig 799858 38744 4762 19407 756352 215 6 0 0
+=== core pre-screen of 2 candidates 16:38 ===
+CORE CtiWbCsr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbLoad refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 16:38: 0 proved on core ===
+build rc=0  aig 12298458 1815550 4762 66786 10478146 215 6 0 0
+=== proving 2 candidates, 18 at a time 16:46 ===
+RESULT CtiWbCsr REFUTED in depth 5 C=199
+ICTI CtiWbLoad INDUCTION-CTI k=1 frames=3 -> results/icti/round25-CtiWbLoad/report.txt
+RESULT CtiWbLoad  t=601.62s C=199 step=36
+=== removing 2 unproven: CtiWbCsr CtiWbLoad ===
+removed 2: CtiWbLoad CtiWbCsr
+ywstrip rc=0  retired 2: CtiWbCsr CtiWbLoad  (no rebuild: retired in all.ywmap, real make next round)
+=== goals skipped (v3.5): no candidate proved this round, constraint set unchanged ===
+ROUND-round25-DONE 17:01
+=== ROUND 26 staging 17:02: CtiFolSpecWxEnIsRdV2 + CtiFolXExceptNoSpecWrite / CtiGhostDroppedForExceptingWrite / CtiRegMatch01..31 re-submitted; goals WrapRegA WrapRegB ===
+=== ROUND round26 (v3.7 cap=600) 17:02  maxjobs=18 kind_cap=600s ===
+inserted 35 candidates at a new layer: CtiWbCsrV2 CtiFolSpecWxEnIsRdV2 CtiFolXExceptNoSpecWrite CtiGhostDroppedForExceptingWrite CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31
+core build rc=0  aig 801116 38744 4762 19408 757610 248 6 0 0
+=== core pre-screen of 35 candidates 17:02 ===
+CORE CtiFolSpecWxEnIsRdV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCsrV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolXExceptNoSpecWrite refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostDroppedForExceptingWrite PROVED-ON-CORE t=10.63s C=202 step=37 (transfers to all.aig)
+CORE CtiRegMatch16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch27 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch28 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatch30 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 17:03: 1 proved on core ===
+build rc=0  aig 12299823 1815550 4762 66788 10479511 248 6 0 0
+=== proving 35 candidates, 18 at a time 17:11 ===
+RESULT CtiGhostDroppedForExceptingWrite RESULT: UNSAT t=10.63s C=202 step=37 model=core (proof transfers)
+RESULT CtiFolXExceptNoSpecWrite REFUTED in depth 5 C=199
+RESULT CtiFolSpecWxEnIsRdV2 REFUTED in depth 5 C=199
+ICTI CtiRegMatch05 aigicti failed
+ICTI CtiRegMatch07 aigicti failed
+ICTI CtiRegMatch03 aigicti failed
+ICTI CtiRegMatch09 aigicti failed
+ICTI CtiWbCsrV2 aigicti failed
+ICTI CtiRegMatch10 aigicti failed
+RESULT CtiWbCsrV2 RESULT: UNSAT t=190.11s C=199 step=36
+ICTI CtiRegMatch02 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch02/report.txt
+ICTI CtiRegMatch06 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch06/report.txt
+ICTI CtiRegMatch04 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch04/report.txt
+ICTI CtiRegMatch08 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch08/report.txt
+ICTI CtiRegMatch12 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch12/report.txt
+ICTI CtiRegMatch01 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch01/report.txt
+ICTI CtiRegMatch11 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch11/report.txt
+ICTI CtiRegMatch14 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch14/report.txt
+ICTI CtiRegMatch13 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch13/report.txt
+RESULT CtiRegMatch10  t=601.36s C=203 step=38
+RESULT CtiRegMatch11  t=601.38s C=203 step=38
+RESULT CtiRegMatch12  t=601.82s C=203 step=38
+RESULT CtiRegMatch09  t=602.54s C=203 step=38
+RESULT CtiRegMatch13  t=602.62s C=203 step=38
+RESULT CtiRegMatch01  t=602.60s C=203 step=38
+RESULT CtiRegMatch14  t=602.65s C=203 step=38
+RESULT CtiRegMatch05  t=602.53s C=203 step=38
+RESULT CtiRegMatch02  t=602.73s C=203 step=38
+RESULT CtiRegMatch06  t=602.75s C=203 step=38
+RESULT CtiRegMatch08  t=602.74s C=203 step=38
+RESULT CtiRegMatch07  t=602.85s C=203 step=38
+RESULT CtiRegMatch04  t=602.77s C=203 step=38
+RESULT CtiRegMatch03  t=602.79s C=203 step=38
+ICTI CtiRegMatch15 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch15/report.txt
+ICTI CtiRegMatch27 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch27/report.txt
+ICTI CtiRegMatch17 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch17/report.txt
+ICTI CtiRegMatch26 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch26/report.txt
+ICTI CtiRegMatch31 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch31/report.txt
+ICTI CtiRegMatch30 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch30/report.txt
+ICTI CtiRegMatch25 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch25/report.txt
+ICTI CtiRegMatch21 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch21/report.txt
+ICTI CtiRegMatch20 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch20/report.txt
+ICTI CtiRegMatch28 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch28/report.txt
+ICTI CtiRegMatch23 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch23/report.txt
+ICTI CtiRegMatch18 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch18/report.txt
+ICTI CtiRegMatch24 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch24/report.txt
+ICTI CtiRegMatch16 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch16/report.txt
+ICTI CtiRegMatch19 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch19/report.txt
+ICTI CtiRegMatch29 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch29/report.txt
+ICTI CtiRegMatch22 INDUCTION-CTI k=1 frames=3 -> results/icti/round26-CtiRegMatch22/report.txt
+RESULT CtiRegMatch15  t=600.77s C=203 step=38
+RESULT CtiRegMatch24  t=600.94s C=203 step=38
+RESULT CtiRegMatch16  t=602.04s C=203 step=38
+RESULT CtiRegMatch27  t=602.72s C=203 step=38
+RESULT CtiRegMatch28  t=602.94s C=203 step=38
+RESULT CtiRegMatch21  t=602.89s C=203 step=38
+RESULT CtiRegMatch26  t=603.34s C=203 step=38
+RESULT CtiRegMatch19  t=603.23s C=203 step=38
+RESULT CtiRegMatch23  t=603.48s C=203 step=38
+RESULT CtiRegMatch22  t=603.33s C=203 step=38
+RESULT CtiRegMatch29  t=603.30s C=203 step=38
+RESULT CtiRegMatch18  t=603.39s C=203 step=38
+RESULT CtiRegMatch30  t=603.65s C=203 step=38
+RESULT CtiRegMatch31  t=603.61s C=203 step=38
+RESULT CtiRegMatch17  t=603.70s C=203 step=38
+RESULT CtiRegMatch25  t=603.31s C=203 step=38
+RESULT CtiRegMatch20  t=603.56s C=203 step=38
+=== removing 33 unproven: CtiFolXExceptNoSpecWrite CtiFolSpecWxEnIsRdV2 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch09 CtiRegMatch13 CtiRegMatch01 CtiRegMatch14 CtiRegMatch05 CtiRegMatch02 CtiRegMatch06 CtiRegMatch08 CtiRegMatch07 CtiRegMatch04 CtiRegMatch03 CtiRegMatch15 CtiRegMatch24 CtiRegMatch16 CtiRegMatch27 CtiRegMatch28 CtiRegMatch21 CtiRegMatch26 CtiRegMatch19 CtiRegMatch23 CtiRegMatch22 CtiRegMatch29 CtiRegMatch18 CtiRegMatch30 CtiRegMatch31 CtiRegMatch17 CtiRegMatch25 CtiRegMatch20 ===
+removed 33: CtiFolSpecWxEnIsRdV2 CtiFolXExceptNoSpecWrite CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31
+ywstrip rc=0  retired 33: CtiFolSpecWxEnIsRdV2 CtiFolXExceptNoSpecWrite CtiRegMatch01 CtiRegMatch02 CtiRegMatch03 CtiRegMatch04 CtiRegMatch05 CtiRegMatch06 CtiRegMatch07 CtiRegMatch08 CtiRegMatch09 CtiRegMatch10 CtiRegMatch11 CtiRegMatch12 CtiRegMatch13 CtiRegMatch14 CtiRegMatch15 CtiRegMatch16 CtiRegMatch17 CtiRegMatch18 CtiRegMatch19 CtiRegMatch20 CtiRegMatch21 CtiRegMatch22 CtiRegMatch23 CtiRegMatch24 CtiRegMatch25 CtiRegMatch26 CtiRegMatch27 CtiRegMatch28 CtiRegMatch29 CtiRegMatch30 CtiRegMatch31  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 2 survivors on the post-strip model 17:41 ===
+RESULT CtiGhostDroppedForExceptingWrite RESULT: UNSAT t=147.95s C=200 step=37
+RESULT CtiWbCsrV2 RESULT: UNSAT t=153.61s C=199 step=36
+ICTI CtiWbCsrV2 NO-INDUCTION-CTI k=1
+ICTI CtiGhostDroppedForExceptingWrite NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 17:49 ===
+GOAL-BMC WrapRegB no-cex-to-depth 5 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round26-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round26-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ROUND-round26-DONE 17:58
+=== ROUND 27 staging 17:58: CtiXmMemAligned (.dut) / CtiWbLoad re-submitted; goals WrapRegA WrapRegB ===
+=== ROUND round27 (v3.7 cap=900) 17:58  maxjobs=18 kind_cap=900s ===
+inserted 2 candidates at a new layer: CtiXmMemAligned CtiWbLoad
+core build rc=0  aig 805428 38744 4762 19444 761922 217 6 0 0
+=== core pre-screen of 2 candidates 17:59 ===
+CORE CtiWbLoad refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiXmMemAligned PROVED-ON-CORE t=10.58s C=201 step=38 (transfers to all.aig)
+=== core pre-screen done 17:59: 1 proved on core ===
+build rc=0  aig 12304028 1815550 4762 66823 10483716 217 6 0 0
+=== proving 2 candidates, 18 at a time 18:07 ===
+RESULT CtiXmMemAligned RESULT: UNSAT t=10.58s C=201 step=38 model=core (proof transfers)
+ICTI CtiWbLoad INDUCTION-CTI k=1 frames=3 -> results/icti/round27-CtiWbLoad/report.txt
+RESULT CtiWbLoad  t=901.37s C=202 step=39
+=== removing 1 unproven: CtiWbLoad ===
+removed 1: CtiWbLoad
+ywstrip rc=0  retired 1: CtiWbLoad  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 1 survivors on the post-strip model 18:27 ===
+RESULT CtiXmMemAligned RESULT: UNSAT t=145.89s C=201 step=38
+ICTI CtiXmMemAligned NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 18:33 ===
+GOAL-BMC WrapRegB no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round27-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round27-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ROUND-round27-DONE 18:41
+=== ROUND 28 staging 18:41: CtiFolXExceptNoSpecWriteV2 + CtiFolSpecWxEnIsRdV3 (specifiable-guarded) / CtiRegMatchV2_01..31 (excuse = follower says spec wrote i for the instruction in M); goals WrapRegA WrapRegB ===
+=== ROUND round28 (v3.7 cap=600) 18:41  maxjobs=18 kind_cap=600s ===
+inserted 33 candidates at a new layer: CtiFolXExceptNoSpecWriteV2 CtiFolSpecWxEnIsRdV3 CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31
+core build rc=0  aig 806648 38744 4762 19450 763142 249 6 0 0
+=== core pre-screen of 33 candidates 18:42 ===
+CORE CtiRegMatchV2_08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolSpecWxEnIsRdV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolXExceptNoSpecWriteV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_30 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_27 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_28 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 18:42: 0 proved on core ===
+build rc=0  aig 12305248 1815550 4762 66829 10484936 249 6 0 0
+=== proving 33 candidates, 18 at a time 18:50 ===
+RESULT CtiFolXExceptNoSpecWriteV2 RESULT: UNSAT t=224.00s C=202 step=39
+ICTI CtiRegMatchV2_04 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_04/report.txt
+RESULT CtiFolSpecWxEnIsRdV3 RESULT: UNSAT t=239.75s C=202 step=39
+ICTI CtiRegMatchV2_10 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_10/report.txt
+ICTI CtiRegMatchV2_09 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_09/report.txt
+ICTI CtiRegMatchV2_03 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_03/report.txt
+ICTI CtiRegMatchV2_01 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_01/report.txt
+ICTI CtiRegMatchV2_15 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_15/report.txt
+ICTI CtiRegMatchV2_02 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_02/report.txt
+ICTI CtiRegMatchV2_14 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_14/report.txt
+ICTI CtiRegMatchV2_11 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_11/report.txt
+ICTI CtiRegMatchV2_06 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_06/report.txt
+ICTI CtiRegMatchV2_12 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_12/report.txt
+ICTI CtiRegMatchV2_05 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_05/report.txt
+ICTI CtiRegMatchV2_07 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_07/report.txt
+ICTI CtiRegMatchV2_08 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_08/report.txt
+ICTI CtiRegMatchV2_13 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_13/report.txt
+ICTI CtiRegMatchV2_16 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_16/report.txt
+ICTI CtiFolXExceptNoSpecWriteV2 NO-INDUCTION-CTI k=1
+ICTI CtiFolSpecWxEnIsRdV3 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_05  t=601.46s C=204 step=40
+RESULT CtiRegMatchV2_11  t=601.80s C=204 step=40
+RESULT CtiRegMatchV2_08  t=601.96s C=204 step=40
+RESULT CtiRegMatchV2_06  t=602.74s C=204 step=40
+RESULT CtiRegMatchV2_15  t=602.93s C=204 step=40
+RESULT CtiRegMatchV2_02  t=602.98s C=204 step=40
+RESULT CtiRegMatchV2_10  t=603.06s C=204 step=40
+RESULT CtiRegMatchV2_07  t=602.89s C=204 step=40
+RESULT CtiRegMatchV2_03  t=603.01s C=204 step=40
+RESULT CtiRegMatchV2_14  t=603.01s C=204 step=40
+RESULT CtiRegMatchV2_12  t=602.98s C=204 step=40
+RESULT CtiRegMatchV2_04  t=603.18s C=204 step=40
+RESULT CtiRegMatchV2_13  t=603.06s C=204 step=40
+RESULT CtiRegMatchV2_09  t=603.26s C=204 step=40
+RESULT CtiRegMatchV2_16  t=603.08s C=204 step=40
+RESULT CtiRegMatchV2_01  t=603.14s C=204 step=40
+ICTI CtiRegMatchV2_25 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_25/report.txt
+ICTI CtiRegMatchV2_18 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_18/report.txt
+ICTI CtiRegMatchV2_26 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_26/report.txt
+ICTI CtiRegMatchV2_19 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_19/report.txt
+ICTI CtiRegMatchV2_17 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_17/report.txt
+ICTI CtiRegMatchV2_27 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_27/report.txt
+ICTI CtiRegMatchV2_31 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_31/report.txt
+ICTI CtiRegMatchV2_20 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_20/report.txt
+ICTI CtiRegMatchV2_23 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_23/report.txt
+ICTI CtiRegMatchV2_30 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_30/report.txt
+ICTI CtiRegMatchV2_21 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_21/report.txt
+ICTI CtiRegMatchV2_29 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_29/report.txt
+ICTI CtiRegMatchV2_22 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_22/report.txt
+ICTI CtiRegMatchV2_28 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_28/report.txt
+ICTI CtiRegMatchV2_24 INDUCTION-CTI k=1 frames=3 -> results/icti/round28-CtiRegMatchV2_24/report.txt
+RESULT CtiRegMatchV2_31  t=601.68s C=204 step=40
+RESULT CtiRegMatchV2_19  t=601.74s C=204 step=40
+RESULT CtiRegMatchV2_17  t=602.65s C=204 step=40
+RESULT CtiRegMatchV2_30  t=602.70s C=204 step=40
+RESULT CtiRegMatchV2_29  t=602.97s C=204 step=40
+RESULT CtiRegMatchV2_26  t=602.93s C=204 step=40
+RESULT CtiRegMatchV2_24  t=602.94s C=204 step=40
+RESULT CtiRegMatchV2_18  t=602.87s C=204 step=40
+RESULT CtiRegMatchV2_20  t=602.87s C=204 step=40
+RESULT CtiRegMatchV2_28  t=603.04s C=204 step=40
+RESULT CtiRegMatchV2_25  t=603.06s C=204 step=40
+RESULT CtiRegMatchV2_27  t=603.00s C=204 step=40
+RESULT CtiRegMatchV2_22  t=602.99s C=204 step=40
+RESULT CtiRegMatchV2_21  t=603.10s C=204 step=40
+RESULT CtiRegMatchV2_23  t=603.13s C=204 step=40
+=== removing 31 unproven: CtiRegMatchV2_05 CtiRegMatchV2_11 CtiRegMatchV2_08 CtiRegMatchV2_06 CtiRegMatchV2_15 CtiRegMatchV2_02 CtiRegMatchV2_10 CtiRegMatchV2_07 CtiRegMatchV2_03 CtiRegMatchV2_14 CtiRegMatchV2_12 CtiRegMatchV2_04 CtiRegMatchV2_13 CtiRegMatchV2_09 CtiRegMatchV2_16 CtiRegMatchV2_01 CtiRegMatchV2_31 CtiRegMatchV2_19 CtiRegMatchV2_17 CtiRegMatchV2_30 CtiRegMatchV2_29 CtiRegMatchV2_26 CtiRegMatchV2_24 CtiRegMatchV2_18 CtiRegMatchV2_20 CtiRegMatchV2_28 CtiRegMatchV2_25 CtiRegMatchV2_27 CtiRegMatchV2_22 CtiRegMatchV2_21 CtiRegMatchV2_23 ===
+removed 31: CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31
+ywstrip rc=0  retired 31: CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 2 survivors on the post-strip model 19:21 ===
+RESULT CtiFolSpecWxEnIsRdV3 RESULT: UNSAT t=153.34s C=202 step=39
+RESULT CtiFolXExceptNoSpecWriteV2 RESULT: UNSAT t=159.86s C=202 step=39
+ICTI CtiFolSpecWxEnIsRdV3 NO-INDUCTION-CTI k=1
+ICTI CtiFolXExceptNoSpecWriteV2 NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 19:30 ===
+GOAL-BMC WrapRegB no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round28-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round28-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ROUND-round28-DONE 19:38
+=== ROUND 29 staging 19:38: CtiFolLoadMemopMatches (.dut) / CtiWbLoad re-submitted; goals WrapRegA WrapRegB ===
+=== ROUND round29 (v3.8 cap=900) 19:38  maxjobs=18 kind_cap=900s ===
+inserted 2 candidates at a new layer: CtiFolLoadMemopMatches CtiWbLoad
+core build rc=0  aig 805779 38744 4762 19453 762273 220 6 0 0
+=== core pre-screen of 2 candidates 19:38 ===
+CORE CtiWbLoad refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolLoadMemopMatches PROVED-ON-CORE t=10.34s C=204 step=40 (transfers to all.aig)
+=== core pre-screen done 19:39: 1 proved on core ===
+build rc=0  aig 12304379 1815550 4762 66832 10484067 220 6 0 0
+=== proving 2 candidates, 18 at a time 19:47 ===
+RESULT CtiFolLoadMemopMatches RESULT: UNSAT t=10.34s C=204 step=40 model=core (proof transfers)
+ICTI CtiWbLoad INDUCTION-CTI k=1 frames=3 -> results/icti/round29-CtiWbLoad/report.txt
+RESULT CtiWbLoad  t=901.12s C=205 step=41
+=== removing 1 unproven: CtiWbLoad ===
+removed 1: CtiWbLoad
+ywstrip rc=0  retired 1: CtiWbLoad  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 1 survivors on the post-strip model 20:07 ===
+RESULT CtiFolLoadMemopMatches RESULT: UNSAT t=144.15s C=204 step=40
+ICTI CtiFolLoadMemopMatches NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 20:13 ===
+GOAL-BMC WrapRegB no-cex-to-depth 5 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round29-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round29-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ROUND-round29-DONE 20:21
+=== ROUND 30 staging 20:21: CtiGhostDroppedForUnspecifiable + CtiFolMemopNoneUnlessMem (.dut) / CtiRegMatchV2_01..31 re-submitted; goals WrapRegA WrapRegB ===
+=== ROUND round30 (v3.8 cap=600) 20:21  maxjobs=18 kind_cap=600s ===
+inserted 33 candidates at a new layer: CtiGhostDroppedForUnspecifiable CtiFolMemopNoneUnlessMem CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31
+core build rc=0  aig 807692 38744 4762 19542 764186 252 6 0 0
+=== core pre-screen of 33 candidates 20:21 ===
+CORE CtiRegMatchV2_14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostDroppedForUnspecifiable PROVED-ON-CORE t=11.35s C=205 step=41 (transfers to all.aig)
+CORE CtiFolMemopNoneUnlessMem PROVED-ON-CORE t=11.45s C=205 step=41 (transfers to all.aig)
+CORE CtiRegMatchV2_27 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_30 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_28 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 20:22: 2 proved on core ===
+build rc=0  aig 12306292 1815550 4762 66921 10485980 252 6 0 0
+=== proving 33 candidates, 18 at a time 20:30 ===
+RESULT CtiGhostDroppedForUnspecifiable RESULT: UNSAT t=11.35s C=205 step=41 model=core (proof transfers)
+RESULT CtiFolMemopNoneUnlessMem RESULT: UNSAT t=11.45s C=205 step=41 model=core (proof transfers)
+ICTI CtiRegMatchV2_04 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_04/report.txt
+ICTI CtiRegMatchV2_13 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_13/report.txt
+ICTI CtiRegMatchV2_10 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_10/report.txt
+ICTI CtiRegMatchV2_01 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_01/report.txt
+ICTI CtiRegMatchV2_03 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_03/report.txt
+ICTI CtiRegMatchV2_05 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_05/report.txt
+ICTI CtiRegMatchV2_15 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_15/report.txt
+ICTI CtiRegMatchV2_12 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_12/report.txt
+ICTI CtiRegMatchV2_06 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_06/report.txt
+ICTI CtiRegMatchV2_02 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_02/report.txt
+ICTI CtiRegMatchV2_09 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_09/report.txt
+ICTI CtiRegMatchV2_14 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_14/report.txt
+ICTI CtiRegMatchV2_07 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_07/report.txt
+ICTI CtiRegMatchV2_08 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_08/report.txt
+ICTI CtiRegMatchV2_11 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_11/report.txt
+ICTI CtiRegMatchV2_16 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_16/report.txt
+RESULT CtiRegMatchV2_13  t=601.10s C=207 step=42
+RESULT CtiRegMatchV2_05  t=601.89s C=207 step=42
+RESULT CtiRegMatchV2_14  t=602.29s C=207 step=42
+RESULT CtiRegMatchV2_03  t=602.54s C=207 step=42
+RESULT CtiRegMatchV2_12  t=602.78s C=207 step=42
+RESULT CtiRegMatchV2_08  t=602.71s C=207 step=42
+RESULT CtiRegMatchV2_06  t=602.90s C=207 step=42
+RESULT CtiRegMatchV2_16  t=602.93s C=207 step=42
+RESULT CtiRegMatchV2_10  t=603.08s C=207 step=42
+RESULT CtiRegMatchV2_07  t=603.13s C=207 step=42
+RESULT CtiRegMatchV2_15  t=603.15s C=207 step=42
+RESULT CtiRegMatchV2_11  t=603.10s C=207 step=42
+RESULT CtiRegMatchV2_09  t=603.12s C=207 step=42
+RESULT CtiRegMatchV2_01  t=603.07s C=207 step=42
+RESULT CtiRegMatchV2_04  t=603.11s C=207 step=42
+RESULT CtiRegMatchV2_02  t=603.25s C=207 step=42
+ICTI CtiRegMatchV2_17 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_17/report.txt
+ICTI CtiRegMatchV2_31 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_31/report.txt
+ICTI CtiRegMatchV2_27 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_27/report.txt
+ICTI CtiRegMatchV2_23 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_23/report.txt
+ICTI CtiRegMatchV2_19 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_19/report.txt
+ICTI CtiRegMatchV2_21 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_21/report.txt
+ICTI CtiRegMatchV2_18 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_18/report.txt
+ICTI CtiRegMatchV2_29 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_29/report.txt
+ICTI CtiRegMatchV2_25 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_25/report.txt
+ICTI CtiRegMatchV2_28 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_28/report.txt
+ICTI CtiRegMatchV2_30 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_30/report.txt
+ICTI CtiRegMatchV2_22 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_22/report.txt
+ICTI CtiRegMatchV2_20 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_20/report.txt
+ICTI CtiRegMatchV2_24 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_24/report.txt
+ICTI CtiRegMatchV2_26 INDUCTION-CTI k=1 frames=3 -> results/icti/round30-CtiRegMatchV2_26/report.txt
+RESULT CtiRegMatchV2_22  t=600.70s C=207 step=42
+RESULT CtiRegMatchV2_28  t=602.11s C=207 step=42
+RESULT CtiRegMatchV2_19  t=602.96s C=207 step=42
+RESULT CtiRegMatchV2_27  t=602.97s C=207 step=42
+RESULT CtiRegMatchV2_17  t=602.89s C=207 step=42
+RESULT CtiRegMatchV2_24  t=603.13s C=207 step=42
+RESULT CtiRegMatchV2_26  t=603.04s C=207 step=42
+RESULT CtiRegMatchV2_23  t=603.30s C=207 step=42
+RESULT CtiRegMatchV2_31  t=603.21s C=207 step=42
+RESULT CtiRegMatchV2_18  t=603.11s C=207 step=42
+RESULT CtiRegMatchV2_25  t=603.18s C=207 step=42
+RESULT CtiRegMatchV2_21  t=603.21s C=207 step=42
+RESULT CtiRegMatchV2_20  t=603.29s C=207 step=42
+RESULT CtiRegMatchV2_30  t=603.19s C=207 step=42
+RESULT CtiRegMatchV2_29  t=603.34s C=207 step=42
+=== removing 31 unproven: CtiRegMatchV2_13 CtiRegMatchV2_05 CtiRegMatchV2_14 CtiRegMatchV2_03 CtiRegMatchV2_12 CtiRegMatchV2_08 CtiRegMatchV2_06 CtiRegMatchV2_16 CtiRegMatchV2_10 CtiRegMatchV2_07 CtiRegMatchV2_15 CtiRegMatchV2_11 CtiRegMatchV2_09 CtiRegMatchV2_01 CtiRegMatchV2_04 CtiRegMatchV2_02 CtiRegMatchV2_22 CtiRegMatchV2_28 CtiRegMatchV2_19 CtiRegMatchV2_27 CtiRegMatchV2_17 CtiRegMatchV2_24 CtiRegMatchV2_26 CtiRegMatchV2_23 CtiRegMatchV2_31 CtiRegMatchV2_18 CtiRegMatchV2_25 CtiRegMatchV2_21 CtiRegMatchV2_20 CtiRegMatchV2_30 CtiRegMatchV2_29 ===
+removed 31: CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31
+ywstrip rc=0  retired 31: CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 2 survivors on the post-strip model 21:01 ===
+RESULT CtiGhostDroppedForUnspecifiable RESULT: UNSAT t=151.66s C=205 step=41
+RESULT CtiFolMemopNoneUnlessMem RESULT: UNSAT t=154.57s C=205 step=41
+ICTI CtiGhostDroppedForUnspecifiable NO-INDUCTION-CTI k=1
+ICTI CtiFolMemopNoneUnlessMem NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 21:09 ===
+GOAL-BMC WrapRegB no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round30-WrapRegA/report.txt
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round30-WrapRegB/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ROUND-round30-DONE 21:17
+=== ROUND 31 staging 21:17: CtiFolLoadWxIsPick / CtiWbLoad re-submitted; goals WrapRegA WrapRegB ===
+=== ROUND round31 (v3.9 cap=900) 21:17  maxjobs=18 kind_cap=900s ===
+inserted 2 candidates at a new layer: CtiFolLoadWxIsPick CtiWbLoad
+core build rc=0  aig 807072 38744 4762 19547 763566 223 6 0 0
+=== core pre-screen of 2 candidates 21:17 ===
+CORE CtiWbLoad refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolLoadWxIsPick refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 21:18: 0 proved on core ===
+build rc=0  aig 12305672 1815550 4762 66926 10485360 223 6 0 0
+=== proving 2 candidates, 18 at a time 21:26 ===
+RESULT CtiFolLoadWxIsPick RESULT: UNSAT t=151.20s C=207 step=42
+ICTI CtiWbLoad INDUCTION-CTI k=1 frames=3 -> results/icti/round31-CtiWbLoad/report.txt
+ICTI CtiFolLoadWxIsPick NO-INDUCTION-CTI k=1
+RESULT CtiWbLoad  t=901.20s C=208 step=43
+=== removing 1 unproven: CtiWbLoad ===
+removed 1: CtiWbLoad
+ywstrip rc=0  retired 1: CtiWbLoad  (no rebuild: retired in all.ywmap, real make next round)
+=== re-proving 1 survivors on the post-strip model 21:46 ===
+RESULT CtiFolLoadWxIsPick RESULT: UNSAT t=146.41s C=207 step=42
+ICTI CtiFolLoadWxIsPick NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 21:54 ===
+GOAL-BMC WrapRegB no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapRegA no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round31-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round31-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ROUND-round31-DONE 22:02
+=== ROUND 32 staging 22:03: CtiFolWriteCoverage + CtiWbMulDiv(AXIOM) + CtiFolLoadSpecReads / CtiWbAll + CtiWbLoad (v4.1 runner, no goals) ===
+=== ROUND round32 (v4.1 icti_k=1 axioms=CtiWbMulDiv ) 22:03  maxjobs=18 kind_cap=600s ===
+inserted 5 candidates at a new layer: CtiFolWriteCoverage CtiWbMulDiv CtiFolLoadSpecReads CtiWbAll CtiWbLoad
+core build rc=0  aig 807210 38744 4762 19548 763704 227 6 0 0
+=== core pre-screen of 5 candidates 22:03 ===
+CORE CtiFolLoadSpecReads refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolWriteCoverage refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAll PROVED-ON-CORE t=11.34s C=211 step=44 (transfers to all.aig)
+CORE CtiWbLoad PROVED-ON-CORE t=10.51s C=211 step=44 (transfers to all.aig)
+=== core pre-screen done 22:04: 2 proved on core ===
+build rc=0  aig 12305810 1815550 4762 66927 10485498 227 6 0 0
+=== proving 5 candidates, 18 at a time 22:12 ===
+AXIOM CtiWbMulDiv assumed (never attempted, never stripped; user decision 2026-09-19 'the Oxford way') step=43
+RESULT CtiWbMulDiv RESULT: AXIOM step=43
+RESULT CtiWbLoad RESULT: UNSAT t=10.51s C=211 step=44 model=core (proof transfers)
+RESULT CtiWbAll RESULT: UNSAT t=11.34s C=211 step=44 model=core (proof transfers)
+RESULT CtiFolWriteCoverage REFUTED in depth 5 C=208
+RESULT CtiFolLoadSpecReads RESULT: UNSAT t=148.49s C=208 step=43 depth=1
+ICTI CtiFolLoadSpecReads NO-INDUCTION-CTI k=1
+=== removing 1 unproven: CtiFolWriteCoverage ===
+removed 1: CtiFolWriteCoverage
+ywstrip rc=0  retired 1: CtiFolWriteCoverage  (no rebuild: retired in all.ywmap, real make next round)
+=== strip: lowest stripped layer step=43; 2 survivor(s) above it need re-proof ===
+=== re-proving 2 survivors on the post-strip model 22:20 ===
+WITNESS CtiFolWriteCoverage frames=7 -> results/icti/round32-CtiFolWriteCoverage-bmc/report.txt
+RESULT CtiWbLoad RESULT: UNSAT t=147.82s C=210 step=44 depth=1
+RESULT CtiWbAll RESULT: UNSAT t=149.24s C=210 step=44 depth=1
+ICTI CtiWbLoad NO-INDUCTION-CTI k=1
+ICTI CtiWbAll NO-INDUCTION-CTI k=1
+ROUND-round32-DONE 22:28
+=== ROUND 33: CtiWbAll still present in the proof (round 32 kept it) -- not re-submitted ===
+=== ROUND 33 staging 22:28: CtiFolWriteCoverageV2 / CtiWbAll / CtiRegMatchV2_01..31; goals WrapRegA WrapRegB (v4.1, three layers, one build) ===
+=== ROUND round33 (v4.1 icti_k=1 axioms=) 22:28  maxjobs=18 kind_cap=600s ===
+inserted 32 candidates at a new layer: CtiFolWriteCoverageV2 CtiRegMatchV2_01 CtiRegMatchV2_02 CtiRegMatchV2_03 CtiRegMatchV2_04 CtiRegMatchV2_05 CtiRegMatchV2_06 CtiRegMatchV2_07 CtiRegMatchV2_08 CtiRegMatchV2_09 CtiRegMatchV2_10 CtiRegMatchV2_11 CtiRegMatchV2_12 CtiRegMatchV2_13 CtiRegMatchV2_14 CtiRegMatchV2_15 CtiRegMatchV2_16 CtiRegMatchV2_17 CtiRegMatchV2_18 CtiRegMatchV2_19 CtiRegMatchV2_20 CtiRegMatchV2_21 CtiRegMatchV2_22 CtiRegMatchV2_23 CtiRegMatchV2_24 CtiRegMatchV2_25 CtiRegMatchV2_26 CtiRegMatchV2_27 CtiRegMatchV2_28 CtiRegMatchV2_29 CtiRegMatchV2_30 CtiRegMatchV2_31
+core build rc=0  aig 808271 38744 4762 19549 764765 258 6 0 0
+=== core pre-screen of 32 candidates 22:28 ===
+CORE CtiRegMatchV2_05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolWriteCoverageV2 PROVED-ON-CORE t=10.63s C=212 step=45 (transfers to all.aig)
+CORE CtiRegMatchV2_22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_28 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_30 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_27 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 22:29: 1 proved on core ===
+build rc=0  aig 12306871 1815550 4762 66928 10486559 258 6 0 0
+=== proving 32 candidates, 18 at a time 22:37 ===
+RESULT CtiFolWriteCoverageV2 RESULT: UNSAT t=10.63s C=212 step=45 model=core (proof transfers)
+RESULT CtiRegMatchV2_07 RESULT: UNSAT t=191.29s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_13 RESULT: UNSAT t=195.59s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_09 RESULT: UNSAT t=196.19s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_05 RESULT: UNSAT t=197.61s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_16 RESULT: UNSAT t=199.96s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_01 RESULT: UNSAT t=209.18s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_13 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_11 RESULT: UNSAT t=209.76s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_05 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_12 RESULT: UNSAT t=215.31s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_03 RESULT: UNSAT t=218.07s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_14 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_02 RESULT: UNSAT t=223.03s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_06 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_08 RESULT: UNSAT t=230.26s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_04 RESULT: UNSAT t=237.21s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_15 RESULT: UNSAT t=239.57s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_16 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_07 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_17 RESULT: UNSAT t=245.57s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_10 RESULT: UNSAT t=247.04s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_12 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_14 RESULT: UNSAT t=248.78s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_08 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_06 RESULT: UNSAT t=252.52s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_01 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_11 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_10 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_03 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_02 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_04 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_17 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_09 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_15 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_21 RESULT: UNSAT t=183.67s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_27 RESULT: UNSAT t=183.72s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_19 RESULT: UNSAT t=184.62s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_29 RESULT: UNSAT t=184.32s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_23 RESULT: UNSAT t=186.46s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_31 RESULT: UNSAT t=187.15s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_22 RESULT: UNSAT t=191.47s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_28 RESULT: UNSAT t=191.87s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_24 RESULT: UNSAT t=192.28s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_27 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_24 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_30 RESULT: UNSAT t=198.36s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_18 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_20 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_30 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_22 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_31 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_26 RESULT: UNSAT t=205.32s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_19 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_29 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_18 RESULT: UNSAT t=222.46s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_25 NO-INDUCTION-CTI k=1
+RESULT CtiRegMatchV2_25 RESULT: UNSAT t=236.48s C=213 step=46 depth=1
+RESULT CtiRegMatchV2_20 RESULT: UNSAT t=241.41s C=213 step=46 depth=1
+ICTI CtiRegMatchV2_28 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_26 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_21 NO-INDUCTION-CTI k=1
+ICTI CtiRegMatchV2_23 NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 2 targets 22:58 ===
+GOAL-BMC WrapRegA no-cex-to-depth 8 (cap 300 s, --end 15)
+GOAL-BMC WrapRegB no-cex-to-depth 7 (cap 300 s, --end 15)
+ICTI WrapRegA NO-INDUCTION-CTI k=1
+ICTI WrapRegB NO-INDUCTION-CTI k=1
+RESULT WrapRegA RESULT: UNSAT t=188.83s C=244 step=47 (GOAL)
+RESULT WrapRegB RESULT: UNSAT t=178.30s C=244 step=47 (GOAL)
+ROUND-round33-DONE 23:09
+=== ROUND 34 staging 23:11: goal sweep WrapMcause WrapMepc WrapMstatus WrapPc (no candidates; CTI-first) ===
+=== ROUND round34 (v4.1 icti_k=1 axioms=) 23:11  maxjobs=18 kind_cap=600s ===
+core build rc=0  aig 808271 38744 4762 19549 764765 258 6 0 0
+=== core pre-screen of 0 candidates 23:11 ===
+=== core pre-screen done 23:11: 0 proved on core ===
+build rc=0  aig 12306871 1815550 4762 66928 10486559 258 6 0 0
+=== proving 0 candidates, 18 at a time 23:11 ===
+=== goals, CTI-first: 4 targets 23:11 ===
+GOAL-BMC WrapMepc no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapMcause no-cex-to-depth 7 (cap 300 s, --end 15)
+GOAL-BMC WrapPc no-cex-to-depth 5 (cap 300 s, --end 15)
+GOAL-BMC WrapMstatus no-cex-to-depth 8 (cap 300 s, --end 15)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round34-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round34-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI WrapMstatus INDUCTION-CTI k=1 frames=3 -> results/icti/round34-WrapMstatus/report.txt
+GOAL-CTI WrapMstatus (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round34-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ROUND-round34-DONE 23:19
+=== ROUND 35 staging 23:22: CtiGhostTracks{Mcause,Mepc,Mstatus,Pc}V2 (diagnostic for the trap-agreement lineage; v4.1, no goals) ===
+=== ROUND round35 (v4.1 icti_k=1 axioms=) 23:22  maxjobs=18 kind_cap=600s ===
+inserted 4 candidates at a new layer: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksPcV2
+core build rc=0  aig 808407 38744 4762 19549 764901 262 6 0 0
+=== core pre-screen of 4 candidates 23:22 ===
+CORE CtiGhostTracksMstatusV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMepcV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcauseV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV2 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 23:23: 0 proved on core ===
+build rc=0  aig 12307007 1815550 4762 66928 10486695 262 6 0 0
+=== proving 4 candidates, 18 at a time 23:31 ===
+ICTI CtiGhostTracksMstatusV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round35-CtiGhostTracksMstatusV2/report.txt
+ICTI CtiGhostTracksMepcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round35-CtiGhostTracksMepcV2/report.txt
+ICTI CtiGhostTracksMcauseV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round35-CtiGhostTracksMcauseV2/report.txt
+ICTI CtiGhostTracksPcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round35-CtiGhostTracksPcV2/report.txt
+RESULT CtiGhostTracksMcauseV2  t=601.10s C=244 step=47 depth=9
+RESULT CtiGhostTracksPcV2  t=601.20s C=244 step=47 depth=12
+RESULT CtiGhostTracksMepcV2  t=601.16s C=244 step=47 depth=10
+RESULT CtiGhostTracksMstatusV2  t=601.38s C=244 step=47 depth=12
+=== removing 4 unproven: CtiGhostTracksMcauseV2 CtiGhostTracksPcV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 ===
+removed 4: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksPcV2
+ywstrip rc=0  retired 4: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksMstatusV2 CtiGhostTracksPcV2  (no rebuild: retired in all.ywmap, real make next round)
+=== strip: lowest stripped layer step=47; 0 survivor(s) above it need re-proof ===
+ROUND-round35-DONE 23:46
+=== ROUND 36 staging 23:46: CtiTrap*/CtiMret*/CtiIrq* agreement (12) / CtiGhostTracks{Mcause,Mepc,Mstatus,Pc}V3; goals WrapMcause WrapMepc WrapMstatus WrapPc (v4.1) ===
+=== ROUND round36 (v4.1 icti_k=1 axioms=) 23:46  maxjobs=18 kind_cap=600s ===
+inserted 16 candidates at a new layer: CtiTrapMcauseAgrees CtiTrapMepcAgrees CtiTrapMstatusAgrees CtiTrapPcAgrees CtiMretMcauseUntouched CtiMretMepcUntouched CtiMretMstatusAgrees CtiMretPcAgrees CtiIrqMcauseAgrees CtiIrqMepcAgrees CtiIrqMstatusAgrees CtiIrqPcAgrees CtiGhostTracksMcauseV3 CtiGhostTracksMepcV3 CtiGhostTracksMstatusV3 CtiGhostTracksPcV3
+core build rc=0  aig 810955 38744 4762 19633 767449 274 6 0 0
+=== core pre-screen of 16 candidates 23:47 ===
+CORE CtiTrapMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMcauseAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMcauseUntouched refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMstatusV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMepcUntouched refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMepcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMepcV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcauseV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMepcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMcauseAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 23:47: 0 proved on core ===
+build rc=0  aig 12309555 1815550 4762 67012 10489243 274 6 0 0
+=== proving 16 candidates, 18 at a time 23:55 ===
+RESULT CtiIrqPcAgrees REFUTED in depth 7 C=244
+RESULT CtiIrqMcauseAgrees RESULT: UNSAT t=179.74s C=244 step=47 depth=1
+RESULT CtiMretMepcUntouched RESULT: UNSAT t=179.27s C=244 step=47 depth=1
+ICTI CtiIrqMcauseAgrees NO-INDUCTION-CTI k=1
+RESULT CtiIrqMstatusAgrees RESULT: UNSAT t=202.78s C=244 step=47 depth=1
+RESULT CtiMretPcAgrees RESULT: UNSAT t=180.58s C=244 step=47 depth=1
+RESULT CtiMretMstatusAgrees RESULT: UNSAT t=205.23s C=244 step=47 depth=1
+ICTI CtiMretMcauseUntouched NO-INDUCTION-CTI k=1
+RESULT CtiMretMcauseUntouched RESULT: UNSAT t=193.79s C=244 step=47 depth=1
+ICTI CtiIrqMepcAgrees NO-INDUCTION-CTI k=1
+ICTI CtiIrqMstatusAgrees NO-INDUCTION-CTI k=1
+ICTI CtiMretMepcUntouched NO-INDUCTION-CTI k=1
+ICTI CtiMretMstatusAgrees NO-INDUCTION-CTI k=1
+RESULT CtiIrqMepcAgrees RESULT: UNSAT t=209.89s C=244 step=47 depth=1
+ICTI CtiMretPcAgrees NO-INDUCTION-CTI k=1
+RESULT CtiGhostTracksMcauseV3 RESULT: UNSAT t=188.60s C=256 step=48 depth=1
+RESULT CtiGhostTracksMstatusV3 RESULT: UNSAT t=190.82s C=256 step=48 depth=1
+RESULT CtiTrapMcauseAgrees RESULT: UNSAT t=199.96s C=244 step=47 depth=1
+RESULT CtiTrapMstatusAgrees RESULT: UNSAT t=204.03s C=244 step=47 depth=1
+ICTI CtiTrapMepcAgrees INDUCTION-CTI k=1 frames=3 -> results/icti/round36-CtiTrapMepcAgrees/report.txt
+ICTI CtiTrapMcauseAgrees NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMepcV3 INDUCTION-CTI k=1 frames=3 -> results/icti/round36-CtiGhostTracksMepcV3/report.txt
+ICTI CtiGhostTracksPcV3 INDUCTION-CTI k=1 frames=3 -> results/icti/round36-CtiGhostTracksPcV3/report.txt
+ICTI CtiGhostTracksMstatusV3 NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMcauseV3 NO-INDUCTION-CTI k=1
+RESULT CtiTrapPcAgrees RESULT: UNSAT t=251.27s C=244 step=47 depth=1
+ICTI CtiTrapPcAgrees NO-INDUCTION-CTI k=1
+ICTI CtiTrapMstatusAgrees NO-INDUCTION-CTI k=1
+WITNESS CtiIrqPcAgrees frames=9 -> results/icti/round36-CtiIrqPcAgrees-bmc/report.txt
+RESULT CtiGhostTracksMepcV3  t=600.92s C=256 step=48 depth=7
+RESULT CtiTrapMepcAgrees  t=601.08s C=244 step=47 depth=11
+RESULT CtiGhostTracksPcV3  t=602.82s C=256 step=48 depth=24
+=== removing 4 unproven: CtiIrqPcAgrees CtiGhostTracksMepcV3 CtiTrapMepcAgrees CtiGhostTracksPcV3 ===
+removed 4: CtiTrapMepcAgrees CtiIrqPcAgrees CtiGhostTracksMepcV3 CtiGhostTracksPcV3
+ywstrip rc=0  retired 4: CtiGhostTracksMepcV3 CtiGhostTracksPcV3 CtiIrqPcAgrees CtiTrapMepcAgrees  (no rebuild: retired in all.ywmap, real make next round)
+=== strip: lowest stripped layer step=47; 2 survivor(s) above it need re-proof ===
+=== re-proving 2 survivors on the post-strip model 00:11 ===
+RESULT CtiGhostTracksMcauseV3 RESULT: UNSAT t=157.65s C=254 step=48 depth=1
+RESULT CtiGhostTracksMstatusV3 RESULT: UNSAT t=160.21s C=254 step=48 depth=1
+ICTI CtiGhostTracksMcauseV3 NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMstatusV3 NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 4 targets 00:19 ===
+GOAL-BMC WrapMstatus no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMcause no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMepc no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC WrapPc no-cex-to-depth 5 (cap 300 s, --end 15)
+ICTI WrapMstatus NO-INDUCTION-CTI k=1
+ICTI WrapMcause NO-INDUCTION-CTI k=1
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round36-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round36-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+RESULT WrapMcause RESULT: UNSAT t=147.36s C=256 step=49 (GOAL)
+RESULT WrapMstatus RESULT: UNSAT t=149.41s C=256 step=49 (GOAL)
+ROUND-round36-DONE 00:28
+=== ROUND 37 staging 00:28: CtiPcEven CtiFolPcEven (.dut) CtiTrapMepcAgreesV2 / CtiGhostTracksMepcV3; goals: WrapMepc (v4.1) ===
+=== ROUND round37 (v4.1 icti_k=1 axioms=) 00:28  maxjobs=18 kind_cap=600s ===
+inserted 4 candidates at a new layer: CtiPcEven CtiFolPcEven CtiTrapMepcAgreesV2 CtiGhostTracksMepcV3
+core build rc=0  aig 811084 38744 4762 19636 767578 274 6 0 0
+=== core pre-screen of 4 candidates 00:28 ===
+CORE CtiGhostTracksMepcV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMepcAgreesV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiPcEven PROVED-ON-CORE t=11.91s C=256 step=49 (transfers to all.aig)
+CORE CtiFolPcEven NOT-PROVED-ON-CORE (DUT-only: skipping all.aig, treated as failed)
+=== core pre-screen done 00:39: 1 proved on core ===
+build rc=0  aig 12309684 1815550 4762 67015 10489372 274 6 0 0
+=== proving 4 candidates, 18 at a time 00:46 ===
+RESULT CtiFolPcEven SKIPPED (DUT-only, failed on core)
+RESULT CtiPcEven RESULT: UNSAT t=11.91s C=256 step=49 model=core (proof transfers)
+RESULT CtiTrapMepcAgreesV2 RESULT: UNSAT t=168.65s C=256 step=49 depth=1
+RESULT CtiGhostTracksMepcV3 RESULT: UNSAT t=212.13s C=259 step=50 depth=1
+ICTI CtiTrapMepcAgreesV2 NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMepcV3 NO-INDUCTION-CTI k=1
+=== removing 1 unproven: CtiFolPcEven ===
+removed 1: CtiFolPcEven
+ywstrip rc=0  retired 1: CtiFolPcEven  (no rebuild: retired in all.ywmap, real make next round)
+=== strip: lowest stripped layer step=49; 1 survivor(s) above it need re-proof ===
+=== re-proving 1 survivors on the post-strip model 00:56 ===
+RESULT CtiGhostTracksMepcV3 RESULT: UNSAT t=210.16s C=258 step=50 depth=1
+ICTI CtiGhostTracksMepcV3 NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 1 targets 01:06 ===
+GOAL-BMC WrapMepc no-cex-to-depth 15 (cap 300 s, --end 15)
+ICTI WrapMepc NO-INDUCTION-CTI k=1
+RESULT WrapMepc RESULT: UNSAT t=141.18s C=259 step=51 (GOAL)
+ROUND-round37-DONE 01:13
+=== ROUND 38 staging 05:48: CtiJumpTargetAgrees CtiSeqNextPcAgrees / CtiGhostTracksPcV4 (PC lineage, diagnostic; no goal) ===
+=== ROUND round38 (v4.1 icti_k=1 axioms=) 05:48  maxjobs=18 kind_cap=600s ===
+inserted 3 candidates at a new layer: CtiJumpTargetAgrees CtiSeqNextPcAgrees CtiGhostTracksPcV4
+core build rc=0  aig 811557 38744 4762 19640 768051 276 6 0 0
+=== core pre-screen of 3 candidates 05:48 ===
+CORE CtiSeqNextPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiJumpTargetAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV4 refuted-on-core (decides nothing; goes to all.aig)
+=== core pre-screen done 05:49: 0 proved on core ===
+build rc=0  aig 12310157 1815550 4762 67019 10489845 276 6 0 0
+=== proving 3 candidates, 18 at a time 05:57 ===
+ICTI CtiGhostTracksPcV4 INDUCTION-CTI k=1 frames=3 -> results/icti/round38-CtiGhostTracksPcV4/report.txt
+ICTI CtiSeqNextPcAgrees INDUCTION-CTI k=1 frames=3 -> results/icti/round38-CtiSeqNextPcAgrees/report.txt
+RESULT CtiJumpTargetAgrees RESULT: UNSAT t=333.29s C=259 step=51 depth=1
+ICTI CtiJumpTargetAgrees NO-INDUCTION-CTI k=1
+RESULT CtiSeqNextPcAgrees  t=601.27s C=259 step=51 depth=15
+RESULT CtiGhostTracksPcV4  t=601.15s C=261 step=52 depth=13
+=== removing 2 unproven: CtiSeqNextPcAgrees CtiGhostTracksPcV4 ===
+removed 2: CtiSeqNextPcAgrees CtiGhostTracksPcV4
+ywstrip rc=0  retired 2: CtiGhostTracksPcV4 CtiSeqNextPcAgrees  (no rebuild: retired in all.ywmap, real make next round)
+=== strip: lowest stripped layer step=51; 0 survivor(s) above it need re-proof ===
+ROUND-round38-DONE 06:12

@@ -1,0 +1,59 @@
+From 2850fb2c84c9deaeb4c4a43601337196fecb54cb Mon Sep 17 00:00:00 2001
+From: h3formal <h3formal@localhost>
+Date: Sat, 19 Sep 2026 09:35:43 +0000
+Subject: [PATCH 2/3] Gate 7: sys_enable_zifencei() gates FENCE.I /
+ FENCEI_RESERVED decode (DUT has EXTENSION_ZIFENCEI=0)
+
+---
+ model/riscv_insts_base.sail  | 4 ++--
+ model/riscv_insts_hints.sail | 4 ++--
+ model/riscv_sys_regs.sail    | 2 ++
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/model/riscv_insts_base.sail b/model/riscv_insts_base.sail
+index 3a8de35..cfcfb5e 100644
+--- a/model/riscv_insts_base.sail
++++ b/model/riscv_insts_base.sail
+@@ -480,8 +480,8 @@ mapping fence_bits : bits(4) <-> string = {
+ /* ****************************************************************** */
+ union clause ast = FENCEI : (bits(12), bits(5), bits(5))
+ 
+-mapping clause encdec = FENCEI(g1, g2, g3)
+-  <-> g1 @ g2 @ 0b001 @ g3 @ 0b0001111
++mapping clause encdec = FENCEI(g1, g2, g3)     if sys_enable_zifencei()
++  <-> g1 @ g2 @ 0b001 @ g3 @ 0b0001111        if sys_enable_zifencei()
+ 
+ /* fence.i is a nop for the memory model */
+ function clause execute FENCEI(g1, g2, g3) = { /* __barrier(Barrier_RISCV_i); */ RETIRE_SUCCESS }
+diff --git a/model/riscv_insts_hints.sail b/model/riscv_insts_hints.sail
+index ceddcf2..55050fa 100644
+--- a/model/riscv_insts_hints.sail
++++ b/model/riscv_insts_hints.sail
+@@ -154,9 +154,9 @@ mapping clause assembly = FENCE_RESERVED(fm, pred, succ, rs, rd)
+ union clause ast = FENCEI_RESERVED : (bits(12), regidx, regidx)
+ 
+ mapping clause encdec = FENCEI_RESERVED(imm, rs, rd)
+-      if imm != 0b000000000000 | rs != zreg | rd != zreg
++      if (imm != 0b000000000000 | rs != zreg | rd != zreg) & sys_enable_zifencei()
+   <-> imm : bits(12) @ rs : regidx @ 0b001 @ rd : regidx @ 0b0001111
+-      if imm != 0b000000000000 | rs != zreg | rd != zreg
++      if (imm != 0b000000000000 | rs != zreg | rd != zreg) & sys_enable_zifencei()
+ 
+ function clause execute FENCEI_RESERVED(imm, rs, rd) = RETIRE_SUCCESS
+ 
+diff --git a/model/riscv_sys_regs.sail b/model/riscv_sys_regs.sail
+index 7357d8d..af9f132 100644
+--- a/model/riscv_sys_regs.sail
++++ b/model/riscv_sys_regs.sail
+@@ -81,6 +81,8 @@ register misa : Misa
+ /* whether misa is R/W */
+ val sys_enable_writable_misa = {c: "sys_enable_writable_misa", ocaml: "Platform.enable_writable_misa", _: "sys_enable_writable_misa"} : unit -> bool
+ /* whether misa.c was enabled at boot */
++/* whether Zifencei (fence.i) is implemented */
++val sys_enable_zifencei = {c: "sys_enable_zifencei", ocaml: "Platform.enable_zifencei", _: "sys_enable_zifencei"} : unit -> bool
+ val sys_enable_rvc = {c: "sys_enable_rvc", ocaml: "Platform.enable_rvc", _: "sys_enable_rvc"} : unit -> bool
+ /* whether misa.{f,d} were enabled at boot */
+ val sys_enable_fdext = {c: "sys_enable_fdext", ocaml: "Platform.enable_fdext", _: "sys_enable_fdext"} : unit -> bool
+-- 
+2.43.0
+

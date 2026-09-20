@@ -1,0 +1,26 @@
+From b9d8e7ca840792a878ed0b877ce5602efac54ef1 Mon Sep 17 00:00:00 2001
+From: h3formal <h3formal@localhost>
+Date: Sat, 19 Sep 2026 09:35:43 +0000
+Subject: [PATCH 3/3] Gate 8: legalize_mstatus masks TW when U-mode is absent
+ (FINDING_SPEC_TW.md)
+
+---
+ model/riscv_sys_regs.sail | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/model/riscv_sys_regs.sail b/model/riscv_sys_regs.sail
+index af9f132..8efd23b 100644
+--- a/model/riscv_sys_regs.sail
++++ b/model/riscv_sys_regs.sail
+@@ -327,6 +327,8 @@ function legalize_mstatus(o : Mstatus, v : xlenbits) -> Mstatus = {
+ 
+   if not(haveUsrMode()) then {
+     let m = [m with MPRV = 0b0];
++    /* TW is read-only 0 when U-mode is not implemented (priv spec 3.1.6.5) */
++    let m = [m with TW = 0b0];
+     m
+   } else m
+ }
+-- 
+2.43.0
+

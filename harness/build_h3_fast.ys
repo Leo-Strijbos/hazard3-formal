@@ -1,0 +1,69 @@
+# Stage B of the split Hazard3 build: elaborate the core + harness only, link
+# the cached specification (build/spec.il, built by build_h3_spec.ys) and lower
+# the combined design.  This is what a harness-only edit re-runs.
+#
+# Everything from `flatten` onwards is the same pass sequence as the monolithic
+# build_h3.ys, applied to the same flat design, so the resulting model is the
+# same model.  See BRINGUP.md, "Cached spec elaboration".
+#
+# LOWRISC_SAIL_SRC and HAZARD3_RTL are substituted by the Makefile.
+
+# `--empty-blackboxes` makes slang treat the (empty) spec_api declaration in
+# build/spec_api_bb.sv as a blackbox, so the 1.5 MB Sail model is parsed for its
+# types but never elaborated.  build/spec_api_bb.sv is spec/spec_api.sv
+# truncated at the end of the port list, so the instantiation in
+# check/h3_top.sv still type-checks against the real parameters, enum types and
+# unpacked array ports -- and slang packs those ports into RTLIL bit-for-bit as
+# it does for stage A's `--top spec_api`, because it is the same code path.
+# -DHAZARD3_RVFI_STANDALONE: see the block in build_h3_core.ys.  The two models
+# must agree exactly here, or `make check-env` fails.
+read_slang --empty-blackboxes --no-implicit-memories --top top -DSYNTHESIS -DYOSYS -DHAZARD3_RVFI_STANDALONE \
+	build/ibexspec.sv spec/stub.sv build/spec_api_bb.sv check/h3_ahbl_master_props.sv AHBL_SLAVE_ASSUMPTIONS_V check/h3_top.sv \
+	-F build/hazard3.scr \
+	-I LOWRISC_SAIL_SRC/lib/sv/ -I HAZARD3_RTL \
+	--single-unit --no-proc
+
+# Swap slang's empty blackbox for the cached, already-lowered implementation.
+delete spec_api
+read_rtlil build/spec.il
+
+# --- passes that only concern the core + harness ------------------------------
+# Restricted to `top`: the spec half already had these applied in stage A.
+# Restricting an *optimisation* pass can only cost AND gates, never change
+# meaning.  (global_clk insists on exactly one selected module in any case.)
+setattr -set keep 1 top/n:\\*
+select top
+proc
+global_clk \clk_i
+opt_muxtree_2
+opt_clean
+select -clear
+
+# --- link ---------------------------------------------------------------------
+flatten
+delete spec_api
+# Collapses the `spec_api_i.<port>` alias wires that flatten introduces and that
+# the monolithic build never had (their `keep` was unset in stage A), so the
+# signal set `expose` sees below is the same one the monolithic build exposes.
+opt_clean
+
+# --- identical to build_h3.ys from here ---------------------------------------
+memory_nordff
+delete */t:$print
+script h3_tieoff_undriven.ys
+setundef -undriven -anyseq
+memory_map -formal
+delete -output
+expose n:\\*
+
+opt_muxtree_2
+opt_expr
+opt_dff
+opt_clean
+techmap
+simplemap
+dffunmap
+opt_clean
+stat
+aigmap
+write_aiger_2 -I -B -zinit -no-startoffset -ywmap build/all.ywmap -vmap build/all.vmap build/all.aig

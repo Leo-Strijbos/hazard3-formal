@@ -1,0 +1,1427 @@
+=== TURN5 11:57 : one lemma per layer ===
+layering: CtiFolInstrMatchesRvfi -> step 1, CtiRdAddrMatchesInsn -> step 2, SpikeAddLag -> step 3
+build rc=0  aig 12244901 1814755 4761 65911 10425385 128 6 0 0
+  CtiFolInstrMatchesRvfi -> step 1
+  CtiRdAddrMatchesInsn -> step 2
+  SpikeAddLag -> step 3
+RESULT CtiFolInstrMatchesRvfi RESULT: UNSAT t=144.78s C=97
+=== CTI BATCH 12:13: six real goals in parallel ===
+  WrapMie: selection: 1 obligation, 99 established facts
+  WrapMie: CTI found: witness 6 lines
+  WrapMie:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMie:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMie:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMie:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMie:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMie:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMie:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMie:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMie:   summary: results/cti/3_WrapMie/cti.txt
+  WrapMtvec: selection: 1 obligation, 99 established facts
+  WrapMtvec: CTI found: witness 6 lines
+  WrapMtvec:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMtvec:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMtvec:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMtvec:   summary: results/cti/3_WrapMtvec/cti.txt
+  WrapMscratch: selection: 1 obligation, 99 established facts
+  WrapMscratch: CTI found: witness 6 lines
+  WrapMscratch:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMscratch:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMscratch:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMscratch:   summary: results/cti/3_WrapMscratch/cti.txt
+  StoreEn: selection: 1 obligation, 99 established facts
+  StoreEn: CTI found: witness 6 lines
+  StoreEn:   Violated assertion $\top.Step3_StoreEn$4545
+  StoreEn:   Violated assertion $\top.Step3_StoreWData$4560
+  StoreEn:   Violated assertion $\top.Step3_WrapMcause$4490
+  StoreEn:   Violated assertion $\top.Step3_WrapMepc$4505
+  StoreEn:   Violated assertion $\top.Step3_WrapMie$4485
+  StoreEn:   Violated assertion $\top.Step3_WrapMscratch$4500
+  StoreEn:   Violated assertion $\top.Step3_WrapMstatus$4480
+  StoreEn:   Violated assertion $\top.Step3_WrapMtvec$4495
+  StoreEn:   Violated assertion $\top.Step3_WrapPc$4475
+  StoreEn:   summary: results/cti/3_StoreEn/cti.txt
+  WrapRegA: selection: 1 obligation, 99 established facts
+  WrapRegA: CTI found: witness 6 lines
+  WrapRegA:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapRegA:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapRegA:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapRegA:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapRegA:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapRegA:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapRegA:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapRegA:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapRegA:   Violated assertion $\top.Step3_WrapRegA$4510
+  WrapRegA:   summary: results/cti/3_WrapRegA/cti.txt
+  LoadEn: selection: 1 obligation, 99 established facts
+  LoadEn: CTI found: witness 6 lines
+  LoadEn:   Violated assertion $\top.Step3_LoadEn$4535
+  LoadEn:   Violated assertion $\top.Step3_StoreWData$4560
+  LoadEn:   Violated assertion $\top.Step3_WrapMcause$4490
+  LoadEn:   Violated assertion $\top.Step3_WrapMepc$4505
+  LoadEn:   Violated assertion $\top.Step3_WrapMie$4485
+  LoadEn:   Violated assertion $\top.Step3_WrapMscratch$4500
+  LoadEn:   Violated assertion $\top.Step3_WrapMstatus$4480
+  LoadEn:   Violated assertion $\top.Step3_WrapMtvec$4495
+  LoadEn:   Violated assertion $\top.Step3_WrapPc$4475
+  LoadEn:   summary: results/cti/3_LoadEn/cti.txt
+CTIBATCH-DONE 12:15
+=== CTI BATCH 3 12:25: twelve remaining goals, 6 at a time ===
+  WrapPc: selection: 1 obligation, 99 established facts
+  WrapPc:     build/sel/cti-3-WrapPc.aig -> results/cti/3_WrapPc/cti.aig
+  WrapPc:       latches freed : 4761/4761
+  WrapPc:       bads=1 constraints=99  (unchanged: OK)
+  WrapPc: CTI found: witness 6 lines
+  WrapPc:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapPc:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapPc:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapPc:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapPc:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapPc:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapPc:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapPc:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapPc:   summary: results/cti/3_WrapPc/cti.txt
+  WrapPc: H3CTI-DONE WrapPc
+  report: results/cti/3_WrapPc/report.txt (122158 bytes, 2 frames, 368 false predicates)
+  digest: results/cti/3_WrapPc/digest.txt (21064 bytes)
+  WrapMstatus: selection: 1 obligation, 99 established facts
+  WrapMstatus:     build/sel/cti-3-WrapMstatus.aig -> results/cti/3_WrapMstatus/cti.aig
+  WrapMstatus:       latches freed : 4761/4761
+  WrapMstatus:       bads=1 constraints=99  (unchanged: OK)
+  WrapMstatus: CTI found: witness 6 lines
+  WrapMstatus:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMstatus:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMstatus:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMstatus:   summary: results/cti/3_WrapMstatus/cti.txt
+  WrapMstatus: H3CTI-DONE WrapMstatus
+  report: results/cti/3_WrapMstatus/report.txt (122163 bytes, 2 frames, 368 false predicates)
+  digest: results/cti/3_WrapMstatus/digest.txt (21069 bytes)
+  WrapMcause: selection: 1 obligation, 99 established facts
+  WrapMcause:     build/sel/cti-3-WrapMcause.aig -> results/cti/3_WrapMcause/cti.aig
+  WrapMcause:       latches freed : 4761/4761
+  WrapMcause:       bads=1 constraints=99  (unchanged: OK)
+  WrapMcause: CTI found: witness 6 lines
+  WrapMcause:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMcause:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMcause:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMcause:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMcause:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMcause:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMcause:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMcause:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMcause:   summary: results/cti/3_WrapMcause/cti.txt
+  WrapMcause: H3CTI-DONE WrapMcause
+  report: results/cti/3_WrapMcause/report.txt (122162 bytes, 2 frames, 368 false predicates)
+  digest: results/cti/3_WrapMcause/digest.txt (21068 bytes)
+  WrapMepc: selection: 1 obligation, 99 established facts
+  WrapMepc:     build/sel/cti-3-WrapMepc.aig -> results/cti/3_WrapMepc/cti.aig
+  WrapMepc:       latches freed : 4761/4761
+  WrapMepc:       bads=1 constraints=99  (unchanged: OK)
+  WrapMepc: CTI found: witness 6 lines
+  WrapMepc:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapMepc:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapMepc:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapMepc:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapMepc:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapMepc:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapMepc:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapMepc:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapMepc:   summary: results/cti/3_WrapMepc/cti.txt
+  WrapMepc: H3CTI-DONE WrapMepc
+  report: results/cti/3_WrapMepc/report.txt (122160 bytes, 2 frames, 368 false predicates)
+  digest: results/cti/3_WrapMepc/digest.txt (21066 bytes)
+  WrapRegB: selection: 1 obligation, 99 established facts
+  WrapRegB:     build/sel/cti-3-WrapRegB.aig -> results/cti/3_WrapRegB/cti.aig
+  WrapRegB:       latches freed : 4761/4761
+  WrapRegB:       bads=1 constraints=99  (unchanged: OK)
+  WrapRegB: CTI found: witness 6 lines
+  WrapRegB:   Violated assertion $\top.Step3_StoreEn$4545
+  WrapRegB:   Violated assertion $\top.Step3_WrapMcause$4490
+  WrapRegB:   Violated assertion $\top.Step3_WrapMepc$4505
+  WrapRegB:   Violated assertion $\top.Step3_WrapMie$4485
+  WrapRegB:   Violated assertion $\top.Step3_WrapMscratch$4500
+  WrapRegB:   Violated assertion $\top.Step3_WrapMstatus$4480
+  WrapRegB:   Violated assertion $\top.Step3_WrapMtvec$4495
+  WrapRegB:   Violated assertion $\top.Step3_WrapPc$4475
+  WrapRegB:   Violated assertion $\top.Step3_WrapRegB$4515
+  WrapRegB:   summary: results/cti/3_WrapRegB/cti.txt
+  WrapRegB: H3CTI-DONE WrapRegB
+  report: results/cti/3_WrapRegB/report.txt (122656 bytes, 2 frames, 383 false predicates)
+  digest: results/cti/3_WrapRegB/digest.txt (21108 bytes)
+  NoMem: selection: 1 obligation, 99 established facts
+  NoMem:     build/sel/cti-3-NoMem.aig -> results/cti/3_NoMem/cti.aig
+  NoMem:       latches freed : 4761/4761
+  NoMem:       bads=1 constraints=99  (unchanged: OK)
+  NoMem: CTI found: witness 6 lines
+  NoMem:   Violated assertion $\top.Step3_MemWe$4525
+  NoMem:   Violated assertion $\top.Step3_NoMem$4520
+  NoMem:   Violated assertion $\top.Step3_StoreWData$4560
+  NoMem:   Violated assertion $\top.Step3_WrapMcause$4490
+  NoMem:   Violated assertion $\top.Step3_WrapMepc$4505
+  NoMem:   Violated assertion $\top.Step3_WrapMie$4485
+  NoMem:   Violated assertion $\top.Step3_WrapMscratch$4500
+  NoMem:   Violated assertion $\top.Step3_WrapMstatus$4480
+  NoMem:   Violated assertion $\top.Step3_WrapMtvec$4495
+  NoMem:   Violated assertion $\top.Step3_WrapPc$4475
+  NoMem:   summary: results/cti/3_NoMem/cti.txt
+  NoMem: H3CTI-DONE NoMem
+  report: results/cti/3_NoMem/report.txt (122458 bytes, 2 frames, 376 false predicates)
+  digest: results/cti/3_NoMem/digest.txt (21143 bytes)
+  MemNoSecondGranule: selection: 1 obligation, 99 established facts
+  MemNoSecondGranule:     build/sel/cti-3-MemNoSecondGranule.aig -> results/cti/3_MemNoSecondGranule/cti.aig
+  MemNoSecondGranule:       latches freed : 4761/4761
+  MemNoSecondGranule:       bads=1 constraints=99  (unchanged: OK)
+  MemNoSecondGranule: NO CTI at k=2: the property is inductive at this depth (the failure is elsewhere)
+  MemWe: selection: 1 obligation, 99 established facts
+  MemWe:     build/sel/cti-3-MemWe.aig -> results/cti/3_MemWe/cti.aig
+  MemWe:       latches freed : 4761/4761
+  MemWe:       bads=1 constraints=99  (unchanged: OK)
+  MemWe: CTI found: witness 6 lines
+  MemWe:   Violated assertion $\top.Step3_MemWe$4525
+  MemWe:   Violated assertion $\top.Step3_StoreEn$4545
+  MemWe:   Violated assertion $\top.Step3_StoreWData$4560
+  MemWe:   Violated assertion $\top.Step3_WrapMcause$4490
+  MemWe:   Violated assertion $\top.Step3_WrapMepc$4505
+  MemWe:   Violated assertion $\top.Step3_WrapMie$4485
+  MemWe:   Violated assertion $\top.Step3_WrapMscratch$4500
+  MemWe:   Violated assertion $\top.Step3_WrapMstatus$4480
+  MemWe:   Violated assertion $\top.Step3_WrapMtvec$4495
+  MemWe:   Violated assertion $\top.Step3_WrapPc$4475
+  MemWe:   summary: results/cti/3_MemWe/cti.txt
+  MemWe: H3CTI-DONE MemWe
+  report: results/cti/3_MemWe/report.txt (122331 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/3_MemWe/digest.txt (21147 bytes)
+  LoadAddr: selection: 1 obligation, 99 established facts
+  LoadAddr:     build/sel/cti-3-LoadAddr.aig -> results/cti/3_LoadAddr/cti.aig
+  LoadAddr:       latches freed : 4761/4761
+  LoadAddr:       bads=1 constraints=99  (unchanged: OK)
+  LoadAddr: CTI found: witness 6 lines
+  LoadAddr:   Violated assertion $\top.Step3_LoadAddr$4540
+  LoadAddr:   Violated assertion $\top.Step3_MemWe$4525
+  LoadAddr:   Violated assertion $\top.Step3_NoMem$4520
+  LoadAddr:   Violated assertion $\top.Step3_StoreWData$4560
+  LoadAddr:   Violated assertion $\top.Step3_WrapMcause$4490
+  LoadAddr:   Violated assertion $\top.Step3_WrapMepc$4505
+  LoadAddr:   Violated assertion $\top.Step3_WrapMie$4485
+  LoadAddr:   Violated assertion $\top.Step3_WrapMscratch$4500
+  LoadAddr:   Violated assertion $\top.Step3_WrapMstatus$4480
+  LoadAddr:   Violated assertion $\top.Step3_WrapMtvec$4495
+  LoadAddr:   Violated assertion $\top.Step3_WrapPc$4475
+  LoadAddr:   summary: results/cti/3_LoadAddr/cti.txt
+  LoadAddr: H3CTI-DONE LoadAddr
+  report: results/cti/3_LoadAddr/report.txt (122580 bytes, 2 frames, 378 false predicates)
+  digest: results/cti/3_LoadAddr/digest.txt (21188 bytes)
+  StoreAddr: selection: 1 obligation, 99 established facts
+  StoreAddr:     build/sel/cti-3-StoreAddr.aig -> results/cti/3_StoreAddr/cti.aig
+  StoreAddr:       latches freed : 4761/4761
+  StoreAddr:       bads=1 constraints=99  (unchanged: OK)
+  StoreAddr: CTI found: witness 6 lines
+  StoreAddr:   Violated assertion $\top.Step3_MemWe$4525
+  StoreAddr:   Violated assertion $\top.Step3_NoMem$4520
+  StoreAddr:   Violated assertion $\top.Step3_StoreAddr$4550
+  StoreAddr:   Violated assertion $\top.Step3_StoreBe$4555
+  StoreAddr:   Violated assertion $\top.Step3_StoreWData$4560
+  StoreAddr:   Violated assertion $\top.Step3_WrapMcause$4490
+  StoreAddr:   Violated assertion $\top.Step3_WrapMepc$4505
+  StoreAddr:   Violated assertion $\top.Step3_WrapMie$4485
+  StoreAddr:   Violated assertion $\top.Step3_WrapMscratch$4500
+  StoreAddr:   Violated assertion $\top.Step3_WrapMstatus$4480
+  StoreAddr:   Violated assertion $\top.Step3_WrapMtvec$4495
+  StoreAddr:   Violated assertion $\top.Step3_WrapPc$4475
+  StoreAddr:   summary: results/cti/3_StoreAddr/cti.txt
+  StoreAddr: H3CTI-DONE StoreAddr
+  report: results/cti/3_StoreAddr/report.txt (122450 bytes, 2 frames, 373 false predicates)
+  digest: results/cti/3_StoreAddr/digest.txt (21231 bytes)
+  StoreBe: selection: 1 obligation, 99 established facts
+  StoreBe:     build/sel/cti-3-StoreBe.aig -> results/cti/3_StoreBe/cti.aig
+  StoreBe:       latches freed : 4761/4761
+  StoreBe:       bads=1 constraints=99  (unchanged: OK)
+  StoreBe: CTI found: witness 6 lines
+  StoreBe:   Violated assertion $\top.Step3_MemWe$4525
+  StoreBe:   Violated assertion $\top.Step3_NoMem$4520
+  StoreBe:   Violated assertion $\top.Step3_StoreBe$4555
+  StoreBe:   Violated assertion $\top.Step3_StoreWData$4560
+  StoreBe:   Violated assertion $\top.Step3_WrapMcause$4490
+  StoreBe:   Violated assertion $\top.Step3_WrapMepc$4505
+  StoreBe:   Violated assertion $\top.Step3_WrapMie$4485
+  StoreBe:   Violated assertion $\top.Step3_WrapMscratch$4500
+  StoreBe:   Violated assertion $\top.Step3_WrapMstatus$4480
+  StoreBe:   Violated assertion $\top.Step3_WrapMtvec$4495
+  StoreBe:   Violated assertion $\top.Step3_WrapPc$4475
+  StoreBe:   summary: results/cti/3_StoreBe/cti.txt
+  StoreBe: H3CTI-DONE StoreBe
+  report: results/cti/3_StoreBe/report.txt (122364 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/3_StoreBe/digest.txt (21185 bytes)
+  StoreWData: selection: 1 obligation, 99 established facts
+  StoreWData:     build/sel/cti-3-StoreWData.aig -> results/cti/3_StoreWData/cti.aig
+  StoreWData:       latches freed : 4761/4761
+  StoreWData:       bads=1 constraints=99  (unchanged: OK)
+  StoreWData: CTI found: witness 6 lines
+  StoreWData:   Violated assertion $\top.Step3_StoreWData$4560
+  StoreWData:   summary: results/cti/3_StoreWData/cti.txt
+  StoreWData: H3CTI-DONE StoreWData
+  report: results/cti/3_StoreWData/report.txt (121599 bytes, 2 frames, 363 false predicates)
+  digest: results/cti/3_StoreWData/digest.txt (20766 bytes)
+CTIBATCH3-DONE 12:31
+=== ROUND 1 12:38: syntax gate on build/core.aig ===
+syntax gate PASSED (rc=0) 12:39
+=== ROUND round1 12:39  maxjobs=23 ===
+inserted 14 candidates at a new layer: CtiPastValidAgree CtiCsrWenIsQuery CtiAphReqAccepted CtiCirRawPassthrough CtiPastPreMtvecReservedZero CtiHasRegImpliesHasGhost CtiSpecPostMtvecReservedZero CtiFolIntErrIsFetchErr CtiMemopRaisesAph CtiFolRdMatchesSpecWrite CtiGhostMtvecReservedZero CtiGhostMieReservedZero CtiXProgressAphAccepted CtiGhostTracksMscratch
+RESULT CtiRdAddrMatchesInsn  t=1501.51s C=98
+build rc=0  aig 12245775 1814755 4761 65925 10426259 142 6 0 0
+=== proving 14 candidates, 23 at a time 12:54 ===
+RESULT CtiAphReqAccepted RESULT: UNSAT t=163.82s C=99
+RESULT CtiPastPreMtvecReservedZero RESULT: UNSAT t=166.41s C=99
+RESULT CtiGhostMtvecReservedZero RESULT: UNSAT t=165.67s C=124
+RESULT CtiCsrWenIsQuery RESULT: UNSAT t=164.51s C=99
+RESULT CtiPastValidAgree RESULT: UNSAT t=165.32s C=99
+RESULT CtiXProgressAphAccepted RESULT: UNSAT t=165.51s C=124
+RESULT CtiSpecPostMtvecReservedZero RESULT: UNSAT t=165.41s C=99
+RESULT CtiHasRegImpliesHasGhost RESULT: UNSAT t=157.73s C=99
+RESULT CtiMemopRaisesAph RESULT: UNSAT t=162.22s C=99
+RESULT CtiGhostMieReservedZero RESULT: UNSAT t=163.86s C=124
+RESULT CtiCirRawPassthrough RESULT: UNSAT t=176.41s C=99
+RESULT CtiFolIntErrIsFetchErr RESULT: UNSAT t=224.56s C=99
+RESULT CtiFolRdMatchesSpecWrite  t=1201.42s C=99
+RESULT CtiGhostTracksMscratch  t=1201.37s C=127
+=== removing 2 unproven: CtiFolRdMatchesSpecWrite CtiGhostTracksMscratch ===
+removed 2: CtiFolRdMatchesSpecWrite CtiGhostTracksMscratch
+rebuild rc=0  aig 12245707 1814755 4761 65925 10426191 140 6 0 0
+=== retrying 6 targets 13:27 ===
+RESULT WrapPc  t=1201.73s C=126
+RESULT WrapMie  t=1201.63s C=126
+RESULT WrapMscratch  t=1202.10s C=126
+RESULT LoadEn  t=1202.09s C=126
+RESULT StoreEn  t=1202.12s C=126
+RESULT WrapMtvec  t=1202.31s C=126
+ROUND-round1-DONE 13:52
+=== ROUND 2 staging 13:53 ===
+CtiGhostTracksMscratch was STRIPPED -- re-adding it above its support
+=== ROUND round2 13:53  maxjobs=23 ===
+inserted 10 candidates at a new layer: CtiMscratchChangeIsQuery CtiSpecMscratchFrame CtiSpecWriteIsStoreInsn CtiSpecReadIsLoadInsn CtiRawStoreDecompressesToStore CtiRawLoadDecompressesToLoad CtiFollowerPostIsDutMscratch CtiFollowerMemHasXmMemop CtiGhostRegsMatchDut CtiGhostTracksMscratch
+build rc=0  aig 12250888 1814755 4762 65967 10431371 150 6 0 0
+=== proving 10 candidates, 23 at a time 14:08 ===
+RESULT CtiMscratchChangeIsQuery RESULT: UNSAT t=160.79s C=126
+RESULT CtiSpecReadIsLoadInsn RESULT: UNSAT t=159.22s C=126
+RESULT CtiSpecWriteIsStoreInsn RESULT: UNSAT t=159.68s C=126
+RESULT CtiFollowerMemHasXmMemop RESULT: UNSAT t=160.55s C=132
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=161.91s C=134
+RESULT CtiSpecMscratchFrame RESULT: UNSAT t=165.21s C=126
+RESULT CtiFollowerPostIsDutMscratch  t=1201.30s C=132
+RESULT CtiGhostRegsMatchDut  t=1201.88s C=134
+RESULT CtiRawLoadDecompressesToLoad  t=1201.60s C=126
+RESULT CtiRawStoreDecompressesToStore  t=1201.86s C=126
+=== removing 4 unproven: CtiFollowerPostIsDutMscratch CtiGhostRegsMatchDut CtiRawLoadDecompressesToLoad CtiRawStoreDecompressesToStore ===
+removed 4: CtiRawStoreDecompressesToStore CtiRawLoadDecompressesToLoad CtiFollowerPostIsDutMscratch CtiGhostRegsMatchDut
+rebuild rc=0  aig 12250752 1814755 4762 65967 10431235 146 6 0 0
+=== retrying 8 targets 14:41 ===
+RESULT WrapMscratch RESULT: UNSAT t=155.64s C=132
+RESULT WrapMie  t=1201.65s C=132
+RESULT WrapRegB  t=1202.01s C=132
+RESULT LoadEn  t=1201.94s C=132
+RESULT MemWe  t=1201.96s C=132
+RESULT WrapRegA  t=1202.13s C=132
+RESULT WrapMtvec  t=1202.08s C=132
+RESULT StoreEn  t=1202.91s C=132
+ROUND-round2-DONE 15:06
+=== REPROVE after round2 strip 15:06: survivors that sat above a stripped lemma ===
+model: aig 12250752 1814755 4762 65967 10431235 146 6 0 0
+REPROVE CtiGhostTracksMscratch  t=1201.21s C=131 step=7
+REPROVE CtiFollowerMemHasXmMemop  t=1201.37s C=130 step=6
+REPROVE2-DONE 15:26
+=== REPROVE3 15:26: step-4 round-1 survivors + WrapMscratch, model: aig 12250752 1814755 4762 65967 10431235 146 6 0 0 ===
+=== CTI for failing survivors 15:27 model: aig 12250752 1814755 4762 65967 10431235 146 6 0 0 ===
+REPROVE CtiGhostMtvecReservedZero RESULT: UNSAT t=147.92s C=123 step=4
+REPROVE CtiXProgressAphAccepted RESULT: UNSAT t=148.21s C=123 step=4
+REPROVE CtiGhostMieReservedZero RESULT: UNSAT t=151.89s C=123 step=4
+  CtiGhostTracksMscratch@7: selection: 1 obligation, 131 established facts
+  CtiGhostTracksMscratch@7:     build/sel/cti-7-CtiGhostTracksMscratch.aig -> results/cti/7_CtiGhostTracksMscratch/cti.aig
+  CtiGhostTracksMscratch@7:       latches freed : 4762/4762
+  CtiGhostTracksMscratch@7:       bads=1 constraints=131  (unchanged: OK)
+  CtiGhostTracksMscratch@7: CTI found: witness 6 lines
+  CtiGhostTracksMscratch@7:   Violated assertion $\top.Step7_CtiGhostTracksMscratch$4788
+  CtiGhostTracksMscratch@7:   summary: results/cti/7_CtiGhostTracksMscratch/cti.txt
+  CtiGhostTracksMscratch@7: H3CTI-DONE CtiGhostTracksMscratch
+  report: results/cti/7_CtiGhostTracksMscratch/report.txt (122305 bytes, 2 frames, 383 false predicates)
+  digest: results/cti/7_CtiGhostTracksMscratch/digest.txt (21749 bytes)
+  CtiFollowerMemHasXmMemop@6: selection: 1 obligation, 130 established facts
+  CtiFollowerMemHasXmMemop@6:     build/sel/cti-6-CtiFollowerMemHasXmMemop.aig -> results/cti/6_CtiFollowerMemHasXmMemop/cti.aig
+  CtiFollowerMemHasXmMemop@6:       latches freed : 4762/4762
+  CtiFollowerMemHasXmMemop@6:       bads=1 constraints=130  (unchanged: OK)
+  CtiFollowerMemHasXmMemop@6: CTI found: witness 6 lines
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step6_CtiFollowerMemHasXmMemop$4783
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step7_CtiGhostTracksMscratch$4788
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_LoadEn$4863
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMcause$4818
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMepc$4833
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMie$4813
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMscratch$4828
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMstatus$4808
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapMtvec$4823
+  CtiFollowerMemHasXmMemop@6:   Violated assertion $\top.Step8_WrapPc$4803
+  CtiFollowerMemHasXmMemop@6:   summary: results/cti/6_CtiFollowerMemHasXmMemop/cti.txt
+  CtiFollowerMemHasXmMemop@6: H3CTI-DONE CtiFollowerMemHasXmMemop
+  report: results/cti/6_CtiFollowerMemHasXmMemop/report.txt (123030 bytes, 2 frames, 386 false predicates)
+  digest: results/cti/6_CtiFollowerMemHasXmMemop/digest.txt (22173 bytes)
+CTI-SURVIVORS-DONE 15:30
+REPROVE WrapMscratch RESULT: UNSAT t=141.43s C=132 step=8
+REPROVE3-DONE 15:31 model: aig 12250752 1814755 4762 65967 10431235 146 6 0 0
+=== CTI BATCH 4 15:32: stripping re-proof failures first: CtiFollowerMemHasXmMemop CtiGhostTracksMscratch ===
+removed 2: CtiFollowerMemHasXmMemop CtiGhostTracksMscratch
+rebuild rc=0  aig 12250684 1814755 4762 65967 10431167 144 6 0 0
+=== CTI BATCH 4 extracting at current steps, model: aig 12250684 1814755 4762 65967 10431167 144 6 0 0 ===
+  WrapMscratch@6: selection: 1 obligation, 130 established facts
+  WrapMscratch@6:     build/sel/cti-6-WrapMscratch.aig -> results/cti/6_WrapMscratch/cti.aig
+  WrapMscratch@6:       latches freed : 4762/4762
+  WrapMscratch@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMscratch@6: CTI found: witness 6 lines
+  WrapMscratch@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMscratch@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMscratch@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMscratch@6:   summary: results/cti/6_WrapMscratch/cti.txt
+  WrapMscratch@6: H3CTI-DONE WrapMscratch
+  report: results/cti/6_WrapMscratch/report.txt (122428 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMscratch/digest.txt (22061 bytes)
+  WrapPc@6: selection: 1 obligation, 130 established facts
+  WrapPc@6:     build/sel/cti-6-WrapPc.aig -> results/cti/6_WrapPc/cti.aig
+  WrapPc@6:       latches freed : 4762/4762
+  WrapPc@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapPc@6: CTI found: witness 6 lines
+  WrapPc@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapPc@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapPc@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapPc@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapPc@6:   summary: results/cti/6_WrapPc/cti.txt
+  WrapPc@6: H3CTI-DONE WrapPc
+  report: results/cti/6_WrapPc/report.txt (122422 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapPc/digest.txt (22055 bytes)
+  WrapMstatus@6: selection: 1 obligation, 130 established facts
+  WrapMstatus@6:     build/sel/cti-6-WrapMstatus.aig -> results/cti/6_WrapMstatus/cti.aig
+  WrapMstatus@6:       latches freed : 4762/4762
+  WrapMstatus@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMstatus@6: CTI found: witness 6 lines
+  WrapMstatus@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMstatus@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMstatus@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMstatus@6:   summary: results/cti/6_WrapMstatus/cti.txt
+  WrapMstatus@6: H3CTI-DONE WrapMstatus
+  report: results/cti/6_WrapMstatus/report.txt (122427 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMstatus/digest.txt (22060 bytes)
+  WrapMie@6: selection: 1 obligation, 130 established facts
+  WrapMie@6:     build/sel/cti-6-WrapMie.aig -> results/cti/6_WrapMie/cti.aig
+  WrapMie@6:       latches freed : 4762/4762
+  WrapMie@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMie@6: CTI found: witness 6 lines
+  WrapMie@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMie@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMie@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMie@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMie@6:   summary: results/cti/6_WrapMie/cti.txt
+  WrapMie@6: H3CTI-DONE WrapMie
+  report: results/cti/6_WrapMie/report.txt (122423 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMie/digest.txt (22056 bytes)
+  WrapMcause@6: selection: 1 obligation, 130 established facts
+  WrapMcause@6:     build/sel/cti-6-WrapMcause.aig -> results/cti/6_WrapMcause/cti.aig
+  WrapMcause@6:       latches freed : 4762/4762
+  WrapMcause@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMcause@6: CTI found: witness 6 lines
+  WrapMcause@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMcause@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMcause@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMcause@6:   summary: results/cti/6_WrapMcause/cti.txt
+  WrapMcause@6: H3CTI-DONE WrapMcause
+  report: results/cti/6_WrapMcause/report.txt (122426 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMcause/digest.txt (22059 bytes)
+  WrapMtvec@6: selection: 1 obligation, 130 established facts
+  WrapMtvec@6:     build/sel/cti-6-WrapMtvec.aig -> results/cti/6_WrapMtvec/cti.aig
+  WrapMtvec@6:       latches freed : 4762/4762
+  WrapMtvec@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMtvec@6: CTI found: witness 6 lines
+  WrapMtvec@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMtvec@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMtvec@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMtvec@6:   summary: results/cti/6_WrapMtvec/cti.txt
+  WrapMtvec@6: H3CTI-DONE WrapMtvec
+  report: results/cti/6_WrapMtvec/report.txt (122425 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMtvec/digest.txt (22058 bytes)
+  WrapMepc@6: selection: 1 obligation, 130 established facts
+  WrapMepc@6:     build/sel/cti-6-WrapMepc.aig -> results/cti/6_WrapMepc/cti.aig
+  WrapMepc@6:       latches freed : 4762/4762
+  WrapMepc@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapMepc@6: CTI found: witness 6 lines
+  WrapMepc@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapMepc@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapMepc@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapMepc@6:   summary: results/cti/6_WrapMepc/cti.txt
+  WrapMepc@6: H3CTI-DONE WrapMepc
+  report: results/cti/6_WrapMepc/report.txt (122424 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_WrapMepc/digest.txt (22057 bytes)
+  WrapRegA@6: selection: 1 obligation, 130 established facts
+  WrapRegA@6:     build/sel/cti-6-WrapRegA.aig -> results/cti/6_WrapRegA/cti.aig
+  WrapRegA@6:       latches freed : 4762/4762
+  WrapRegA@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapRegA@6: CTI found: witness 6 lines
+  WrapRegA@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapRegA@6:   Violated assertion $\top.Step6_StoreWData$4878
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapRegA@6:   Violated assertion $\top.Step6_WrapRegA$4828
+  WrapRegA@6:   summary: results/cti/6_WrapRegA/cti.txt
+  WrapRegA@6: H3CTI-DONE WrapRegA
+  report: results/cti/6_WrapRegA/report.txt (122481 bytes, 2 frames, 373 false predicates)
+  digest: results/cti/6_WrapRegA/digest.txt (22101 bytes)
+  MemNoSecondGranule@6: selection: 1 obligation, 130 established facts
+  MemNoSecondGranule@6:     build/sel/cti-6-MemNoSecondGranule.aig -> results/cti/6_MemNoSecondGranule/cti.aig
+  MemNoSecondGranule@6:       latches freed : 4762/4762
+  MemNoSecondGranule@6:       bads=1 constraints=130  (unchanged: OK)
+  MemNoSecondGranule@6: NO CTI at k=2: the property is inductive at this depth (the failure is elsewhere)
+  WrapRegB@6: selection: 1 obligation, 130 established facts
+  WrapRegB@6:     build/sel/cti-6-WrapRegB.aig -> results/cti/6_WrapRegB/cti.aig
+  WrapRegB@6:       latches freed : 4762/4762
+  WrapRegB@6:       bads=1 constraints=130  (unchanged: OK)
+  WrapRegB@6: CTI found: witness 6 lines
+  WrapRegB@6:   Violated assertion $\top.Step6_LoadEn$4853
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMie$4803
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapPc$4793
+  WrapRegB@6:   Violated assertion $\top.Step6_WrapRegB$4833
+  WrapRegB@6:   summary: results/cti/6_WrapRegB/cti.txt
+  WrapRegB@6: H3CTI-DONE WrapRegB
+  report: results/cti/6_WrapRegB/report.txt (123245 bytes, 2 frames, 399 false predicates)
+  digest: results/cti/6_WrapRegB/digest.txt (22053 bytes)
+  NoMem@6: selection: 1 obligation, 130 established facts
+  NoMem@6:     build/sel/cti-6-NoMem.aig -> results/cti/6_NoMem/cti.aig
+  NoMem@6:       latches freed : 4762/4762
+  NoMem@6:       bads=1 constraints=130  (unchanged: OK)
+  NoMem@6: CTI found: witness 6 lines
+  NoMem@6:   Violated assertion $\top.Step6_MemWe$4843
+  NoMem@6:   Violated assertion $\top.Step6_NoMem$4838
+  NoMem@6:   Violated assertion $\top.Step6_StoreWData$4878
+  NoMem@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  NoMem@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  NoMem@6:   Violated assertion $\top.Step6_WrapMie$4803
+  NoMem@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  NoMem@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  NoMem@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  NoMem@6:   Violated assertion $\top.Step6_WrapPc$4793
+  NoMem@6:   summary: results/cti/6_NoMem/cti.txt
+  NoMem@6: H3CTI-DONE NoMem
+  report: results/cti/6_NoMem/report.txt (122811 bytes, 2 frames, 386 false predicates)
+  digest: results/cti/6_NoMem/digest.txt (22090 bytes)
+  MemWe@6: selection: 1 obligation, 130 established facts
+  MemWe@6:     build/sel/cti-6-MemWe.aig -> results/cti/6_MemWe/cti.aig
+  MemWe@6:       latches freed : 4762/4762
+  MemWe@6:       bads=1 constraints=130  (unchanged: OK)
+  MemWe@6: CTI found: witness 6 lines
+  MemWe@6:   Violated assertion $\top.Step6_MemWe$4843
+  MemWe@6:   Violated assertion $\top.Step6_NoMem$4838
+  MemWe@6:   Violated assertion $\top.Step6_StoreWData$4878
+  MemWe@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  MemWe@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  MemWe@6:   Violated assertion $\top.Step6_WrapMie$4803
+  MemWe@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  MemWe@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  MemWe@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  MemWe@6:   Violated assertion $\top.Step6_WrapPc$4793
+  MemWe@6:   summary: results/cti/6_MemWe/cti.txt
+  MemWe@6: H3CTI-DONE MemWe
+  report: results/cti/6_MemWe/report.txt (122896 bytes, 2 frames, 387 false predicates)
+  digest: results/cti/6_MemWe/digest.txt (22090 bytes)
+  LoadEn@6: selection: 1 obligation, 130 established facts
+  LoadEn@6:     build/sel/cti-6-LoadEn.aig -> results/cti/6_LoadEn/cti.aig
+  LoadEn@6:       latches freed : 4762/4762
+  LoadEn@6:       bads=1 constraints=130  (unchanged: OK)
+  LoadEn@6: CTI found: witness 6 lines
+  LoadEn@6:   Violated assertion $\top.Step6_LoadEn$4853
+  LoadEn@6:   Violated assertion $\top.Step6_StoreWData$4878
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMie$4803
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  LoadEn@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  LoadEn@6:   Violated assertion $\top.Step6_WrapPc$4793
+  LoadEn@6:   summary: results/cti/6_LoadEn/cti.txt
+  LoadEn@6: H3CTI-DONE LoadEn
+  report: results/cti/6_LoadEn/report.txt (122459 bytes, 2 frames, 373 false predicates)
+  digest: results/cti/6_LoadEn/digest.txt (22055 bytes)
+  LoadAddr@6: selection: 1 obligation, 130 established facts
+  LoadAddr@6:     build/sel/cti-6-LoadAddr.aig -> results/cti/6_LoadAddr/cti.aig
+  LoadAddr@6:       latches freed : 4762/4762
+  LoadAddr@6:       bads=1 constraints=130  (unchanged: OK)
+  LoadAddr@6: CTI found: witness 6 lines
+  LoadAddr@6:   Violated assertion $\top.Step6_LoadAddr$4858
+  LoadAddr@6:   Violated assertion $\top.Step6_StoreWData$4878
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMie$4803
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapPc$4793
+  LoadAddr@6:   Violated assertion $\top.Step6_WrapRegA$4828
+  LoadAddr@6:   summary: results/cti/6_LoadAddr/cti.txt
+  LoadAddr@6: H3CTI-DONE LoadAddr
+  report: results/cti/6_LoadAddr/report.txt (122708 bytes, 2 frames, 381 false predicates)
+  digest: results/cti/6_LoadAddr/digest.txt (22105 bytes)
+  StoreEn@6: selection: 1 obligation, 130 established facts
+  StoreEn@6:     build/sel/cti-6-StoreEn.aig -> results/cti/6_StoreEn/cti.aig
+  StoreEn@6:       latches freed : 4762/4762
+  StoreEn@6:       bads=1 constraints=130  (unchanged: OK)
+  StoreEn@6: CTI found: witness 6 lines
+  StoreEn@6:   Violated assertion $\top.Step6_StoreEn$4863
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMie$4803
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  StoreEn@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  StoreEn@6:   Violated assertion $\top.Step6_WrapPc$4793
+  StoreEn@6:   summary: results/cti/6_StoreEn/cti.txt
+  StoreEn@6: H3CTI-DONE StoreEn
+  report: results/cti/6_StoreEn/report.txt (122797 bytes, 2 frames, 390 false predicates)
+  digest: results/cti/6_StoreEn/digest.txt (22012 bytes)
+  StoreAddr@6: selection: 1 obligation, 130 established facts
+  StoreAddr@6:     build/sel/cti-6-StoreAddr.aig -> results/cti/6_StoreAddr/cti.aig
+  StoreAddr@6:       latches freed : 4762/4762
+  StoreAddr@6:       bads=1 constraints=130  (unchanged: OK)
+  StoreAddr@6: CTI found: witness 6 lines
+  StoreAddr@6:   Violated assertion $\top.Step6_StoreAddr$4868
+  StoreAddr@6:   Violated assertion $\top.Step6_StoreBe$4873
+  StoreAddr@6:   Violated assertion $\top.Step6_StoreWData$4878
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMie$4803
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  StoreAddr@6:   Violated assertion $\top.Step6_WrapPc$4793
+  StoreAddr@6:   summary: results/cti/6_StoreAddr/cti.txt
+  StoreAddr@6: H3CTI-DONE StoreAddr
+  report: results/cti/6_StoreAddr/report.txt (122693 bytes, 2 frames, 379 false predicates)
+  digest: results/cti/6_StoreAddr/digest.txt (22106 bytes)
+  StoreBe@6: selection: 1 obligation, 130 established facts
+  StoreBe@6:     build/sel/cti-6-StoreBe.aig -> results/cti/6_StoreBe/cti.aig
+  StoreBe@6:       latches freed : 4762/4762
+  StoreBe@6:       bads=1 constraints=130  (unchanged: OK)
+  StoreBe@6: CTI found: witness 6 lines
+  StoreBe@6:   Violated assertion $\top.Step6_MemWe$4843
+  StoreBe@6:   Violated assertion $\top.Step6_NoMem$4838
+  StoreBe@6:   Violated assertion $\top.Step6_StoreBe$4873
+  StoreBe@6:   Violated assertion $\top.Step6_StoreWData$4878
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMcause$4808
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMepc$4823
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMie$4803
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMscratch$4818
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMstatus$4798
+  StoreBe@6:   Violated assertion $\top.Step6_WrapMtvec$4813
+  StoreBe@6:   Violated assertion $\top.Step6_WrapPc$4793
+  StoreBe@6:   summary: results/cti/6_StoreBe/cti.txt
+  StoreBe@6: H3CTI-DONE StoreBe
+  report: results/cti/6_StoreBe/report.txt (122799 bytes, 2 frames, 383 false predicates)
+  digest: results/cti/6_StoreBe/digest.txt (22132 bytes)
+  StoreWData@6: selection: 1 obligation, 130 established facts
+  StoreWData@6:     build/sel/cti-6-StoreWData.aig -> results/cti/6_StoreWData/cti.aig
+  StoreWData@6:       latches freed : 4762/4762
+  StoreWData@6:       bads=1 constraints=130  (unchanged: OK)
+  StoreWData@6: CTI found: witness 6 lines
+  StoreWData@6:   Violated assertion $\top.Step6_StoreWData$4878
+  StoreWData@6:   summary: results/cti/6_StoreWData/cti.txt
+  StoreWData@6: H3CTI-DONE StoreWData
+  report: results/cti/6_StoreWData/report.txt (121896 bytes, 2 frames, 372 false predicates)
+  digest: results/cti/6_StoreWData/digest.txt (21713 bytes)
+CTIBATCH4-DONE 15:48
+=== ROUND 3a staging 15:49: include=`include "h3_cti_round3.svh" makefile=1 ===
+=== ROUND round3a 15:49  maxjobs=23 ===
+inserted 8 candidates at a new layer: CtiHasGhostImpliesPastValid CtiFolValidImpliesPastValid CtiSpecMemNotBoth CtiCsrWenIsUncompressed CtiFolMemNotBoth CtiFollowerPostIsDutMscratch CtiFollowerMemHasXmMemop CtiGhostTracksMscratch
+build rc=0  aig 12250970 1814755 4762 65972 10431453 152 6 0 0
+=== proving 8 candidates, 23 at a time 16:03 ===
+RESULT CtiHasGhostImpliesPastValid RESULT: UNSAT t=153.88s C=130
+RESULT CtiFolValidImpliesPastValid RESULT: UNSAT t=153.99s C=130
+RESULT CtiSpecMemNotBoth RESULT: UNSAT t=152.63s C=130
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=157.22s C=136
+RESULT CtiFolMemNotBoth RESULT: UNSAT t=153.35s C=134
+RESULT CtiCsrWenIsUncompressed RESULT: UNSAT t=169.01s C=130
+=== CTI for round-3a grinders 16:16 model: aig 12250970 1814755 4762 65972 10431453 152 6 0 0 ===
+  CtiFollowerPostIsDutMscratch@7: selection: 1 obligation, 134 established facts
+  CtiFollowerPostIsDutMscratch@7:     build/sel/cti-7-CtiFollowerPostIsDutMscratch.aig -> results/cti/7_CtiFollowerPostIsDutMscratch/cti.aig
+  CtiFollowerPostIsDutMscratch@7:       latches freed : 4762/4762
+  CtiFollowerPostIsDutMscratch@7:       bads=1 constraints=134  (unchanged: OK)
+  CtiFollowerPostIsDutMscratch@7: CTI found: witness 6 lines
+  CtiFollowerPostIsDutMscratch@7:   Violated assertion $\top.Step7_CtiFollowerPostIsDutMscratch$4823
+  CtiFollowerPostIsDutMscratch@7:   Violated assertion $\top.Step8_CtiGhostTracksMscratch$4833
+  CtiFollowerPostIsDutMscratch@7:   summary: results/cti/7_CtiFollowerPostIsDutMscratch/cti.txt
+  CtiFollowerPostIsDutMscratch@7: H3CTI-DONE CtiFollowerPostIsDutMscratch
+  report: results/cti/7_CtiFollowerPostIsDutMscratch/report.txt (122655 bytes, 2 frames, 389 false predicates)
+  digest: results/cti/7_CtiFollowerPostIsDutMscratch/digest.txt (22014 bytes)
+  CtiFollowerMemHasXmMemop@8: selection: 1 obligation, 136 established facts
+  CtiFollowerMemHasXmMemop@8:     build/sel/cti-8-CtiFollowerMemHasXmMemop.aig -> results/cti/8_CtiFollowerMemHasXmMemop/cti.aig
+  CtiFollowerMemHasXmMemop@8:       latches freed : 4762/4762
+  CtiFollowerMemHasXmMemop@8:       bads=1 constraints=136  (unchanged: OK)
+  CtiFollowerMemHasXmMemop@8: CTI found: witness 6 lines
+  CtiFollowerMemHasXmMemop@8:   Violated assertion $\top.Step8_CtiFollowerMemHasXmMemop$4828
+  CtiFollowerMemHasXmMemop@8:   summary: results/cti/8_CtiFollowerMemHasXmMemop/cti.txt
+  CtiFollowerMemHasXmMemop@8: H3CTI-DONE CtiFollowerMemHasXmMemop
+  report: results/cti/8_CtiFollowerMemHasXmMemop/report.txt (122467 bytes, 2 frames, 386 false predicates)
+  digest: results/cti/8_CtiFollowerMemHasXmMemop/digest.txt (21932 bytes)
+CTI-GRINDERS3A-DONE 16:19
+=== ICTI CtiFollowerPostIsDutMscratch k=1 16:28: rIC3 bmc --end 2 on the aag ===
+RESULT CtiFollowerPostIsDutMscratch  t=1201.25s C=134
+RESULT CtiFollowerMemHasXmMemop  t=1201.55s C=136
+=== removing 2 unproven: CtiFollowerPostIsDutMscratch CtiFollowerMemHasXmMemop ===
+removed 2: CtiFollowerPostIsDutMscratch CtiFollowerMemHasXmMemop
+ICTI CtiFollowerPostIsDutMscratch bmc rc=10 t=163.64s witness_lines=7 err=0
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step7_CtiFolMemNotBoth$4818
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step8_CtiFollowerMemHasXmMemop$4828
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMcause$4863
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMepc$4878
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMie$4858
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMstatus$4853
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMtvec$4868
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapPc$4848
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step7_CtiFollowerPostIsDutMscratch$4823
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step8_CtiGhostTracksMscratch$4833
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapMscratch$4873
+  ICTI CtiFollowerPostIsDutMscratch: Violated assertion $\top.Step9_WrapPc$4848
+  report: results/icti/7_CtiFollowerPostIsDutMscratch/report.txt (184413 bytes, 3 frames, 399 false predicates)
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'results/icti/7_CtiFollowerPostIsDutMscratch/cti.vcd'
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 228, in partial_apport_excepthook
+    return apport_excepthook(binary, exc_type, exc_obj, exc_tb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 114, in apport_excepthook
+    report["ExecutableTimestamp"] = str(int(os.stat(binary).st_mtime))
+                                            ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/verif/h3formal/-'
+
+Original exception was:
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'results/icti/7_CtiFollowerPostIsDutMscratch/cti.vcd'
+  digest: results/icti/7_CtiFollowerPostIsDutMscratch/digest.txt (16672 bytes)
+ICTI-DONE CtiFollowerPostIsDutMscratch frames=3
+rebuild rc=0  aig 12250902 1814755 4762 65972 10431385 150 6 0 0
+=== re-proving 6 survivors on the post-strip model 16:36 ===
+RESULT CtiHasGhostImpliesPastValid RESULT: UNSAT t=150.95s C=130
+RESULT CtiFolValidImpliesPastValid RESULT: UNSAT t=151.26s C=130
+RESULT CtiSpecMemNotBoth RESULT: UNSAT t=152.06s C=130
+RESULT CtiFolMemNotBoth RESULT: UNSAT t=149.79s C=134
+RESULT CtiCsrWenIsUncompressed RESULT: UNSAT t=164.14s C=130
+RESULT CtiGhostTracksMscratch  t=1201.34s C=135
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12250868 1814755 4762 65972 10431351 149 6 0 0
+=== retrying 4 targets 17:09 ===
+=== PROBE MemNoSecondGranule step=8 17:11 model: aig 12250868 1814755 4762 65972 10431351 149 6 0 0 ===
+  PROBE icti: selection: 1 obligation, 135 established facts
+  PROBE icti:     build/sel/icti-8-MemNoSecondGranule.aig -> results/icti/8_MemNoSecondGranule/icti.aag  (k=1)
+  PROBE icti:       latches freed : 4762/4762   +1 induction latch(es) reset 0
+  PROBE icti:       bad 24491768 -> held&bad = 24500448;  constraints=135 (unchanged)
+  PROBE icti: NO INDUCTION-CTI at k=1: the property is 1-inductive given the established facts
+PROBE MemNoSecondGranule: 1-inductive given the facts -- running kind directly on build/sel/icti-8-MemNoSecondGranule.aig
+PROBE MemNoSecondGranule kind: RESULT: UNSAT t=150.12s C=135 model: aig 12250868 1814755 4762 65972 10431351 149 6 0 0
+PROBE-DONE MemNoSecondGranule 17:16
+RESULT LoadEn  t=1201.36s C=135
+RESULT StoreEn  t=1201.64s C=135
+RESULT WrapMscratch  t=1201.68s C=135
+RESULT MemWe  t=1201.73s C=135
+ROUND-round3a-DONE 17:35
+=== FIX ROUND 17:35: stripping 16 unproven low-step constraints ===
+removed 16: CtiRdAddrMatchesInsn SpikeAddSame SpikeAddLag SpikeAddReach SpikeAddiSame SpikeAddiLag SpikeAddiReach SpikeXorSame SpikeXorLag SpikeXorReach SpikeSlliSame SpikeSlliLag SpikeSlliReach SpikeLuiSame SpikeLuiLag SpikeLuiReach
+FIX build rc=0  aig 12250324 1814755 4762 65972 10430807 133 6 0 0   (expect 149-16=133 bads, 6 constraints)
+=== FIX re-proving 13 properties on the corrected model 17:43 maxjobs=23 ===
+RESULT CtiXProgressAphAccepted RESULT: UNSAT t=161.79s C=107 step=3
+RESULT CtiHasGhostImpliesPastValid RESULT: UNSAT t=162.34s C=114 step=5
+RESULT CtiFolValidImpliesPastValid RESULT: UNSAT t=161.27s C=114 step=5
+RESULT CtiSpecMemNotBoth RESULT: UNSAT t=163.04s C=114 step=5
+RESULT CtiGhostMtvecReservedZero RESULT: UNSAT t=163.09s C=107 step=3
+RESULT CtiMscratchChangeIsQuery RESULT: UNSAT t=161.94s C=110 step=4
+RESULT CtiFolMemNotBoth RESULT: UNSAT t=160.81s C=118 step=6
+RESULT CtiSpecWriteIsStoreInsn RESULT: UNSAT t=156.75s C=110 step=4
+RESULT CtiSpecReadIsLoadInsn RESULT: UNSAT t=157.75s C=110 step=4
+RESULT MemNoSecondGranule RESULT: UNSAT t=158.74s C=119 step=7
+RESULT CtiGhostMieReservedZero RESULT: UNSAT t=158.87s C=107 step=3
+RESULT CtiSpecMscratchFrame RESULT: UNSAT t=163.32s C=110 step=4
+RESULT CtiCsrWenIsUncompressed RESULT: UNSAT t=172.05s C=114 step=5
+FIX-DONE 17:51 model: aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+=== ROUND 34 (3b+4 merged) staging 17:51: includes=2 makefile=3 ===
+=== ROUND round34 17:51  maxjobs=23 ===
+inserted 11 candidates at a new layer: CtiCirLengthAgreesRaw CtiMemopIsLoadStoreWord CtiRawStoreDecompressesToStore CtiRawLoadDecompressesToLoad CtiRs1SelectTracksRd CtiRs2SelectTracksRd CtiMwResultIsRegfile CtiRs1BypassIsPreRegs CtiRs2BypassIsPreRegs CtiFollowerPostIsDutMscratch CtiGhostTracksMscratch
+=== REPROVE9 17:57: round-1 lemmas that sat above the stripped CtiRdAddrMatchesInsn, model: aig 12250324 1814755 4762 65972 10430807 133 6 0 0 ===
+REPROVE9 selections done 17:58 (9/9)
+REPROVE CtiCsrWenIsQuery RESULT: UNSAT t=157.32s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiPastValidAgree RESULT: UNSAT t=157.74s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiSpecPostMtvecReservedZero RESULT: UNSAT t=158.95s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiPastPreMtvecReservedZero RESULT: UNSAT t=159.18s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiAphReqAccepted RESULT: UNSAT t=159.75s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiHasRegImpliesHasGhost RESULT: UNSAT t=160.18s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiMemopRaisesAph RESULT: UNSAT t=161.36s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiCirRawPassthrough RESULT: UNSAT t=176.92s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE CtiFolIntErrIsFetchErr RESULT: UNSAT t=224.62s C=98 step=2 model=aig 12250324 1814755 4762 65972 10430807 133 6 0 0
+REPROVE9-DONE 18:02
+build rc=0  aig 12261377 1814947 4762 65980 10441668 144 6 0 0
+=== proving 11 candidates, 23 at a time 18:06 ===
+RESULT CtiRs2BypassIsPreRegs REFUTED in depth 5 C=126
+RESULT CtiCirLengthAgreesRaw RESULT: UNSAT t=158.26s C=119
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=162.76s C=129
+=== CEX CtiRs2BypassIsPreRegs 18:13: BMC --end 6 --witness on build/sel/round34-CtiRs2BypassIsPreRegs.aig ===
+RESULT CtiMwResultIsRegfile RESULT: UNSAT t=196.16s C=123
+RESULT CtiRs1SelectTracksRd RESULT: UNSAT t=211.62s C=123
+RESULT CtiRs2SelectTracksRd RESULT: UNSAT t=225.63s C=123
+CEX CtiRs2BypassIsPreRegs witness lines=11
+  CEX CtiRs2BypassIsPreRegs: Violated assertion $\top.Step10_CtiRs2BypassIsPreRegs$4863
+  report: results/cex/CtiRs2BypassIsPreRegs/report.txt (353887 bytes, 7 frames, 364 false predicates)
+CEX-DONE CtiRs2BypassIsPreRegs frames=7
+RESULT CtiFollowerPostIsDutMscratch  t=1201.86s C=128
+RESULT CtiRs1BypassIsPreRegs  t=1202.16s C=126
+RESULT CtiRawStoreDecompressesToStore  t=1202.02s C=121
+RESULT CtiRawLoadDecompressesToLoad  t=1202.43s C=121
+RESULT CtiMemopIsLoadStoreWord  t=1202.55s C=119
+=== removing 6 unproven: CtiRs2BypassIsPreRegs CtiFollowerPostIsDutMscratch CtiRs1BypassIsPreRegs CtiRawStoreDecompressesToStore CtiRawLoadDecompressesToLoad CtiMemopIsLoadStoreWord ===
+removed 6: CtiMemopIsLoadStoreWord CtiRawStoreDecompressesToStore CtiRawLoadDecompressesToLoad CtiRs1BypassIsPreRegs CtiRs2BypassIsPreRegs CtiFollowerPostIsDutMscratch
+=== ICTI CtiRs1BypassIsPreRegs k=2 18:32 from build/sel/round34-CtiRs1BypassIsPreRegs.aig ===
+  ICTI:   build/sel/round34-CtiRs1BypassIsPreRegs.aig -> results/icti/r34_CtiRs1BypassIsPreRegs/icti.aag  (k=2)
+  ICTI:     latches freed : 4762/4762   +2 induction latch(es) reset 0
+  ICTI:     bad 24513126 -> held&bad = 24521196;  constraints=126 (unchanged)
+ICTI CtiRs1BypassIsPreRegs bmc rc=10 t=176.61s witness_lines=8
+  ICTI CtiRs1BypassIsPreRegs: Violated assertion $\top.Step10_CtiRs1BypassIsPreRegs$4858
+  report: results/icti/r34_CtiRs1BypassIsPreRegs/report.txt (211383 bytes, 4 frames, 317 false predicates)
+ICTI-DONE CtiRs1BypassIsPreRegs frames=4
+rebuild rc=0  aig 12261173 1814947 4762 65980 10441464 138 6 0 0
+=== re-proving 5 survivors on the post-strip model 18:40 ===
+RESULT CtiCirLengthAgreesRaw RESULT: UNSAT t=149.82s C=119
+RESULT CtiMwResultIsRegfile RESULT: UNSAT t=181.01s C=120
+RESULT CtiRs2SelectTracksRd RESULT: UNSAT t=220.99s C=120
+RESULT CtiRs1SelectTracksRd RESULT: UNSAT t=226.79s C=120
+RESULT CtiGhostTracksMscratch  t=1201.36s C=123
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12261139 1814947 4762 65980 10441430 137 6 0 0
+=== retrying 10 targets 19:13 ===
+RESULT LoadAddr  t=1202.09s C=123
+RESULT WrapMscratch  t=1202.38s C=123
+RESULT WrapRegB  t=1202.57s C=123
+RESULT WrapRegA  t=1202.55s C=123
+RESULT LoadEn  t=1202.78s C=123
+RESULT StoreAddr  t=1202.96s C=123
+RESULT StoreEn  t=1202.94s C=123
+RESULT StoreBe  t=1203.30s C=123
+RESULT MemWe  t=1203.45s C=123
+RESULT NoMem  t=1203.63s C=123
+ROUND-round34-DONE 19:38
+round5: CtiGhostTracksMscratch was stripped -- re-adding above the chain
+=== ROUND 5 staging 19:38: include=`include "h3_cti_round5.svh" makefile=1 cands=7 ===
+=== ROUND round5 (v3) 19:38  maxjobs=11 kind_cap=400s ===
+inserted 7 candidates at a new layer: CtiXStoreHasNoRd CtiStoreDataIsRegfile CtiMStoreHasNoRd CtiRs1BypassIsPreRegs CtiRs2BypassIsPreRegsV2 CtiFollowerPostIsDutMscratch CtiGhostTracksMscratch
+build rc=0  aig 12268445 1815075 4762 65986 10448608 144 6 0 0
+=== proving 7 candidates, 11 at a time 19:53 ===
+RESULT CtiMStoreHasNoRd RESULT: UNSAT t=158.22s C=125 step=10
+ICTI CtiMStoreHasNoRd NO-INDUCTION-CTI k=1
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=163.36s C=129 step=13
+RESULT CtiXStoreHasNoRd RESULT: UNSAT t=163.06s C=123 step=9
+ICTI CtiGhostTracksMscratch NO-INDUCTION-CTI k=1
+ICTI CtiXStoreHasNoRd NO-INDUCTION-CTI k=1
+ICTI CtiRs1BypassIsPreRegs INDUCTION-CTI k=1 frames=3 -> results/icti/round5-CtiRs1BypassIsPreRegs/report.txt
+ICTI CtiRs2BypassIsPreRegsV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round5-CtiRs2BypassIsPreRegsV2/report.txt
+ICTI CtiFollowerPostIsDutMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round5-CtiFollowerPostIsDutMscratch/report.txt
+ICTI CtiStoreDataIsRegfile INDUCTION-CTI k=1 frames=3 -> results/icti/round5-CtiStoreDataIsRegfile/report.txt
+RESULT CtiRs2BypassIsPreRegsV2  t=400.93s C=126 step=11
+RESULT CtiFollowerPostIsDutMscratch  t=401.05s C=128 step=12
+RESULT CtiStoreDataIsRegfile  t=401.01s C=123 step=9
+RESULT CtiRs1BypassIsPreRegs  t=401.31s C=126 step=11
+=== removing 4 unproven: CtiRs2BypassIsPreRegsV2 CtiFollowerPostIsDutMscratch CtiStoreDataIsRegfile CtiRs1BypassIsPreRegs ===
+removed 4: CtiStoreDataIsRegfile CtiRs1BypassIsPreRegs CtiRs2BypassIsPreRegsV2 CtiFollowerPostIsDutMscratch
+rebuild rc=0  aig 12268309 1815075 4762 65986 10448472 140 6 0 0
+=== re-proving 3 survivors on the post-strip model 20:13 ===
+RESULT CtiMStoreHasNoRd RESULT: UNSAT t=150.47s C=124 step=10
+ICTI CtiMStoreHasNoRd NO-INDUCTION-CTI k=1
+RESULT CtiXStoreHasNoRd RESULT: UNSAT t=153.04s C=123 step=9
+ICTI CtiXStoreHasNoRd NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round5-CtiGhostTracksMscratch/report.txt
+RESULT CtiGhostTracksMscratch  t=400.89s C=125 step=11
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12268275 1815075 4762 65986 10448438 139 6 0 0
+=== goals, CTI-first: 8 targets 20:32 ===
+ICTI WrapMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round5-WrapMscratch/report.txt
+GOAL-CTI WrapMscratch (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round5-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round5-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round5-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round5-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round5-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round5-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round5-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ROUND-round5-DONE 20:41
+round6: CtiGhostTracksMscratch was stripped -- re-adding above the chain
+=== ROUND 6 staging 20:41: include=`include "h3_cti_round6.svh" makefile=1 cands=9 ===
+=== ROUND round6 (v3) 20:41  maxjobs=11 kind_cap=400s ===
+inserted 9 candidates at a new layer: CtiDMemopLegal CtiDExceptLegal CtiXmMemopLegal CtiXmExceptLegal CtiRs1BypassIsPreRegs CtiRs2BypassIsPreRegsV2 CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2 CtiGhostTracksMscratch
+core build rc=0  aig 770392 38302 4762 18645 727328 148 6 0 0
+=== core pre-screen of 9 candidates 20:42 ===
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiXmExceptLegal PROVED-ON-CORE t=12.78s C=127 step=12 (transfers to all.aig)
+CORE CtiDMemopLegal PROVED-ON-CORE t=12.73s C=125 step=11 (transfers to all.aig)
+CORE CtiXmMemopLegal PROVED-ON-CORE t=12.97s C=127 step=12 (transfers to all.aig)
+CORE CtiDExceptLegal PROVED-ON-CORE t=13.14s C=125 step=11 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=12.66s C=133 step=15 (transfers to all.aig)
+CORE CtiRs2BypassIsPreRegsV2 PROVED-ON-CORE t=17.75s C=129 step=13 (transfers to all.aig)
+CORE CtiRs1BypassIsPreRegs PROVED-ON-CORE t=17.10s C=129 step=13 (transfers to all.aig)
+CORE CtiStoreDataIsRegfile not-proved-on-core (goes to all.aig)
+=== core pre-screen done 20:50: 7 proved on core ===
+build rc=0  aig 12269028 1815075 4762 65991 10449191 148 6 0 0
+=== proving 9 candidates, 11 at a time 21:04 ===
+RESULT CtiRs1BypassIsPreRegs RESULT: UNSAT t=17.10s C=129 step=13 model=core (proof transfers)
+RESULT CtiDMemopLegal RESULT: UNSAT t=12.73s C=125 step=11 model=core (proof transfers)
+RESULT CtiXmMemopLegal RESULT: UNSAT t=12.97s C=127 step=12 model=core (proof transfers)
+RESULT CtiRs2BypassIsPreRegsV2 RESULT: UNSAT t=17.75s C=129 step=13 model=core (proof transfers)
+RESULT CtiDExceptLegal RESULT: UNSAT t=13.14s C=125 step=11 model=core (proof transfers)
+RESULT CtiXmExceptLegal RESULT: UNSAT t=12.78s C=127 step=12 model=core (proof transfers)
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=150.97s C=133 step=15
+ICTI CtiGhostTracksMscratch NO-INDUCTION-CTI k=1
+ICTI CtiFollowerPostIsDutMscratchV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round6-CtiFollowerPostIsDutMscratchV2/report.txt
+ICTI CtiStoreDataIsRegfile INDUCTION-CTI k=1 frames=3 -> results/icti/round6-CtiStoreDataIsRegfile/report.txt
+RESULT CtiStoreDataIsRegfile  t=400.82s C=129 step=13
+RESULT CtiFollowerPostIsDutMscratchV2  t=400.95s C=132 step=14
+=== removing 2 unproven: CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2 ===
+removed 2: CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2
+rebuild rc=0  aig 12268960 1815075 4762 65991 10449123 146 6 0 0
+=== re-proving 7 survivors on the post-strip model 21:24 ===
+RESULT CtiDMemopLegal RESULT: UNSAT t=12.73s C=125 step=11 model=core (proof transfers)
+RESULT CtiDExceptLegal RESULT: UNSAT t=13.14s C=125 step=11 model=core (proof transfers)
+RESULT CtiRs2BypassIsPreRegsV2 RESULT: UNSAT t=17.75s C=129 step=13 model=core (proof transfers)
+RESULT CtiXmExceptLegal RESULT: UNSAT t=12.78s C=127 step=12 model=core (proof transfers)
+RESULT CtiRs1BypassIsPreRegs RESULT: UNSAT t=17.10s C=129 step=13 model=core (proof transfers)
+RESULT CtiXmMemopLegal RESULT: UNSAT t=12.97s C=127 step=12 model=core (proof transfers)
+ICTI CtiGhostTracksMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round6-CtiGhostTracksMscratch/report.txt
+RESULT CtiGhostTracksMscratch  t=400.83s C=131 step=14
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12268926 1815075 4762 65991 10449089 145 6 0 0
+=== goals, CTI-first: 8 targets 21:44 ===
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round6-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round6-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round6-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI WrapMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round6-WrapMscratch/report.txt
+GOAL-CTI WrapMscratch (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round6-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round6-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round6-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round6-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ROUND-round6-DONE 21:53
+=== ROUND 7 staging 21:53: include=`include "h3_cti_round7.svh" makefile=1 cands=6 re-added=[CtiStoreDataIsRegfile:        have (h3_cti_store_data_is_regfile)|CtiFollowerPostIsDutMscratchV2: have (h3_cti_follower_post_is_dut_mscratch_v2)|CtiGhostTracksMscratch:       have (h3_cti_ghost_tracks_mscratch)] ===
+=== ROUND round7 (v3) 21:53  maxjobs=11 kind_cap=400s ===
+inserted 6 candidates at a new layer: CtiCirInvalidAgreesRaw CtiCirUopFlagsZero CtiRs2StoreBypassIsPreRegs CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2 CtiGhostTracksMscratch
+core build rc=0  aig 774077 38366 4762 18649 730949 151 6 0 0
+=== core pre-screen of 6 candidates 21:54 ===
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiCirUopFlagsZero PROVED-ON-CORE t=11.98s C=131 step=14 (transfers to all.aig)
+CORE CtiCirInvalidAgreesRaw PROVED-ON-CORE t=12.17s C=131 step=14 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=12.25s C=136 step=17 (transfers to all.aig)
+CORE CtiRs2StoreBypassIsPreRegs PROVED-ON-CORE t=14.59s C=131 step=14 (transfers to all.aig)
+CORE CtiStoreDataIsRegfile not-proved-on-core (goes to all.aig)
+=== core pre-screen done 22:01: 4 proved on core ===
+build rc=0  aig 12272713 1815139 4762 65995 10452812 151 6 0 0
+=== proving 6 candidates, 11 at a time 22:16 ===
+RESULT CtiCirUopFlagsZero RESULT: UNSAT t=11.98s C=131 step=14 model=core (proof transfers)
+RESULT CtiCirInvalidAgreesRaw RESULT: UNSAT t=12.17s C=131 step=14 model=core (proof transfers)
+RESULT CtiRs2StoreBypassIsPreRegs RESULT: UNSAT t=14.59s C=131 step=14 model=core (proof transfers)
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=12.25s C=136 step=17 model=core (proof transfers)
+ICTI CtiFollowerPostIsDutMscratchV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round7-CtiFollowerPostIsDutMscratchV2/report.txt
+ICTI CtiStoreDataIsRegfile INDUCTION-CTI k=1 frames=3 -> results/icti/round7-CtiStoreDataIsRegfile/report.txt
+RESULT CtiStoreDataIsRegfile  t=400.63s C=134 step=15
+RESULT CtiFollowerPostIsDutMscratchV2  t=400.71s C=135 step=16
+=== removing 2 unproven: CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2 ===
+removed 2: CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2
+rebuild rc=0  aig 12272645 1815139 4762 65995 10452744 149 6 0 0
+=== re-proving 4 survivors on the post-strip model 22:36 ===
+RESULT CtiCirUopFlagsZero RESULT: UNSAT t=147.97s C=131 step=14
+ICTI CtiCirUopFlagsZero NO-INDUCTION-CTI k=1
+RESULT CtiCirInvalidAgreesRaw RESULT: UNSAT t=166.63s C=131 step=14
+ICTI CtiGhostTracksMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round7-CtiGhostTracksMscratch/report.txt
+ICTI CtiCirInvalidAgreesRaw INDUCTION-CTI k=1 frames=3 -> results/icti/round7-CtiCirInvalidAgreesRaw/report.txt
+ICTI CtiRs2StoreBypassIsPreRegs INDUCTION-CTI k=1 frames=3 -> results/icti/round7-CtiRs2StoreBypassIsPreRegs/report.txt
+RESULT CtiRs2StoreBypassIsPreRegs RESULT: UNSAT t=227.31s C=131 step=14
+RESULT CtiGhostTracksMscratch  t=400.70s C=134 step=15
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12272611 1815139 4762 65995 10452710 148 6 0 0
+=== goals, CTI-first: 8 targets 22:55 ===
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round7-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round7-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round7-WrapMscratch/report.txt
+GOAL-CTI WrapMscratch (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round7-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round7-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round7-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round7-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round7-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ROUND-round7-DONE 23:04
+=== ROUND 8 staging 23:04: include=`include "h3_cti_round8.svh" makefile=1 cands=5 re-added=[|CtiStoreDataIsRegfile|CtiFollowerPostIsDutMscratchV2|CtiGhostTracksMscratch] ===
+=== ROUND round8 (v3) 23:04  maxjobs=11 kind_cap=400s ===
+inserted 5 candidates at a new layer: CtiNoBreakFlags CtiXmSleepImpliesNoMemop CtiStoreDataIsRegfile CtiFollowerPostIsDutMscratchV2 CtiGhostTracksMscratch
+core build rc=0  aig 774180 38366 4762 18651 731052 153 6 0 0
+=== core pre-screen of 5 candidates 23:05 ===
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiXmSleepImpliesNoMemop PROVED-ON-CORE t=11.92s C=134 step=15 (transfers to all.aig)
+CORE CtiNoBreakFlags PROVED-ON-CORE t=11.87s C=134 step=15 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=11.86s C=138 step=18 (transfers to all.aig)
+CORE CtiStoreDataIsRegfile PROVED-ON-CORE t=12.81s C=136 step=16 (transfers to all.aig)
+=== core pre-screen done 23:06: 4 proved on core ===
+build rc=0  aig 12272816 1815139 4762 65997 10452915 153 6 0 0
+=== proving 5 candidates, 11 at a time 23:21 ===
+RESULT CtiStoreDataIsRegfile RESULT: UNSAT t=12.81s C=136 step=16 model=core (proof transfers)
+RESULT CtiXmSleepImpliesNoMemop RESULT: UNSAT t=11.92s C=134 step=15 model=core (proof transfers)
+RESULT CtiNoBreakFlags RESULT: UNSAT t=11.87s C=134 step=15 model=core (proof transfers)
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=11.86s C=138 step=18 model=core (proof transfers)
+ICTI CtiFollowerPostIsDutMscratchV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round8-CtiFollowerPostIsDutMscratchV2/report.txt
+RESULT CtiFollowerPostIsDutMscratchV2  t=400.65s C=137 step=17
+=== removing 1 unproven: CtiFollowerPostIsDutMscratchV2 ===
+removed 1: CtiFollowerPostIsDutMscratchV2
+rebuild rc=0  aig 12272782 1815139 4762 65997 10452881 152 6 0 0
+=== re-proving 4 survivors on the post-strip model 23:40 ===
+RESULT CtiXmSleepImpliesNoMemop RESULT: UNSAT t=150.32s C=134 step=15
+ICTI CtiXmSleepImpliesNoMemop NO-INDUCTION-CTI k=1
+RESULT CtiNoBreakFlags RESULT: UNSAT t=153.36s C=134 step=15
+ICTI CtiNoBreakFlags NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round8-CtiGhostTracksMscratch/report.txt
+RESULT CtiStoreDataIsRegfile RESULT: UNSAT t=197.70s C=136 step=16
+ICTI CtiStoreDataIsRegfile NO-INDUCTION-CTI k=1
+RESULT CtiGhostTracksMscratch  t=400.72s C=137 step=17
+=== survivors that did NOT re-prove, removing: CtiGhostTracksMscratch ===
+removed 1: CtiGhostTracksMscratch
+rebuild2 rc=0  aig 12272748 1815139 4762 65997 10452847 151 6 0 0
+=== goals, CTI-first: 13 targets 00:00 ===
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapMscratch INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapMscratch/report.txt
+GOAL-CTI WrapMscratch (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round8-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round8-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round8-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round8-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round8-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+RESULT WrapMstatus REFUTED in depth 5 C=137 (GOAL — read it)
+ICTI WrapMie INDUCTION-CTI k=1 frames=3 -> results/icti/round8-WrapMie/report.txt
+GOAL-CTI WrapMie (not attempted with kind; CTI is next round's material)
+ROUND-round8-DONE 00:17
+=== ROUND 9 staging 00:17: include=`include "h3_cti_round9.svh" makefile=1 cands=4 re-added=[|CtiFollowerPostIsDutMscratchV2|CtiGhostTracksMscratch] ===
+=== ROUND round9 (v3) 00:17  maxjobs=11 kind_cap=400s ===
+inserted 4 candidates at a new layer: CtiRs1PredecodeAgreesCir32 CtiRs2PredecodeAgreesCir32 CtiFollowerPostIsDutMscratchV2 CtiGhostTracksMscratch
+core build rc=0  aig 774290 38366 4762 18653 731162 155 6 0 0
+=== core pre-screen of 4 candidates 00:18 ===
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRs1PredecodeAgreesCir32 PROVED-ON-CORE t=11.81s C=137 step=17 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=11.84s C=140 step=19 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir32 PROVED-ON-CORE t=11.68s C=137 step=17 (transfers to all.aig)
+=== core pre-screen done 00:18: 3 proved on core ===
+build rc=0  aig 12272926 1815139 4762 65999 10453025 155 6 0 0
+=== proving 4 candidates, 11 at a time 00:33 ===
+RESULT CtiRs2PredecodeAgreesCir32 RESULT: UNSAT t=11.68s C=137 step=17 model=core (proof transfers)
+RESULT CtiGhostTracksMscratch RESULT: UNSAT t=11.84s C=140 step=19 model=core (proof transfers)
+RESULT CtiRs1PredecodeAgreesCir32 RESULT: UNSAT t=11.81s C=137 step=17 model=core (proof transfers)
+RESULT CtiFollowerPostIsDutMscratchV2 RESULT: UNSAT t=192.72s C=139 step=18
+ICTI CtiFollowerPostIsDutMscratchV2 NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 13 targets 00:42 ===
+ICTI WrapMscratch NO-INDUCTION-CTI k=1
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round9-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round9-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+RESULT WrapMscratch RESULT: UNSAT t=154.62s C=141 step=20 (GOAL)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round9-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round9-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round9-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+RESULT WrapMstatus REFUTED in depth 5 C=141 (GOAL — read it)
+ICTI WrapMie INDUCTION-CTI k=1 frames=3 -> results/icti/round9-WrapMie/report.txt
+GOAL-CTI WrapMie (not attempted with kind; CTI is next round's material)
+ROUND-round9-DONE 00:59
+=== ROUND 10 staging 01:00: include=`include "h3_cti_round10.svh" makefile=1 cands=4 layers=2 ===
+=== ROUND round10 (v3) 01:00  maxjobs=11 kind_cap=400s ===
+inserted 4 candidates at a new layer: CtiMieChangeIsQuery CtiSpecMieFrame CtiFollowerPostIsDutMie CtiGhostTracksMie
+core build rc=0  aig 775029 38366 4762 18657 731901 159 6 0 0
+=== core pre-screen of 4 candidates 01:00 ===
+CORE CtiSpecMieFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFollowerPostIsDutMie refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMieChangeIsQuery PROVED-ON-CORE t=11.04s C=141 step=20 (transfers to all.aig)
+CORE CtiGhostTracksMie PROVED-ON-CORE t=11.56s C=144 step=22 (transfers to all.aig)
+=== core pre-screen done 01:01: 2 proved on core ===
+CEX WrapMstatus witness extraction starting 01:01
+CEX WrapMstatus witness extraction done 01:04
+build rc=0  aig 12273665 1815139 4762 66003 10453764 159 6 0 0
+=== proving 4 candidates, 11 at a time 01:15 ===
+RESULT CtiGhostTracksMie RESULT: UNSAT t=11.56s C=144 step=22 model=core (proof transfers)
+RESULT CtiMieChangeIsQuery RESULT: UNSAT t=11.04s C=141 step=20 model=core (proof transfers)
+RESULT CtiFollowerPostIsDutMie REFUTED in depth 5 C=143
+RESULT CtiSpecMieFrame RESULT: UNSAT t=153.08s C=141 step=20
+ICTI CtiSpecMieFrame NO-INDUCTION-CTI k=1
+=== removing 1 unproven: CtiFollowerPostIsDutMie ===
+removed 1: CtiFollowerPostIsDutMie
+rebuild rc=0  aig 12273631 1815139 4762 66003 10453730 158 6 0 0
+=== re-proving 3 survivors on the post-strip model 01:31 ===
+RESULT CtiMieChangeIsQuery RESULT: UNSAT t=150.01s C=141 step=20
+ICTI CtiMieChangeIsQuery NO-INDUCTION-CTI k=1
+RESULT CtiSpecMieFrame RESULT: UNSAT t=150.44s C=141 step=20
+RESULT CtiGhostTracksMie RESULT: UNSAT t=154.00s C=143 step=21
+ICTI CtiSpecMieFrame NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMie NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 12 targets 01:39 ===
+ICTI WrapMie NO-INDUCTION-CTI k=1
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round10-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round10-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round10-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round10-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round10-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round10-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round10-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round10-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round10-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+RESULT WrapMie RESULT: UNSAT t=154.60s C=144 step=22 (GOAL)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round10-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+RESULT WrapMstatus REFUTED in depth 5 C=144 (GOAL — read it)
+ROUND-round10-DONE 01:51
+=== ROUND 11 staging 05:38: include=`include "h3_cti_round11.svh" makefile=1 cands=3 layers=1 ===
+=== ROUND round11 (v3) 05:38  maxjobs=11 kind_cap=400s ===
+inserted 3 candidates at a new layer: CtiMtvecChangeIsQuery CtiSpecMtvecFrame CtiGhostTracksMtvec
+core build rc=0  aig 775571 38366 4762 18660 732443 161 6 0 0
+=== core pre-screen of 3 candidates 05:38 ===
+CORE CtiSpecMtvecFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMtvec refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMtvecChangeIsQuery PROVED-ON-CORE t=10.34s C=144 step=22 (transfers to all.aig)
+=== core pre-screen done 05:39: 1 proved on core ===
+build rc=0  aig 12274207 1815139 4762 66006 10454306 161 6 0 0
+=== proving 3 candidates, 11 at a time 05:53 ===
+RESULT CtiMtvecChangeIsQuery RESULT: UNSAT t=10.34s C=144 step=22 model=core (proof transfers)
+RESULT CtiSpecMtvecFrame RESULT: UNSAT t=153.72s C=144 step=22
+RESULT CtiGhostTracksMtvec RESULT: UNSAT t=206.42s C=146 step=23
+ICTI CtiSpecMtvecFrame NO-INDUCTION-CTI k=1
+ICTI CtiGhostTracksMtvec NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 11 targets 06:02 ===
+ICTI WrapMtvec NO-INDUCTION-CTI k=1
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round11-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round11-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round11-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round11-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round11-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round11-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round11-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round11-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round11-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+RESULT WrapMtvec RESULT: UNSAT t=154.68s C=147 step=24 (GOAL)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round11-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ROUND-round11-DONE 06:11
+=== ROUND 12 staging 06:11: include=`include "h3_cti_round12.svh" makefile=1 cands=7 layers=1 runner=v33 ===
+=== ROUND round12 (v3) 06:11  maxjobs=18 kind_cap=400s ===
+inserted 7 candidates at a new layer: CtiRs1PredecodeAgreesCir16 CtiRs2PredecodeAgreesCir16 CtiSpecMepcFrame CtiSpecMcauseFrame CtiGhostTracksMepc CtiGhostTracksMcause CtiGhostTracksPc
+core build rc=0  aig 777181 38366 4762 18703 734053 168 6 0 0
+=== core pre-screen of 7 candidates 06:12 ===
+CORE CtiSpecMcauseFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMepcFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMepc refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPc refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcause refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRs2PredecodeAgreesCir16 not-proved-on-core (goes to all.aig)
+CORE CtiRs1PredecodeAgreesCir16 not-proved-on-core (goes to all.aig)
+=== core pre-screen done 06:20: 0 proved on core ===
+build rc=0  aig 12275817 1815139 4762 66049 10455916 168 6 0 0
+=== proving 7 candidates, 18 at a time 06:34 ===
+RESULT CtiGhostTracksMcause REFUTED in depth 5 C=151
+RESULT CtiGhostTracksPc REFUTED in depth 5 C=151
+RESULT CtiGhostTracksMepc REFUTED in depth 6 C=151
+RESULT CtiSpecMcauseFrame RESULT: UNSAT t=159.40s C=147 step=24
+RESULT CtiSpecMepcFrame RESULT: UNSAT t=190.23s C=147 step=24
+ICTI CtiRs1PredecodeAgreesCir16 INDUCTION-CTI k=1 frames=3 -> results/icti/round12-CtiRs1PredecodeAgreesCir16/report.txt
+ICTI CtiRs2PredecodeAgreesCir16 INDUCTION-CTI k=1 frames=3 -> results/icti/round12-CtiRs2PredecodeAgreesCir16/report.txt
+ICTI CtiSpecMepcFrame NO-INDUCTION-CTI k=1
+ICTI CtiSpecMcauseFrame NO-INDUCTION-CTI k=1
+RESULT CtiRs2PredecodeAgreesCir16  t=400.93s C=147 step=24
+RESULT CtiRs1PredecodeAgreesCir16  t=400.85s C=147 step=24
+=== removing 5 unproven: CtiGhostTracksMcause CtiGhostTracksPc CtiGhostTracksMepc CtiRs2PredecodeAgreesCir16 CtiRs1PredecodeAgreesCir16 ===
+removed 5: CtiRs1PredecodeAgreesCir16 CtiRs2PredecodeAgreesCir16 CtiGhostTracksMepc CtiGhostTracksMcause CtiGhostTracksPc
+rebuild rc=0  aig 12275647 1815139 4762 66049 10455746 163 6 0 0
+=== re-proving 2 survivors on the post-strip model 06:54 ===
+RESULT CtiSpecMcauseFrame RESULT: UNSAT t=153.30s C=147 step=24
+RESULT CtiSpecMepcFrame RESULT: UNSAT t=180.51s C=147 step=24
+ICTI CtiSpecMepcFrame NO-INDUCTION-CTI k=1
+ICTI CtiSpecMcauseFrame NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 10 targets 07:03 ===
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round12-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round12-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round12-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round12-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round12-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round12-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round12-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round12-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round12-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round12-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ROUND-round12-DONE 07:12
+=== ROUND 13 staging 07:12: include=`include "h3_cti_round13.svh" makefile=1 cands=6 layers=1 runner=v33 ===
+=== ROUND round13 (v3) 07:12  maxjobs=18 kind_cap=400s ===
+inserted 6 candidates at a new layer: CtiNoProgressDuringExcEntry CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksPcV2 CtiRs1PredecodeAgreesCir16V2 CtiRs2PredecodeAgreesCir16V2
+core build rc=0  aig 777650 38366 4762 18710 734522 169 6 0 0
+=== core pre-screen of 6 candidates 07:13 ===
+CORE CtiGhostTracksMepcV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcauseV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiNoProgressDuringExcEntry PROVED-ON-CORE t=11.18s C=149 step=25 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir16V2 not-proved-on-core (goes to all.aig)
+CORE CtiRs1PredecodeAgreesCir16V2 not-proved-on-core (goes to all.aig)
+=== core pre-screen done 07:20: 1 proved on core ===
+build rc=0  aig 12276286 1815139 4762 66056 10456385 169 6 0 0
+=== proving 6 candidates, 18 at a time 07:35 ===
+RESULT CtiNoProgressDuringExcEntry RESULT: UNSAT t=11.18s C=149 step=25 model=core (proof transfers)
+RESULT CtiGhostTracksMcauseV2 REFUTED in depth 6 C=150
+ICTI CtiGhostTracksMepcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round13-CtiGhostTracksMepcV2/report.txt
+ICTI CtiGhostTracksPcV2 INDUCTION-CTI k=1 frames=3 -> results/icti/round13-CtiGhostTracksPcV2/report.txt
+ICTI CtiRs1PredecodeAgreesCir16V2 INDUCTION-CTI k=1 frames=3 -> results/icti/round13-CtiRs1PredecodeAgreesCir16V2/report.txt
+ICTI CtiRs2PredecodeAgreesCir16V2 INDUCTION-CTI k=1 frames=3 -> results/icti/round13-CtiRs2PredecodeAgreesCir16V2/report.txt
+RESULT CtiGhostTracksMepcV2  t=400.89s C=150 step=26
+RESULT CtiRs1PredecodeAgreesCir16V2  t=401.05s C=150 step=26
+RESULT CtiGhostTracksPcV2  t=401.06s C=150 step=26
+RESULT CtiRs2PredecodeAgreesCir16V2  t=401.10s C=150 step=26
+=== removing 5 unproven: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiRs1PredecodeAgreesCir16V2 CtiGhostTracksPcV2 CtiRs2PredecodeAgreesCir16V2 ===
+removed 5: CtiGhostTracksMcauseV2 CtiGhostTracksMepcV2 CtiGhostTracksPcV2 CtiRs1PredecodeAgreesCir16V2 CtiRs2PredecodeAgreesCir16V2
+rebuild rc=0  aig 12276116 1815139 4762 66056 10456215 164 6 0 0
+=== re-proving 1 survivors on the post-strip model 07:55 ===
+RESULT CtiNoProgressDuringExcEntry RESULT: UNSAT t=145.01s C=149 step=25
+ICTI CtiNoProgressDuringExcEntry NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 10 targets 08:00 ===
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round13-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round13-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI WrapMepc INDUCTION-CTI k=1 frames=3 -> results/icti/round13-WrapMepc/report.txt
+GOAL-CTI WrapMepc (not attempted with kind; CTI is next round's material)
+ICTI WrapPc INDUCTION-CTI k=1 frames=3 -> results/icti/round13-WrapPc/report.txt
+GOAL-CTI WrapPc (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round13-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round13-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI WrapMcause INDUCTION-CTI k=1 frames=3 -> results/icti/round13-WrapMcause/report.txt
+GOAL-CTI WrapMcause (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round13-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round13-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round13-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ROUND-round13-DONE 08:10
+=== ROUND 14 staging 08:10: include=`include "h3_cti_round14.svh" makefile=1 cands=3 layers=1 runner=v33 ===
+=== ROUND round14 (v3) 08:10  maxjobs=18 kind_cap=400s ===
+inserted 3 candidates at a new layer: CtiCirVldTracksBufLevel CtiRs1PredecodeAgreesCir16V2 CtiRs2PredecodeAgreesCir16V2
+core build rc=0  aig 777591 38366 4762 18711 734463 167 6 0 0
+=== core pre-screen of 3 candidates 08:10 ===
+CORE CtiCirVldTracksBufLevel PROVED-ON-CORE t=11.89s C=150 step=26 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir16V2 not-proved-on-core (goes to all.aig)
+CORE CtiRs1PredecodeAgreesCir16V2 not-proved-on-core (goes to all.aig)
+=== core pre-screen done 08:18: 1 proved on core ===
+build rc=0  aig 12276227 1815139 4762 66057 10456326 167 6 0 0
+=== proving 3 candidates, 18 at a time 08:33 ===
+RESULT CtiCirVldTracksBufLevel RESULT: UNSAT t=11.89s C=150 step=26 model=core (proof transfers)
+ICTI CtiRs1PredecodeAgreesCir16V2 INDUCTION-CTI k=1 frames=3 -> results/icti/round14-CtiRs1PredecodeAgreesCir16V2/report.txt
+ICTI CtiRs2PredecodeAgreesCir16V2 INDUCTION-CTI k=1 frames=3 -> results/icti/round14-CtiRs2PredecodeAgreesCir16V2/report.txt
+RESULT CtiRs2PredecodeAgreesCir16V2  t=400.75s C=151 step=27
+RESULT CtiRs1PredecodeAgreesCir16V2  t=401.16s C=151 step=27
+=== removing 2 unproven: CtiRs2PredecodeAgreesCir16V2 CtiRs1PredecodeAgreesCir16V2 ===
+removed 2: CtiRs1PredecodeAgreesCir16V2 CtiRs2PredecodeAgreesCir16V2
+rebuild rc=0  aig 12276159 1815139 4762 66057 10456258 165 6 0 0
+=== re-proving 1 survivors on the post-strip model 08:53 ===
+RESULT CtiCirVldTracksBufLevel RESULT: UNSAT t=148.10s C=150 step=26
+ICTI CtiCirVldTracksBufLevel NO-INDUCTION-CTI k=1
+=== goals, CTI-first: 7 targets 08:58 ===
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round14-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round14-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round14-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round14-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round14-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round14-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round14-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ROUND-round14-DONE 09:08
+=== ROUND 15 staging 09:08: include=`include "h3_cti_round15.svh" makefile=1 cands=2 layers=0 runner=v34 ===
+=== ROUND round15 (v3.5) 09:08  maxjobs=18 kind_cap=400s ===
+inserted 2 candidates at a new layer: CtiRs1PredecodeAgreesCir16V3 CtiRs2PredecodeAgreesCir16V3
+core build rc=0  aig 777635 38366 4762 18713 734507 167 6 0 0
+=== core pre-screen of 2 candidates 09:08 ===
+CORE CtiRs2PredecodeAgreesCir16V3 PROVED-ON-CORE t=10.90s C=151 step=27 (transfers to all.aig)
+CORE CtiRs1PredecodeAgreesCir16V3 PROVED-ON-CORE t=10.55s C=151 step=27 (transfers to all.aig)
+=== core pre-screen done 09:09: 2 proved on core ===
+=== nothing for all.aig (v3.5 shortcut): 2 core-proved, 0 DUT-only failed; no full build this round ===
+RESULT CtiRs1PredecodeAgreesCir16V3 RESULT: UNSAT t=10.55s C=151 step=27 model=core (proof transfers)
+RESULT CtiRs2PredecodeAgreesCir16V3 RESULT: UNSAT t=10.90s C=151 step=27 model=core (proof transfers)
+ROUND-round15-DONE 09:09
+=== ROUND 16 staging 09:11: NO candidates — build + goal sweep on the model with the predecode twins, runner=v36 ===
+=== ROUND round16 (v3.6) 09:11  maxjobs=18 kind_cap=400s ===
+core build rc=0  aig 777635 38366 4762 18713 734507 167 6 0 0
+=== core pre-screen of 0 candidates 09:11 ===
+=== core pre-screen done 09:11: 0 proved on core ===
+build rc=0  aig 12276271 1815139 4762 66059 10456370 167 6 0 0
+=== proving 0 candidates, 18 at a time 09:26 ===
+=== goals, CTI-first: 7 targets 09:26 ===
+ICTI StoreEn INDUCTION-CTI k=1 frames=3 -> results/icti/round16-StoreEn/report.txt
+GOAL-CTI StoreEn (not attempted with kind; CTI is next round's material)
+ICTI WrapRegA INDUCTION-CTI k=1 frames=3 -> results/icti/round16-WrapRegA/report.txt
+GOAL-CTI WrapRegA (not attempted with kind; CTI is next round's material)
+ICTI StoreBe INDUCTION-CTI k=1 frames=3 -> results/icti/round16-StoreBe/report.txt
+GOAL-CTI StoreBe (not attempted with kind; CTI is next round's material)
+ICTI WrapRegB INDUCTION-CTI k=1 frames=3 -> results/icti/round16-WrapRegB/report.txt
+GOAL-CTI WrapRegB (not attempted with kind; CTI is next round's material)
+ICTI LoadAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round16-LoadAddr/report.txt
+GOAL-CTI LoadAddr (not attempted with kind; CTI is next round's material)
+ICTI StoreWData INDUCTION-CTI k=1 frames=3 -> results/icti/round16-StoreWData/report.txt
+GOAL-CTI StoreWData (not attempted with kind; CTI is next round's material)
+ICTI StoreAddr INDUCTION-CTI k=1 frames=3 -> results/icti/round16-StoreAddr/report.txt
+GOAL-CTI StoreAddr (not attempted with kind; CTI is next round's material)
+ROUND-round16-DONE 09:35

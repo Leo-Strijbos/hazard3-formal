@@ -1,0 +1,72 @@
+# ---------------------------------------------------------------------------
+# h3_tieoff_undriven.ys -- MODELLING FIX, run immediately before
+#   `setundef -undriven -anyseq` in every Hazard3 build script.
+#
+# `script h3_tieoff_undriven.ys` from build_h3_core.ys, build_h3_fast.ys and
+# build_h3.ys, so that build/core.aig and build/all.aig cannot drift apart.
+# ---------------------------------------------------------------------------
+#
+# THE PROBLEM.  Hazard3 disables configuration-dependent logic with
+# `else if (PARAMETER)` rather than with `generate`.  With the parameter at 0
+# the register's update branch is constant-false, so after `proc` the flop has
+# a reset value but NO next-state function, yosys drops it, and
+# `setundef -undriven -anyseq` then turns what the RTL calls a register into a
+# FREE SIGNAL the solver re-chooses every cycle.  See BRINGUP.md, "Free state".
+#
+# THE RTL's OWN SEMANTICS.  Take debug_mode (hdl/hazard3_csr.v:162-168):
+#
+#     always @ (posedge clk or negedge rst_n) begin
+#         if (!rst_n) begin
+#             debug_mode <= 1'b0;
+#         end else if (DEBUG_SUPPORT) begin      // <-- 0 in this configuration
+#             debug_mode <= (debug_mode && !exit_debug_mode) || enter_debug_mode;
+#         end
+#     end
+#
+# With DEBUG_SUPPORT = 0 there is no `else`, so in Verilog the flop holds its
+# reset value, 0, for ever.  Constant 0 is what this RTL MEANS.  A free signal
+# is not a weaker model of the design, it is a model of a DIFFERENT design.
+# Restoring the constant is therefore a modelling fix, not an assumption, and
+# it is NOT listed in the harness's assumption list.
+#
+# Hazard3's author writes exactly this tie-off by hand elsewhere in the same
+# file -- see hdl/hazard3_csr.v:210-221 for !CSR_M_TRAP and :252-257 for
+# !U_MODE, with the comment "Explicit tie-off when unimplemented ... so that
+# flops are constant-propagated away".  The four registers below are the ones
+# that were missed.
+#
+# WHY `connect -set` AND NOT `setundef -undriven -zero <selection>`:
+# setundef's -undriven mode iterates every wire of every SELECTED MODULE and
+# ignores wire-level selection, so with one module (yosys-slang flattens) it
+# would zero the genuine free inputs -- hready, hresp, hrdata, irq -- and
+# silently produce a model in which the bus never responds.  Measured: the
+# undriven-wire count went from 77 to 0.
+#
+# ./probe_undriven.sh regenerates the list this block has to cover.  If it ever
+# reports a NEW undriven wire inside `cpu`, that wire must be triaged here
+# before it is allowed to become free.
+
+cd top
+
+# hdl/hazard3_csr.v:162-168 -- reset 0; update branch guarded by DEBUG_SUPPORT.
+# Not inert: 17 reads carry no DEBUG_SUPPORT factor, and :1484/:1490 (IRQ trap
+# entry), :701 (DPC write -> architectural PC), hazard3_frontend.v:592 and
+# hazard3_decode.v:212 are functionally live.  Independently, the only term
+# that could ever set it, enter_debug_mode, is itself constant 0 by the
+# `|DEBUG_SUPPORT &&` factor at hdl/hazard3_csr.v:1394.
+connect -set \cpu.core.csr_u.debug_mode 1'b0
+
+# hdl/hazard3_core.v:642-678 -- reset 3'h0; update branch guarded by
+# `|EXTENSION_A && d_memop_is_amo`, and d_memop_is_amo is itself
+# `|EXTENSION_A && ...` (:422).  Every synthesizable read is likewise gated, so
+# this one is genuinely inert; it is tied off anyway to remove 3 free bits.
+connect -set \cpu.core.x_amo_phase 3'b000
+
+# hdl/hazard3_csr.v:1314-1341 -- reset 0; both updates (:1332, :1340) are
+# inside `else if (DEBUG_SUPPORT)` at :1321.  Single reader, :1294
+# `(pending_dbg_resume_prev || dbg_req_resume_prev) && debug_mode`, whose
+# result reaches the trap vector mux at :1467 ungated.
+connect -set \cpu.core.csr_u.dbg_req_resume_prev 1'b0
+connect -set \cpu.core.csr_u.pending_dbg_resume_prev 1'b0
+
+cd ..
