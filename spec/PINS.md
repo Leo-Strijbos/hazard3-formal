@@ -10,3 +10,11 @@ The Sail model used is the base commit plus the three patches in this directory
 (Gate 6, 7, 8), applied in order. The Hazard3 RTL used is the pinned commit with
 the six conformance patches applied by harness/patch_hazard3_rtl.sh
 (H3_CONFORMANCE=1). Tool versions come from the Ibex flake lock (ibex.flake.lock).
+
+## Tool versions
+
+From the Ibex flake's `oss-dev` shell at the pinned Ibex commit, as reported on
+the reproduction machine (2026-09-20): rIC3 1.4.1, Yosys 0.62 (with the
+lowRISC yosys-slang fork and the `yosys_formal` passes in `harness/`), Sail
+0.20.1 (lowRISC fork, SystemVerilog back end), psgen 20250805, cargo nightly
+2025-07-29 (for aig-manip).

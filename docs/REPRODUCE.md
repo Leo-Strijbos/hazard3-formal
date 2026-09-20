@@ -1,10 +1,9 @@
 # Reproducing the proof
 
-Status: the proof was produced on one machine whose paths the runner scripts
-still carry (`/opt/verif/h3formal`, `/opt/verif/ibex`, `/var/tmp/h3loop.log`).
-`reproduce.sh` has not yet been run on a fresh machine. This page lists what a
-fresh run needs and where the scripts have to be pointed; it will be updated
-when that run has been done.
+Status: a full re-run on a fresh machine (a new instance from the same AMI as
+the proof machine, with only the Ibex checkout and its Nix toolchain on it)
+was started on 2026-09-20 with `tools/bootstrap_box.sh` and
+`tools/reproduce_prove.sh`; its outcome is recorded at the end of this page.
 
 ## What you need
 
@@ -41,15 +40,15 @@ the results are about.
 2. Build the models from `harness/`:
    `H3_CONFORMANCE=1 make build/core.aig build/all.aig`. About 40 minutes.
    Check `build/hazard3-rtl/PATCH_MANIFEST` lists the six patch lines.
-3. Re-prove everything. `tools/reprove_all2.sh` is the sweep that produced the
-   final results: it rotates the log, re-proves the 48 structural stragglers
-   with IC3 (`tools/step0_ic3.sh`, 1800 s each), pre-screens every other lemma
-   on the core model and then proves it on the full model with k-induction
-   (600 s), inserts nothing and strips nothing, then sweeps the 18 goals and
-   prints one `CHAIN <goal>: VERDICT ...` line each. It waits at its start for
-   a marker from the previous round; on a fresh machine delete that `while`
-   loop and the log rotation, and point the `cd` and `NIX` lines at your
-   layout. About three hours.
+3. Re-prove everything: `./reproduce.sh` (which runs
+   `tools/reproduce_prove.sh`, the portable form of `tools/reprove_all2.sh`,
+   the sweep that produced the final results). It builds aig-manip and both
+   models, logs the axiom, pre-screens every lemma on the core model,
+   re-proves the step-0 stragglers with IC3 (1800 s each), proves the rest on
+   the full model with k-induction (600 s), inserts nothing and strips
+   nothing, sweeps the 18 goals and prints one `CHAIN <goal>: VERDICT ...`
+   line each. It refuses to start on a non-empty log. About three and a half
+   hours.
 4. Check the chains yourself:
    `python3 tools/chain_check3.py WrapPc` and so on for each goal. The
    expected last line is `VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv]`.
