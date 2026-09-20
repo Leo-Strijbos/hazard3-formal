@@ -30,8 +30,8 @@ configurations and runs all five.
 | c_addi4spn_reserved | exit 1 | exit 0 | exit 1 (present) |
 | fence_rd_nonzero | exit 1 | exit 0 | exit 0 (fixed by 6adda670) |
 | mtvec_vectored_unaligned | exit 1 | exit 0 | exit 1 (present) |
-| mstatus_mprv_no_umode | exit 1 | exit 0 | pending |
-| meicontext_side_effect | exit 1 | exit 0 | pending |
+| mstatus_mprv_no_umode | exit 1 | exit 0 | exit 1 (present) |
+| meicontext_side_effect | exit 1 | exit 0 | exit 1 (present) |
 
 Logs of each run are in `repro/out/` (v1.1.1), `repro/out-fixed/` and
 `repro/out-develop/`.
