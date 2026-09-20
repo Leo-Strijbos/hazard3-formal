@@ -32,7 +32,7 @@ equivalent to the RISC-V Sail specification: at every specification query the
 program counter, the six checked CSRs and the register operands agree, and the
 core's memory requests are the specification's memory requests, for every
 instruction sequence and without a depth bound. All 18 top-level goals close.
-The proof rests on 316 helper lemmas in 108 layers and on one axiom, the
+The proof rests on 265 helper lemmas in 62 layers and on one axiom, the
 arithmetic result of the sequential multiplier/divider, which the Ibex proof
 also assumes. Six divergences had to be fixed before the proof could close:
 five in the Hazard3 RTL (reserved \code{C.ADDI4SPN} encodings execute,
@@ -217,10 +217,10 @@ Each property in the proof script sits in a layer. A property is proven by
 k-induction with every property in the layers beneath it as a constraint, and
 nothing above or beside it. \code{aig-manip select} extracts, from the full
 model, the property and exactly that constraint set; rIC3 proves it or returns
-a counterexample to induction. The final proof has 108 layers, 316 helper
+a counterexample to induction. The final proof has 62 layers, 265 helper
 lemmas, 18 goals and 1 axiom. The chain for \code{WrapPc}, the last goal to
-close, uses 266 constraints, 91 of them structural lemmas from the bring-up
-and the rest discovered in the loop.
+close, uses all 266 (265 lemmas and the axiom): 91 spec-free lemmas in the
+base layer, from the bring-up, and 174 discovered in the loop.
 
 Lemmas in the same layer cannot see each other. This bit twice: a pair of
 lemmas that each needed the other would time out together and prove instantly
@@ -377,10 +377,10 @@ own riscv-formal checks cover the unit in bounded form upstream.
 \small
 \begin{tabular}{lr}
 \toprule
-helper lemmas in the final proof & 316 \\
-\quad of which found in the loop (named \code{Cti*}) & 175 \\
-\quad of which structural, from the bring-up & 141 \\
-layers & 108 \\
+helper lemmas in the final proof & 265 \\
+\quad of which found in the loop (named \code{Cti*}) & 174 \\
+\quad of which spec-free, in the base layer, from the bring-up & 91 \\
+layers & 62 \\
 constraints in the \code{WrapPc} chain & 266 \\
 rounds (17 to 20 September) & 44 \\
 distinct lemma candidates attempted & 258 \\

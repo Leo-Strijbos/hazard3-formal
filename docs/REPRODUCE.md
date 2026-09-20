@@ -15,7 +15,9 @@ was started on 2026-09-20 with `tools/bootstrap_box.sh` and
     yosys-slang, the lowRISC Sail back end, psgen, rIC3, aig-manip).
   - Hazard3 at `8af99293` (v1.1.1).
   - lowRISC sail-riscv, branch `ibex`, at `81a266b6`, with the three patches
-    in `spec/` applied in order (`git am spec/000*.patch`).
+    in the top-level `spec/` applied in order (`git am spec/000*.patch`). It
+    lives at `harness/sail-riscv-h3`; the Sail glue the build reads is
+    `harness/spec/` (main.sail, spec_api.sv, stub.sv, fix_bugs.py).
 
 ## Layout on the proof machine
 

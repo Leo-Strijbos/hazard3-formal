@@ -46,8 +46,9 @@ the right time, without trapping, and advances the PC. The Ibex proof assumes th
 same lemma (its `MType`). The statement is written out in full in the proof file
 above `CtiWbMulDiv`.
 
-The proof rests on 316 helper lemmas in 108 layers, each proven by k-induction
-with the layers beneath it as constraints. The verdicts are computed by
+The proof rests on 265 helper lemmas in 62 layers, each proven by k-induction
+with the layers beneath it as constraints (91 spec-free lemmas in the base
+layer, 174 found in the lemma loop above it). The verdicts are computed by
 [`tools/chain_check3.py`](tools/chain_check3.py), which walks the log and
 refuses to call a goal proven if any lemma that was a constraint at proof time
 was later refuted, removed, or never proven itself. The 18 verdicts as printed
@@ -119,7 +120,7 @@ with justifications is section 6 of [`docs/BRINGUP.md`](docs/BRINGUP.md).
 ## Layout
 
 ```
-harness/     the proof harness: SystemVerilog checks, the proof script (thm/), the Sail glue,
+harness/     the proof harness: SystemVerilog checks, the proof script (thm/), the Sail glue (spec/),
              the Yosys build and the RTL patch script
 spec/        pinned commits and the three patches applied to the Sail model
 tools/       the round runner, the chain checker, the CTI tools, aig-manip (lowRISC)
