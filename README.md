@@ -67,7 +67,7 @@ instructions ([`findings/upstream/repro/`](findings/upstream/repro/)).
 | 3 | a write to `meicontext` traps as illegal when `EXTENSION_XH3IRQ = 0` but still modifies `mie` | Hazard3 | present | present | to be filed |
 | 4 | `FENCE` with rs1 or rd non-zero raises illegal-instruction; the spec says ignore the fields | Hazard3 | present | fixed 2026-08-22 | rediscovered; not filed |
 | 5 | vectored trap entry computes `BASE \| 4·cause`, the spec says `BASE + 4·cause`, and an unaligned BASE is accepted rather than legalised | Hazard3 (documented) | present | present | to be filed as a conformance question |
-| 6 | `legalize_mstatus` lets `TW` be set with U-mode absent; the spec says read-only 0 | Sail, lowRISC `ibex` branch | present at branch head | fixed upstream 2025-02-19 | to be filed |
+| 6 | `legalize_mstatus` lets `TW` be set with U-mode absent; the spec says read-only 0 | Sail, lowRISC `ibex` branch | present at branch head | fixed upstream 2025-02-19 | not filed: fixed upstream, and harmless to Ibex (which has U-mode) |
 
 None of the five Hazard3 items can be reached by code a compiler emits, and
 numbers 2 and 3 need a non-default configuration. They are conformance

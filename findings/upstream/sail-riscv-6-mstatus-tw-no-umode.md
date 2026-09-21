@@ -1,4 +1,4 @@
-<!-- Draft issue for https://github.com/lowRISC/sail-riscv, branch `ibex` (bug report). Not yet filed. -->
+<!-- Draft for https://github.com/lowRISC/sail-riscv, branch `ibex`. NOT FILED (decision 2026-09-21): upstream riscv/sail-riscv fixed it in 8de2591, and the branch's user, the Ibex proof, has U-mode and is unaffected. Kept as the record. -->
 
 # legalize_mstatus does not mask TW when U-mode is absent (branch `ibex`)
 

@@ -11,7 +11,7 @@ link once it exists.
 | 3 | hazard3-3-meicontext-side-effect.md | Wren6991/Hazard3 | present on stable and develop | not yet |
 | 4 | hazard3-4-fence-fields-NOT-FILED.md | Wren6991/Hazard3 | fixed on develop by 6adda670 (2026-08-22), independently of this work; still on stable | not filed |
 | 5 | hazard3-5-mtvec-vectored-unaligned.md | Wren6991/Hazard3 | present on stable and develop; documented behaviour, filed as a conformance question | not yet |
-| 6 | sail-riscv-6-mstatus-tw-no-umode.md | lowRISC/sail-riscv, branch ibex | present at branch head 5fca3f99; fixed in riscv/sail-riscv by 8de2591 (2025-02-19) | not yet |
+| 6 | sail-riscv-6-mstatus-tw-no-umode.md | lowRISC/sail-riscv, branch ibex | present at branch head 5fca3f99; fixed in riscv/sail-riscv by 8de2591 (2025-02-19) | not filed (decision 2026-09-21): fixed upstream, and Ibex has U-mode so its proof is unaffected |
 
 Hazard3's Contributing.md asks that bug reports contain no suggested changes to
 `hdl/`; the drafts describe behaviour only. Our own conformance patches live in
