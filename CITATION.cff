@@ -9,7 +9,7 @@ authors:
 version: 1.0.0
 date-released: 2026-09-20
 license: Apache-2.0
-repository-code: "https://github.com/leostrijbos/hazard3-formal"
+repository-code: "https://github.com/Leo-Strijbos/hazard3-formal"
 abstract: >-
   An unbounded proof, with open-source tools, that an RV32IMC + Zicsr
   machine-mode configuration of Hazard3 v1.1.1 (the RISC-V core in the
