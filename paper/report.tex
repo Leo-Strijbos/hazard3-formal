@@ -109,7 +109,8 @@ assumptions of section~\ref{sec:scope}.
   instructions.
 \item The lemma loop ran from 17 to 20 September 2026 on one 48-core machine,
   in 44 rounds, and tried 258 distinct lemma candidates, of which 14 were
-  refuted for real.
+  refuted for real. The whole proof was then re-run from the pinned sources on
+  a fresh machine, with the same 18 verdicts.
 \end{itemize}
 
 \section{Setup}
@@ -621,13 +622,18 @@ order of difficulty.
 
 The repository holds the harness, the pinned commits and patches, the final
 proof script, the three proof logs, the chain verdicts, the tools, and the
-findings with their reproducers. \code{reproduce.sh} is meant to rebuild both
-models from the pinned sources inside the Ibex formal Nix shell, re-prove
-every lemma with nothing stripped, and print the 18 chain verdicts, in about
-three hours on 48 cores; the runner scripts still carry the proof machine's
-paths and the run has not yet been repeated on a fresh machine
-(\code{docs/REPRODUCE.md}). \code{findings/upstream/repro/run.sh} reproduces
-the five Hazard3 findings on the CXXRTL testbench in minutes on a laptop.
+findings with their reproducers. \code{reproduce.sh} rebuilds both models
+from the pinned sources inside the Ibex formal Nix shell, re-proves every
+lemma with nothing stripped, and prints the 18 chain verdicts. It was run once
+on a fresh machine (a new 48-core instance holding only the Ibex checkout and
+its toolchain) on 20 September 2026: 265 of 265 lemmas re-proved, no
+refutation, all 18 goals proved by k-induction without an induction
+counterexample, and all 18 chains \emph{proven modulo axioms [CtiWbMulDiv]},
+in 3 h 40 min (\code{results/reproduce/}, \code{docs/REPRODUCE.md}). One
+base-layer lemma exceeded the 1800 s IC3 cap at the default seed and proved in
+180 s at another; the script now retries a timeout with a second seed.
+\code{findings/upstream/repro/run.sh} reproduces the five Hazard3 findings on
+the CXXRTL testbench in minutes on a laptop.
 
 \begin{thebibliography}{9}
 \bibitem{ibexformal} lowRISC and the University of Oxford. \emph{End-to-End

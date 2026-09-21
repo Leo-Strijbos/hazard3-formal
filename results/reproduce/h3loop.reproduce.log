@@ -1,0 +1,638 @@
+=== REPRODUCE reproduce 2026-09-20 16:58: fresh log, every lemma re-proved below, nothing inserted or stripped. host=ip-172-31-3-113 cores=48 mem=371G maxjobs=18 ===
+PINS: hazard3=8af992930f71a69b0e06c38734c1094f41a05ca0 sail-riscv-h3=d1f02bfad45b8cc4e6e19889fbfb897e24cf5c58 ibex=405c6d1d8220a18b2f9196141167a5875422dee4
+AXIOM CtiWbMulDiv assumed (never attempted, never stripped; stated in thm/hazard3.proof)
+REPROVE CtiWbMulDiv RESULT: AXIOM
+aig-manip build rc=0
+core build rc=0  aig 840642 39256 4762 19656 796624 286 6 0 0
+PATCH_MANIFEST: 6 conformance patches: C.ADDI4SPN reserved nzuimm==0 now traps ;mstatus.MPRV read-only 0 when U_MODE=0 ;meicontext write to mie gated on EXTENSION_XH3IRQ ;FENCE ignores rs1/rd instead of trapping ;FENCE decode forces rs1/rs2/rd to x0 ;vectored trap entry uses mtvec + offset instead of mtvec | offset ;
+=== inventory: goal step=62; step-0 lemmas: 91; higher lemmas: 174 (+ axiom CtiWbMulDiv); goals: 20; above goals (not re-proved):  ===
+=== core pre-screen of 265 lemmas 17:01 ===
+head: cannot open 'build/all.aig' for reading: No such file or directory
+build rc=2  
+CORE AbsMstatusIsRdata PROVED-ON-CORE t=13.00s C=6 step=0 (transfers to all.aig)
+CORE AbsMtvalIsZero PROVED-ON-CORE t=12.82s C=6 step=0 (transfers to all.aig)
+CORE AbsMcounterenIsZero PROVED-ON-CORE t=13.13s C=6 step=0 (transfers to all.aig)
+CORE AhbAphSize PROVED-ON-CORE t=12.80s C=6 step=0 (transfers to all.aig)
+CORE AbsMisaIsRdata PROVED-ON-CORE t=13.08s C=6 step=0 (transfers to all.aig)
+CORE AhbSeqAddr PROVED-ON-CORE t=12.90s C=6 step=0 (transfers to all.aig)
+CORE AbsMscratchIsRdata PROVED-ON-CORE t=13.29s C=6 step=0 (transfers to all.aig)
+CORE AbsMtvecIsRdata PROVED-ON-CORE t=13.09s C=6 step=0 (transfers to all.aig)
+CORE AhbDphExclReserved PROVED-ON-CORE t=12.89s C=6 step=0 (transfers to all.aig)
+CORE AhbSeqAfterActive PROVED-ON-CORE t=12.92s C=6 step=0 (transfers to all.aig)
+CORE AbsMieIsRdata PROVED-ON-CORE t=12.75s C=6 step=0 (transfers to all.aig)
+CORE AhbExclNoPipeline PROVED-ON-CORE t=12.44s C=6 step=0 (transfers to all.aig)
+CORE AbsMepcIsRdata PROVED-ON-CORE t=12.76s C=6 step=0 (transfers to all.aig)
+CORE AbsMcauseIsRdata PROVED-ON-CORE t=12.50s C=6 step=0 (transfers to all.aig)
+CORE AbsIdsAreRdata PROVED-ON-CORE t=12.69s C=6 step=0 (transfers to all.aig)
+CORE AhbAphAligned not-proved-on-core (step 0: IC3 next)
+CORE AhbDphWdataStable not-proved-on-core (step 0: IC3 next)
+CORE AhbAphStable not-proved-on-core (step 0: IC3 next)
+CORE FetchAligned PROVED-ON-CORE t=12.98s C=6 step=0 (transfers to all.aig)
+CORE AmoPhaseZero PROVED-ON-CORE t=12.96s C=6 step=0 (transfers to all.aig)
+CORE DebugModeZero PROVED-ON-CORE t=13.13s C=6 step=0 (transfers to all.aig)
+CORE CsrIrqAlias PROVED-ON-CORE t=13.35s C=6 step=0 (transfers to all.aig)
+CORE CirVldBounded PROVED-ON-CORE t=13.65s C=6 step=0 (transfers to all.aig)
+CORE ExceptionSuppressesWrite PROVED-ON-CORE t=13.00s C=6 step=0 (transfers to all.aig)
+CORE DcsrDebugBitsZero PROVED-ON-CORE t=13.22s C=6 step=0 (transfers to all.aig)
+CORE BypassSel2Legal PROVED-ON-CORE t=12.91s C=6 step=0 (transfers to all.aig)
+CORE BypassSel1Legal PROVED-ON-CORE t=12.74s C=6 step=0 (transfers to all.aig)
+build rc=2 (manual rebuild after spec/ link)  aig 12339242 1816062 4762 67035 10518418 286 6 0 0
+build rc=0 (fix_ywmap.py re-run after copying it from tools/)  aig 12339242 1816062 4762 67035 10518418 286 6 0 0
+CORE FlushLePending not-proved-on-core (step 0: IC3 next)
+CORE BusDphMutex not-proved-on-core (step 0: IC3 next)
+CORE FollowerExceptImpliesPipe not-proved-on-core (step 0: IC3 next)
+CORE FollowerEmptyIsBubble not-proved-on-core (step 0: IC3 next)
+CORE DataVldHasPending not-proved-on-core (step 0: IC3 next)
+CORE FollowerExceptExact not-proved-on-core (step 0: IC3 next)
+CORE FollowerInstrMatchesMonitor not-proved-on-core (step 0: IC3 next)
+CORE FollowerFetchErrIsInstrFault not-proved-on-core (step 0: IC3 next)
+CORE ExceptionTrapRetires not-proved-on-core (step 0: IC3 next)
+CORE IrqReturnIsPrePc PROVED-ON-CORE t=13.50s C=6 step=0 (transfers to all.aig)
+CORE MModeIsM PROVED-ON-CORE t=13.21s C=6 step=0 (transfers to all.aig)
+CORE GhostX0Unknown PROVED-ON-CORE t=12.94s C=6 step=0 (transfers to all.aig)
+CORE FollowerMatchesMValid PROVED-ON-CORE t=12.84s C=6 step=0 (transfers to all.aig)
+CORE IrqQueryLoadsNothing PROVED-ON-CORE t=12.86s C=6 step=0 (transfers to all.aig)
+CORE MValidAgreesRvfi PROVED-ON-CORE t=12.83s C=6 step=0 (transfers to all.aig)
+CORE FollowerRdMatchesPipe not-proved-on-core (step 0: IC3 next)
+CORE FollowerOwnsDphase not-proved-on-core (step 0: IC3 next)
+CORE FollowerPcMatchesMonitor not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMepc not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMscratch not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerPc not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMtvec not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMstatus not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMie not-proved-on-core (step 0: IC3 next)
+CORE GhostMatchesFollowerMcause not-proved-on-core (step 0: IC3 next)
+CORE GhostRegMatchesFollower not-proved-on-core (step 0: IC3 next)
+CORE FollowerPcIsExceptionReturn not-proved-on-core (step 0: IC3 next)
+CORE MtvecReservedBitHardwired PROVED-ON-CORE t=12.87s C=6 step=0 (transfers to all.aig)
+CORE MepcAligned PROVED-ON-CORE t=12.97s C=6 step=0 (transfers to all.aig)
+CORE MieReservedZero PROVED-ON-CORE t=13.29s C=6 step=0 (transfers to all.aig)
+CORE MtvecModeLegal PROVED-ON-CORE t=13.33s C=6 step=0 (transfers to all.aig)
+CORE McauseStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE MieStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE MstatusMieChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE McauseChangeHasCauseFull not-proved-on-core (step 0: IC3 next)
+CORE McauseChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MstatusChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MtvecChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MepcStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE MscratchChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MieChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MepcChangeHasCause not-proved-on-core (step 0: IC3 next)
+CORE MstatusStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE MscratchStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE MemAphIsProgress not-proved-on-core (step 0: IC3 next)
+CORE RegX0Zero PROVED-ON-CORE t=12.82s C=6 step=0 (transfers to all.aig)
+CORE Trivial PROVED-ON-CORE t=12.79s C=6 step=0 (transfers to all.aig)
+CORE XProgressEmptiesM PROVED-ON-CORE t=12.87s C=6 step=0 (transfers to all.aig)
+CORE TrapKindsPartition PROVED-ON-CORE t=12.93s C=6 step=0 (transfers to all.aig)
+CORE RvfiTrapExcludesMret PROVED-ON-CORE t=12.86s C=6 step=0 (transfers to all.aig)
+CORE NoRefetchException PROVED-ON-CORE t=13.24s C=6 step=0 (transfers to all.aig)
+CORE MuldivBusyHasOp PROVED-ON-CORE t=13.52s C=6 step=0 (transfers to all.aig)
+CORE RegChangeHasWrite PROVED-ON-CORE t=13.28s C=6 step=0 (transfers to all.aig)
+CORE PowerStateAwake not-proved-on-core (step 0: IC3 next)
+CORE PcChangeHasCommit not-proved-on-core (step 0: IC3 next)
+CORE RetireAgreesRvfiValid not-proved-on-core (step 0: IC3 next)
+CORE XAdvanceIsNoStall not-proved-on-core (step 0: IC3 next)
+CORE PendingFetchesBound not-proved-on-core (step 0: IC3 next)
+CORE RegWriteAtRetire not-proved-on-core (step 0: IC3 next)
+CORE TrapExitRetires not-proved-on-core (step 0: IC3 next)
+CORE PcChangeHasArchCommit not-proved-on-core (step 0: IC3 next)
+CORE PreNextPcMatchesSeqNext not-proved-on-core (step 0: IC3 next)
+CORE MtvecStableBetweenCommits not-proved-on-core (step 0: IC3 next)
+CORE CtiSpecWriteIsStoreInsn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolIntErrIsFetchErr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecPostMtvecReservedZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMscratchFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecReadIsLoadInsn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostMieReservedZero refuted-on-core (decides nothing; goes to all.aig)
+CORE XProgressMatchesMonitor PROVED-ON-CORE t=11.88s C=6 step=0 (transfers to all.aig)
+CORE CtiHasRegImpliesHasGhost PROVED-ON-CORE t=12.50s C=98 step=2 (transfers to all.aig)
+CORE CtiPastValidAgree PROVED-ON-CORE t=12.64s C=98 step=2 (transfers to all.aig)
+CORE CtiPastPreMtvecReservedZero PROVED-ON-CORE t=12.73s C=98 step=2 (transfers to all.aig)
+CORE CtiAphReqAccepted PROVED-ON-CORE t=12.91s C=98 step=2 (transfers to all.aig)
+CORE CtiXProgressAphAccepted PROVED-ON-CORE t=12.39s C=107 step=3 (transfers to all.aig)
+CORE CtiMscratchChangeIsQuery PROVED-ON-CORE t=12.52s C=110 step=4 (transfers to all.aig)
+CORE CtiCsrWenIsQuery PROVED-ON-CORE t=12.63s C=98 step=2 (transfers to all.aig)
+CORE CtiGhostMtvecReservedZero PROVED-ON-CORE t=12.70s C=107 step=3 (transfers to all.aig)
+CORE CtiMemopRaisesAph PROVED-ON-CORE t=12.49s C=98 step=2 (transfers to all.aig)
+CORE CtiCirRawPassthrough PROVED-ON-CORE t=12.12s C=98 step=2 (transfers to all.aig)
+CORE CtiFolInstrMatchesRvfi PROVED-ON-CORE t=11.57s C=97 step=1 (transfers to all.aig)
+CORE CtiHasGhostImpliesPastValid PROVED-ON-CORE t=13.62s C=114 step=5 (transfers to all.aig)
+CORE CtiDMemopLegal PROVED-ON-CORE t=13.33s C=125 step=11 (transfers to all.aig)
+CORE CtiFolValidImpliesPastValid PROVED-ON-CORE t=13.64s C=114 step=5 (transfers to all.aig)
+CORE CtiXStoreHasNoRd PROVED-ON-CORE t=13.74s C=123 step=9 (transfers to all.aig)
+CORE CtiSpecMemNotBoth PROVED-ON-CORE t=13.67s C=114 step=5 (transfers to all.aig)
+CORE CtiCirLengthAgreesRaw PROVED-ON-CORE t=13.38s C=119 step=7 (transfers to all.aig)
+CORE CtiXmMemopLegal PROVED-ON-CORE t=13.32s C=127 step=12 (transfers to all.aig)
+CORE CtiCirInvalidAgreesRaw PROVED-ON-CORE t=13.62s C=131 step=14 (transfers to all.aig)
+CORE CtiDExceptLegal PROVED-ON-CORE t=13.79s C=125 step=11 (transfers to all.aig)
+CORE CtiXmExceptLegal PROVED-ON-CORE t=13.47s C=127 step=12 (transfers to all.aig)
+CORE CtiFolMemNotBoth PROVED-ON-CORE t=13.22s C=118 step=6 (transfers to all.aig)
+CORE CtiMStoreHasNoRd PROVED-ON-CORE t=13.39s C=124 step=10 (transfers to all.aig)
+CORE CtiCsrWenIsUncompressed PROVED-ON-CORE t=13.21s C=114 step=5 (transfers to all.aig)
+CORE CtiMwResultIsRegfile PROVED-ON-CORE t=13.29s C=120 step=8 (transfers to all.aig)
+CORE CtiRs1SelectTracksRd PROVED-ON-CORE t=13.18s C=120 step=8 (transfers to all.aig)
+CORE CtiRs2SelectTracksRd PROVED-ON-CORE t=12.65s C=120 step=8 (transfers to all.aig)
+CORE CtiRs2BypassIsPreRegsV2 PROVED-ON-CORE t=16.20s C=129 step=13 (transfers to all.aig)
+CORE CtiRs1BypassIsPreRegs PROVED-ON-CORE t=15.24s C=129 step=13 (transfers to all.aig)
+CORE CtiFollowerPostIsDutMscratchV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMepcFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMtvecFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMtvec refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMcauseFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMieFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMie refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiXmSleepImpliesNoMemop PROVED-ON-CORE t=12.98s C=134 step=15 (transfers to all.aig)
+CORE CtiMieChangeIsQuery PROVED-ON-CORE t=13.13s C=141 step=20 (transfers to all.aig)
+CORE CtiGhostTracksMscratch PROVED-ON-CORE t=12.77s C=140 step=19 (transfers to all.aig)
+CORE CtiNoProgressDuringExcEntry PROVED-ON-CORE t=13.06s C=149 step=25 (transfers to all.aig)
+CORE CtiCirUopFlagsZero PROVED-ON-CORE t=12.73s C=131 step=14 (transfers to all.aig)
+CORE CtiNoBreakFlags PROVED-ON-CORE t=13.01s C=134 step=15 (transfers to all.aig)
+CORE CtiMtvecChangeIsQuery PROVED-ON-CORE t=12.81s C=144 step=22 (transfers to all.aig)
+CORE CtiRs1PredecodeAgreesCir32 PROVED-ON-CORE t=12.23s C=137 step=17 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir32 PROVED-ON-CORE t=12.76s C=137 step=17 (transfers to all.aig)
+CORE CtiStoreDataIsRegfile PROVED-ON-CORE t=12.36s C=136 step=16 (transfers to all.aig)
+CORE CtiRs2StoreBypassIsPreRegs PROVED-ON-CORE t=13.27s C=131 step=14 (transfers to all.aig)
+CORE CtiWbAdd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlt refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbLui refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbXor refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSll refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostMstatusHardwiredZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAnd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAuipc refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecMstatusFrame refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbOr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAddi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiCirVldTracksBufLevel PROVED-ON-CORE t=11.97s C=150 step=26 (transfers to all.aig)
+CORE CtiMstatusHardwiredZero PROVED-ON-CORE t=11.79s C=153 step=28 (transfers to all.aig)
+CORE CtiCirInvalidIsDecompressedRaw PROVED-ON-CORE t=12.06s C=160 step=31 (transfers to all.aig)
+CORE CtiRs2PredecodeAgreesCir16V3 PROVED-ON-CORE t=12.22s C=151 step=27 (transfers to all.aig)
+CORE CtiRs1PredecodeAgreesCir16V3 PROVED-ON-CORE t=10.25s C=151 step=27 (transfers to all.aig)
+CORE CtiCirIsDecompressedRawV2 PROVED-ON-CORE t=14.93s C=160 step=31 (transfers to all.aig)
+CORE CtiWbJalr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSltu refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbOri refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAddi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrai refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSlti refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbXori refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbJal refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSrl refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbAndi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSpecPostMstatusHardwiredZero refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAddi4spn refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAnd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSra refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSltiu refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAndi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCAdd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSlli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCJal refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSub refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSrai refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCSrli refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCLi refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCsrV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolSpecWxEnIsRdV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCOr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCJalr refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCMv refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolSpecWxAddrIsRd refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCXor refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbSub refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolXExceptNoSpecWriteV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostDroppedForExceptingWrite refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiWbCLui16sp refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiXmMemAligned PROVED-ON-CORE t=10.06s C=201 step=38 (transfers to all.aig)
+CORE CtiFolLoadSpecReads refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolLoadWxIsPick refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_08 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_02 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_05 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_01 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_06 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_04 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_09 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_10 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_07 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_03 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiFolLoadMemopMatches PROVED-ON-CORE t=12.35s C=204 step=40 (transfers to all.aig)
+CORE CtiGhostDroppedForUnspecifiable PROVED-ON-CORE t=11.83s C=205 step=41 (transfers to all.aig)
+CORE CtiFolMemopNoneUnlessMem PROVED-ON-CORE t=12.16s C=205 step=41 (transfers to all.aig)
+CORE CtiWbLoad PROVED-ON-CORE t=11.16s C=210 step=44 (transfers to all.aig)
+CORE CtiFolWriteCoverageV2 PROVED-ON-CORE t=11.96s C=212 step=45 (transfers to all.aig)
+CORE CtiWbAll PROVED-ON-CORE t=11.71s C=210 step=44 (transfers to all.aig)
+CORE CtiRegMatchV2_12 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_24 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_19 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_13 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_17 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_18 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_21 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_28 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_16 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_11 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_22 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_23 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_15 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_26 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_14 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_20 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_27 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_25 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMstatusV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMcauseAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMcauseUntouched refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMepcAgreesV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMcauseAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMcauseV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMepcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_30 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksMepcV3 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_31 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretMepcUntouched refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiTrapMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiRegMatchV2_29 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiIrqMstatusAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiMretPcAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiPcEven PROVED-ON-CORE t=10.31s C=256 step=49 (transfers to all.aig)
+CORE CtiJumpTargetAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiGhostTracksPcV4 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiSeqNextPcAgreesV2 refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiLockedJumpTargetAgrees refuted-on-core (decides nothing; goes to all.aig)
+CORE CtiLockCirValid PROVED-ON-CORE t=13.27s C=261 step=53 (transfers to all.aig)
+CORE CtiLockCirClean PROVED-ON-CORE t=13.57s C=268 step=58 (transfers to all.aig)
+CORE CtiLockImpliesJumpOrBranch PROVED-ON-CORE t=13.03s C=262 step=54 (transfers to all.aig)
+CORE CtiLockNoRawHazard PROVED-ON-CORE t=12.72s C=263 step=55 (transfers to all.aig)
+CORE CtiRs2BypassIsPreRegsClean PROVED-ON-CORE t=16.02s C=264 step=56 (transfers to all.aig)
+CORE CtiRs1BypassIsPreRegsClean PROVED-ON-CORE t=16.27s C=264 step=56 (transfers to all.aig)
+CORE CtiRs1BypassIsPreRegsV3 PROVED-ON-CORE t=16.59s C=266 step=57 (transfers to all.aig)
+CORE CtiRs2BypassIsPreRegsV3 PROVED-ON-CORE t=15.92s C=266 step=57 (transfers to all.aig)
+CORE CtiLockImpliesTakenJump PROVED-ON-CORE t=33.99s C=269 step=59 (transfers to all.aig)
+=== core pre-screen done 18:10: 106 proved on core ===
+=== step-0 IC3 pass (1800 s, 8-wide): 48 stragglers 18:10 ===
+REPROVE AbsIdsAreRdata RESULT: UNSAT t=12.69s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMcauseIsRdata RESULT: UNSAT t=12.50s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMcounterenIsZero RESULT: UNSAT t=13.13s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMepcIsRdata RESULT: UNSAT t=12.76s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMieIsRdata RESULT: UNSAT t=12.75s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMisaIsRdata RESULT: UNSAT t=13.08s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMscratchIsRdata RESULT: UNSAT t=13.29s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMstatusIsRdata RESULT: UNSAT t=13.00s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMtvalIsZero RESULT: UNSAT t=12.82s C=6 step=0 model=core (proof transfers)
+REPROVE AbsMtvecIsRdata RESULT: UNSAT t=13.09s C=6 step=0 model=core (proof transfers)
+REPROVE AhbAphSize RESULT: UNSAT t=12.80s C=6 step=0 model=core (proof transfers)
+REPROVE AhbDphExclReserved RESULT: UNSAT t=12.89s C=6 step=0 model=core (proof transfers)
+REPROVE AhbExclNoPipeline RESULT: UNSAT t=12.44s C=6 step=0 model=core (proof transfers)
+REPROVE AhbSeqAddr RESULT: UNSAT t=12.90s C=6 step=0 model=core (proof transfers)
+REPROVE AhbSeqAfterActive RESULT: UNSAT t=12.92s C=6 step=0 model=core (proof transfers)
+REPROVE AmoPhaseZero RESULT: UNSAT t=12.96s C=6 step=0 model=core (proof transfers)
+REPROVE BypassSel1Legal RESULT: UNSAT t=12.74s C=6 step=0 model=core (proof transfers)
+REPROVE BypassSel2Legal RESULT: UNSAT t=12.91s C=6 step=0 model=core (proof transfers)
+REPROVE CirVldBounded RESULT: UNSAT t=13.65s C=6 step=0 model=core (proof transfers)
+REPROVE CsrIrqAlias RESULT: UNSAT t=13.35s C=6 step=0 model=core (proof transfers)
+REPROVE DcsrDebugBitsZero RESULT: UNSAT t=13.22s C=6 step=0 model=core (proof transfers)
+REPROVE DebugModeZero RESULT: UNSAT t=13.13s C=6 step=0 model=core (proof transfers)
+REPROVE ExceptionSuppressesWrite RESULT: UNSAT t=13.00s C=6 step=0 model=core (proof transfers)
+REPROVE FetchAligned RESULT: UNSAT t=12.98s C=6 step=0 model=core (proof transfers)
+REPROVE FollowerMatchesMValid RESULT: UNSAT t=12.84s C=6 step=0 model=core (proof transfers)
+REPROVE GhostX0Unknown RESULT: UNSAT t=12.94s C=6 step=0 model=core (proof transfers)
+REPROVE IrqQueryLoadsNothing RESULT: UNSAT t=12.86s C=6 step=0 model=core (proof transfers)
+REPROVE IrqReturnIsPrePc RESULT: UNSAT t=13.50s C=6 step=0 model=core (proof transfers)
+REPROVE MModeIsM RESULT: UNSAT t=13.21s C=6 step=0 model=core (proof transfers)
+REPROVE MValidAgreesRvfi RESULT: UNSAT t=12.83s C=6 step=0 model=core (proof transfers)
+REPROVE MepcAligned RESULT: UNSAT t=12.97s C=6 step=0 model=core (proof transfers)
+REPROVE MieReservedZero RESULT: UNSAT t=13.29s C=6 step=0 model=core (proof transfers)
+REPROVE MtvecModeLegal RESULT: UNSAT t=13.33s C=6 step=0 model=core (proof transfers)
+REPROVE MtvecReservedBitHardwired RESULT: UNSAT t=12.87s C=6 step=0 model=core (proof transfers)
+REPROVE MuldivBusyHasOp RESULT: UNSAT t=13.52s C=6 step=0 model=core (proof transfers)
+REPROVE NoRefetchException RESULT: UNSAT t=13.24s C=6 step=0 model=core (proof transfers)
+REPROVE RegChangeHasWrite RESULT: UNSAT t=13.28s C=6 step=0 model=core (proof transfers)
+REPROVE RegX0Zero RESULT: UNSAT t=12.82s C=6 step=0 model=core (proof transfers)
+REPROVE RvfiTrapExcludesMret RESULT: UNSAT t=12.86s C=6 step=0 model=core (proof transfers)
+REPROVE TrapKindsPartition RESULT: UNSAT t=12.93s C=6 step=0 model=core (proof transfers)
+REPROVE Trivial RESULT: UNSAT t=12.79s C=6 step=0 model=core (proof transfers)
+REPROVE XProgressEmptiesM RESULT: UNSAT t=12.87s C=6 step=0 model=core (proof transfers)
+REPROVE XProgressMatchesMonitor RESULT: UNSAT t=11.88s C=6 step=0 model=core (proof transfers)
+REPROVE FlushLePending RESULT: UNSAT t=12.69s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE DataVldHasPending RESULT: UNSAT t=12.84s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerEmptyIsBubble RESULT: UNSAT t=13.05s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE BusDphMutex RESULT: UNSAT t=13.63s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbAphAligned RESULT: UNSAT t=39.03s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE ExceptionTrapRetires RESULT: UNSAT t=97.36s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbAphStable RESULT: UNSAT t=448.83s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE AhbDphWdataStable IC3-TIMEOUT-OR-ERR rc=124 step=0
+REPROVE FollowerInstrMatchesMonitor RESULT: UNSAT t=11.93s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptExact RESULT: UNSAT t=12.16s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerOwnsDphase RESULT: UNSAT t=12.79s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerRdMatchesPipe RESULT: UNSAT t=12.98s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerExceptImpliesPipe RESULT: UNSAT t=13.08s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcMatchesMonitor RESULT: UNSAT t=13.10s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerFetchErrIsInstrFault RESULT: UNSAT t=15.27s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE FollowerPcIsExceptionReturn RESULT: UNSAT t=207.36s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMie RESULT: UNSAT t=12.45s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMepc RESULT: UNSAT t=12.47s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMstatus RESULT: UNSAT t=12.74s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMscratch RESULT: UNSAT t=12.78s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMtvec RESULT: UNSAT t=13.35s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerPc RESULT: UNSAT t=13.69s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostMatchesFollowerMcause RESULT: UNSAT t=13.78s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE GhostRegMatchesFollower RESULT: UNSAT t=14.22s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCauseFull RESULT: UNSAT t=12.37s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseStableBetweenCommits RESULT: UNSAT t=12.43s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE McauseChangeHasCause RESULT: UNSAT t=12.49s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieChangeHasCause RESULT: UNSAT t=12.95s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcChangeHasCause RESULT: UNSAT t=12.98s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MieStableBetweenCommits RESULT: UNSAT t=13.25s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MepcStableBetweenCommits RESULT: UNSAT t=13.57s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MemAphIsProgress RESULT: UNSAT t=14.89s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchStableBetweenCommits RESULT: UNSAT t=12.25s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusChangeHasCause RESULT: UNSAT t=12.27s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecChangeHasCause RESULT: UNSAT t=12.56s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusStableBetweenCommits RESULT: UNSAT t=12.92s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MstatusMieChangeHasCause RESULT: UNSAT t=12.92s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MscratchChangeHasCause RESULT: UNSAT t=13.32s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasArchCommit RESULT: UNSAT t=13.42s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE MtvecStableBetweenCommits RESULT: UNSAT t=13.71s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE XAdvanceIsNoStall RESULT: UNSAT t=13.11s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PcChangeHasCommit RESULT: UNSAT t=13.24s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PendingFetchesBound RESULT: UNSAT t=13.28s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RetireAgreesRvfiValid RESULT: UNSAT t=13.54s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE TrapExitRetires RESULT: UNSAT t=13.77s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PreNextPcMatchesSeqNext RESULT: UNSAT t=14.23s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE RegWriteAtRetire RESULT: UNSAT t=14.24s step=0 engine=ic3 model=core (spec-free; proof transfers)
+REPROVE PowerStateAwake RESULT: UNSAT t=15.20s step=0 engine=ic3 model=core (spec-free; proof transfers)
+=== step-0 done 18:44: 90 of 91 ===
+/opt/verif/ablation/reproduce_prove.sh: line 114: wait: pid 9808 is not a child of this shell
+check-env: PASS -- 3800 core/environment signal entries identical, and both models have L=4762 B=286 C=6
+=== all.aig pass: 111 of 174 higher lemmas not proved on core 18:44 ===
+REPROVE CtiXProgressAphAccepted RESULT: UNSAT t=12.39s C=107 step=3 model=core (proof transfers)
+REPROVE CtiCsrWenIsQuery RESULT: UNSAT t=12.63s C=98 step=2 model=core (proof transfers)
+REPROVE CtiMscratchChangeIsQuery RESULT: UNSAT t=12.52s C=110 step=4 model=core (proof transfers)
+REPROVE CtiCirRawPassthrough RESULT: UNSAT t=12.12s C=98 step=2 model=core (proof transfers)
+REPROVE CtiCsrWenIsUncompressed RESULT: UNSAT t=13.21s C=114 step=5 model=core (proof transfers)
+REPROVE CtiAphReqAccepted RESULT: UNSAT t=12.91s C=98 step=2 model=core (proof transfers)
+REPROVE CtiPastPreMtvecReservedZero RESULT: UNSAT t=12.73s C=98 step=2 model=core (proof transfers)
+REPROVE CtiMemopRaisesAph RESULT: UNSAT t=12.49s C=98 step=2 model=core (proof transfers)
+REPROVE CtiFolInstrMatchesRvfi RESULT: UNSAT t=11.57s C=97 step=1 model=core (proof transfers)
+REPROVE CtiGhostMtvecReservedZero RESULT: UNSAT t=12.70s C=107 step=3 model=core (proof transfers)
+REPROVE CtiHasRegImpliesHasGhost RESULT: UNSAT t=12.50s C=98 step=2 model=core (proof transfers)
+REPROVE CtiPastValidAgree RESULT: UNSAT t=12.64s C=98 step=2 model=core (proof transfers)
+REPROVE AhbDphWdataStable RESULT: UNSAT t=179.97s step=0 engine=ic3 --rseed 7 model=core (spec-free; proof transfers; retry ic3f)
+REPROVE AhbDphWdataStable RESULT: UNSAT t=285.05s step=0 engine=ic3 --rseed 1234 model=core (spec-free; proof transfers; retry ic3g)
+REPROVE AhbDphWdataStable RESULT: UNSAT t=336.10s step=0 engine=rIC3 --ic3-inn model=core (spec-free; proof transfers; retry ic3d)
+REPROVE CtiSpecPostMtvecReservedZero RESULT: UNSAT t=153.43s C=98 step=2 depth=1
+REPROVE CtiSpecWriteIsStoreInsn RESULT: UNSAT t=154.32s C=110 step=4 depth=1
+REPROVE CtiSpecReadIsLoadInsn RESULT: UNSAT t=154.49s C=110 step=4 depth=1
+REPROVE CtiGhostMieReservedZero RESULT: UNSAT t=155.17s C=107 step=3 depth=1
+REPROVE CtiSpecMscratchFrame RESULT: UNSAT t=158.50s C=110 step=4 depth=1
+REPROVE CtiFolIntErrIsFetchErr RESULT: UNSAT t=165.95s C=98 step=2 depth=1
+REPROVE CtiRs2BypassIsPreRegsV2 RESULT: UNSAT t=16.20s C=129 step=13 model=core (proof transfers)
+REPROVE CtiDExceptLegal RESULT: UNSAT t=13.79s C=125 step=11 model=core (proof transfers)
+REPROVE CtiMStoreHasNoRd RESULT: UNSAT t=13.39s C=124 step=10 model=core (proof transfers)
+REPROVE CtiCirUopFlagsZero RESULT: UNSAT t=12.73s C=131 step=14 model=core (proof transfers)
+REPROVE CtiXmExceptLegal RESULT: UNSAT t=13.47s C=127 step=12 model=core (proof transfers)
+REPROVE CtiXmMemopLegal RESULT: UNSAT t=13.32s C=127 step=12 model=core (proof transfers)
+REPROVE CtiCirInvalidAgreesRaw RESULT: UNSAT t=13.62s C=131 step=14 model=core (proof transfers)
+REPROVE CtiFolMemNotBoth RESULT: UNSAT t=13.22s C=118 step=6 model=core (proof transfers)
+REPROVE CtiCirLengthAgreesRaw RESULT: UNSAT t=13.38s C=119 step=7 model=core (proof transfers)
+REPROVE CtiRs1BypassIsPreRegs RESULT: UNSAT t=15.24s C=129 step=13 model=core (proof transfers)
+REPROVE CtiSpecMemNotBoth RESULT: UNSAT t=13.67s C=114 step=5 model=core (proof transfers)
+REPROVE CtiXStoreHasNoRd RESULT: UNSAT t=13.74s C=123 step=9 model=core (proof transfers)
+REPROVE CtiRs1SelectTracksRd RESULT: UNSAT t=13.18s C=120 step=8 model=core (proof transfers)
+REPROVE CtiHasGhostImpliesPastValid RESULT: UNSAT t=13.62s C=114 step=5 model=core (proof transfers)
+REPROVE CtiFolValidImpliesPastValid RESULT: UNSAT t=13.64s C=114 step=5 model=core (proof transfers)
+REPROVE CtiRs2SelectTracksRd RESULT: UNSAT t=12.65s C=120 step=8 model=core (proof transfers)
+REPROVE CtiDMemopLegal RESULT: UNSAT t=13.33s C=125 step=11 model=core (proof transfers)
+REPROVE CtiMwResultIsRegfile RESULT: UNSAT t=13.29s C=120 step=8 model=core (proof transfers)
+REPROVE CtiNoBreakFlags RESULT: UNSAT t=13.01s C=134 step=15 model=core (proof transfers)
+REPROVE CtiGhostTracksMscratch RESULT: UNSAT t=12.77s C=140 step=19 model=core (proof transfers)
+REPROVE CtiMtvecChangeIsQuery RESULT: UNSAT t=12.81s C=144 step=22 model=core (proof transfers)
+REPROVE CtiXmSleepImpliesNoMemop RESULT: UNSAT t=12.98s C=134 step=15 model=core (proof transfers)
+REPROVE CtiMieChangeIsQuery RESULT: UNSAT t=13.13s C=141 step=20 model=core (proof transfers)
+REPROVE CtiStoreDataIsRegfile RESULT: UNSAT t=12.36s C=136 step=16 model=core (proof transfers)
+REPROVE CtiCirVldTracksBufLevel RESULT: UNSAT t=11.97s C=150 step=26 model=core (proof transfers)
+REPROVE CtiRs2PredecodeAgreesCir32 RESULT: UNSAT t=12.76s C=137 step=17 model=core (proof transfers)
+REPROVE CtiRs1PredecodeAgreesCir32 RESULT: UNSAT t=12.23s C=137 step=17 model=core (proof transfers)
+REPROVE CtiNoProgressDuringExcEntry RESULT: UNSAT t=13.06s C=149 step=25 model=core (proof transfers)
+REPROVE CtiRs2StoreBypassIsPreRegs RESULT: UNSAT t=13.27s C=131 step=14 model=core (proof transfers)
+REPROVE CtiSpecMieFrame RESULT: UNSAT t=155.61s C=141 step=20 depth=1
+REPROVE CtiSpecMcauseFrame RESULT: UNSAT t=157.39s C=147 step=24 depth=1
+REPROVE CtiSpecMtvecFrame RESULT: UNSAT t=160.53s C=144 step=22 depth=1
+REPROVE CtiGhostTracksMie RESULT: UNSAT t=160.60s C=143 step=21 depth=1
+REPROVE CtiSpecMepcFrame RESULT: UNSAT t=190.81s C=147 step=24 depth=1
+REPROVE CtiFollowerPostIsDutMscratchV2 RESULT: UNSAT t=197.74s C=139 step=18 depth=1
+REPROVE CtiGhostTracksMtvec RESULT: UNSAT t=213.90s C=146 step=23 depth=1
+REPROVE CtiCirIsDecompressedRawV2 RESULT: UNSAT t=14.93s C=160 step=31 model=core (proof transfers)
+REPROVE CtiRs2PredecodeAgreesCir16V3 RESULT: UNSAT t=12.22s C=151 step=27 model=core (proof transfers)
+REPROVE CtiCirInvalidIsDecompressedRaw RESULT: UNSAT t=12.06s C=160 step=31 model=core (proof transfers)
+REPROVE CtiRs1PredecodeAgreesCir16V3 RESULT: UNSAT t=10.25s C=151 step=27 model=core (proof transfers)
+REPROVE CtiMstatusHardwiredZero RESULT: UNSAT t=11.79s C=153 step=28 model=core (proof transfers)
+REPROVE CtiWbLui RESULT: UNSAT t=163.87s C=156 step=30 depth=1
+REPROVE CtiWbAuipc RESULT: UNSAT t=163.26s C=162 step=32 depth=1
+REPROVE CtiGhostMstatusHardwiredZero RESULT: UNSAT t=165.59s C=155 step=29 depth=1
+REPROVE CtiSpecMstatusFrame RESULT: UNSAT t=169.27s C=153 step=28 depth=1
+REPROVE CtiWbAddi RESULT: UNSAT t=239.55s C=156 step=30 depth=1
+REPROVE CtiWbOr RESULT: UNSAT t=241.71s C=162 step=32 depth=1
+REPROVE CtiWbSlli RESULT: UNSAT t=242.86s C=162 step=32 depth=1
+REPROVE CtiWbSll RESULT: UNSAT t=245.67s C=162 step=32 depth=1
+REPROVE CtiWbAnd RESULT: UNSAT t=258.35s C=162 step=32 depth=1
+REPROVE CtiWbXor RESULT: UNSAT t=278.54s C=156 step=30 depth=1
+REPROVE CtiWbSltu RESULT: UNSAT t=310.74s C=162 step=32 depth=1
+REPROVE CtiWbSlt RESULT: UNSAT t=322.30s C=162 step=32 depth=1
+REPROVE CtiWbAdd RESULT: UNSAT t=350.36s C=156 step=30 depth=1
+REPROVE AhbDphWdataStable RESULT: UNSAT t=1992.49s step=0 engine=ic3 model=core (spec-free; proof transfers; retry with 5400 s cap)
+REPROVE CtiWbJal RESULT: UNSAT t=169.36s C=173 step=33 depth=1
+REPROVE CtiSpecPostMstatusHardwiredZero RESULT: UNSAT t=167.50s C=173 step=33 depth=1
+REPROVE CtiWbJalr RESULT: UNSAT t=168.14s C=173 step=33 depth=1
+REPROVE CtiWbCAddi4spn RESULT: UNSAT t=170.99s C=181 step=34 depth=1
+REPROVE CtiWbCJal RESULT: UNSAT t=168.12s C=181 step=34 depth=1
+REPROVE CtiWbCAndi RESULT: UNSAT t=171.81s C=181 step=34 depth=1
+REPROVE CtiWbAndi RESULT: UNSAT t=177.42s C=173 step=33 depth=1
+REPROVE CtiWbSltiu RESULT: UNSAT t=202.51s C=173 step=33 depth=1
+REPROVE CtiWbSlti RESULT: UNSAT t=204.58s C=173 step=33 depth=1
+REPROVE CtiWbCAnd RESULT: UNSAT t=213.96s C=181 step=34 depth=1
+REPROVE CtiWbOri RESULT: UNSAT t=214.97s C=173 step=33 depth=1
+REPROVE CtiWbXori RESULT: UNSAT t=212.82s C=173 step=33 depth=1
+REPROVE CtiWbCAddi RESULT: UNSAT t=225.45s C=181 step=34 depth=1
+REPROVE CtiWbSrai RESULT: UNSAT t=240.48s C=162 step=32 depth=1
+REPROVE CtiWbSrli RESULT: UNSAT t=240.45s C=162 step=32 depth=1
+REPROVE CtiWbSrl RESULT: UNSAT t=243.16s C=162 step=32 depth=1
+REPROVE CtiWbSra RESULT: UNSAT t=257.36s C=162 step=32 depth=1
+REPROVE CtiWbCAdd RESULT: UNSAT t=347.01s C=181 step=34 depth=1
+REPROVE CtiXmMemAligned RESULT: UNSAT t=10.06s C=201 step=38 model=core (proof transfers)
+REPROVE CtiFolLoadMemopMatches RESULT: UNSAT t=12.35s C=204 step=40 model=core (proof transfers)
+REPROVE AhbDphWdataStable RESULT: UNSAT t=2578.29s step=0 engine=rIC3 --ic3-no-ctg model=core (spec-free; proof transfers; retry ic3c)
+REPROVE CtiGhostDroppedForExceptingWrite RESULT: UNSAT t=164.03s C=200 step=37 depth=1
+REPROVE CtiWbCLi RESULT: UNSAT t=166.54s C=181 step=34 depth=1
+REPROVE CtiWbCJalr RESULT: UNSAT t=170.05s C=181 step=34 depth=1
+REPROVE CtiWbCsrV2 RESULT: UNSAT t=170.11s C=199 step=36 depth=1
+REPROVE CtiWbCLui16sp RESULT: UNSAT t=171.21s C=181 step=34 depth=1
+REPROVE CtiFolSpecWxEnIsRdV3 RESULT: UNSAT t=173.23s C=202 step=39 depth=1
+REPROVE CtiFolXExceptNoSpecWriteV2 RESULT: UNSAT t=175.94s C=202 step=39 depth=1
+REPROVE CtiWbCMv RESULT: UNSAT t=179.36s C=181 step=34 depth=1
+REPROVE CtiFolSpecWxAddrIsRd RESULT: UNSAT t=186.97s C=198 step=35 depth=1
+REPROVE CtiWbCSrai RESULT: UNSAT t=205.22s C=181 step=34 depth=1
+REPROVE CtiWbCXor RESULT: UNSAT t=208.09s C=181 step=34 depth=1
+REPROVE CtiWbCOr RESULT: UNSAT t=211.54s C=181 step=34 depth=1
+REPROVE CtiWbCSrli RESULT: UNSAT t=213.31s C=181 step=34 depth=1
+REPROVE CtiWbCSlli RESULT: UNSAT t=238.24s C=181 step=34 depth=1
+REPROVE CtiWbCSub RESULT: UNSAT t=254.84s C=181 step=34 depth=1
+REPROVE CtiWbSub RESULT: UNSAT t=337.79s C=181 step=34 depth=1
+REPROVE CtiWbLoad RESULT: UNSAT t=11.16s C=210 step=44 model=core (proof transfers)
+REPROVE CtiFolWriteCoverageV2 RESULT: UNSAT t=11.96s C=212 step=45 model=core (proof transfers)
+REPROVE CtiWbAll RESULT: UNSAT t=11.71s C=210 step=44 model=core (proof transfers)
+REPROVE CtiGhostDroppedForUnspecifiable RESULT: UNSAT t=11.83s C=205 step=41 model=core (proof transfers)
+REPROVE CtiFolMemopNoneUnlessMem RESULT: UNSAT t=12.16s C=205 step=41 model=core (proof transfers)
+REPROVE CtiRegMatchV2_04 RESULT: UNSAT t=161.38s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_02 RESULT: UNSAT t=160.74s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_11 RESULT: UNSAT t=160.78s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_10 RESULT: UNSAT t=160.93s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_06 RESULT: UNSAT t=160.16s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_03 RESULT: UNSAT t=161.66s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_05 RESULT: UNSAT t=162.64s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_01 RESULT: UNSAT t=162.42s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_08 RESULT: UNSAT t=160.98s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_09 RESULT: UNSAT t=161.34s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_07 RESULT: UNSAT t=162.46s C=213 step=46 depth=1
+REPROVE CtiFolLoadSpecReads RESULT: UNSAT t=163.75s C=208 step=43 depth=1
+REPROVE CtiFolLoadWxIsPick RESULT: UNSAT t=163.61s C=207 step=42 depth=1
+REPROVE CtiRegMatchV2_21 RESULT: UNSAT t=167.95s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_29 RESULT: UNSAT t=166.90s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_13 RESULT: UNSAT t=167.29s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_27 RESULT: UNSAT t=169.09s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_17 RESULT: UNSAT t=168.78s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_25 RESULT: UNSAT t=166.75s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_15 RESULT: UNSAT t=168.64s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_19 RESULT: UNSAT t=167.60s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_23 RESULT: UNSAT t=168.00s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_26 RESULT: UNSAT t=170.00s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_14 RESULT: UNSAT t=168.72s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_12 RESULT: UNSAT t=169.81s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_18 RESULT: UNSAT t=170.13s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_28 RESULT: UNSAT t=173.37s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_24 RESULT: UNSAT t=172.45s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_22 RESULT: UNSAT t=171.15s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_16 RESULT: UNSAT t=172.72s C=213 step=46 depth=1
+REPROVE CtiRegMatchV2_20 RESULT: UNSAT t=173.24s C=213 step=46 depth=1
+REPROVE CtiPcEven RESULT: UNSAT t=10.31s C=256 step=49 model=core (proof transfers)
+REPROVE CtiIrqMstatusAgrees RESULT: UNSAT t=165.78s C=244 step=47 depth=1
+REPROVE CtiIrqMcauseAgrees RESULT: UNSAT t=166.00s C=244 step=47 depth=1
+REPROVE CtiMretMepcUntouched RESULT: UNSAT t=165.78s C=244 step=47 depth=1
+REPROVE CtiMretMcauseUntouched RESULT: UNSAT t=166.57s C=244 step=47 depth=1
+REPROVE CtiMretMstatusAgrees RESULT: UNSAT t=166.76s C=244 step=47 depth=1
+REPROVE CtiMretPcAgrees RESULT: UNSAT t=165.01s C=244 step=47 depth=1
+REPROVE CtiIrqMepcAgrees RESULT: UNSAT t=164.28s C=244 step=47 depth=1
+REPROVE CtiRegMatchV2_31 RESULT: UNSAT t=163.52s C=213 step=46 depth=1
+REPROVE CtiTrapMcauseAgrees RESULT: UNSAT t=165.49s C=244 step=47 depth=1
+REPROVE CtiRegMatchV2_30 RESULT: UNSAT t=163.89s C=213 step=46 depth=1
+REPROVE CtiGhostTracksMcauseV3 RESULT: UNSAT t=166.86s C=254 step=48 depth=1
+REPROVE CtiTrapMstatusAgrees RESULT: UNSAT t=167.52s C=244 step=47 depth=1
+REPROVE CtiGhostTracksMstatusV3 RESULT: UNSAT t=169.96s C=254 step=48 depth=1
+REPROVE CtiTrapPcAgrees RESULT: UNSAT t=173.22s C=244 step=47 depth=1
+REPROVE CtiTrapMepcAgreesV2 RESULT: UNSAT t=181.80s C=256 step=49 depth=1
+REPROVE CtiGhostTracksMepcV3 RESULT: UNSAT t=218.31s C=258 step=50 depth=1
+REPROVE CtiJumpTargetAgrees RESULT: UNSAT t=329.36s C=259 step=51 depth=1
+REPROVE CtiRs1BypassIsPreRegsV3 RESULT: UNSAT t=16.59s C=266 step=57 model=core (proof transfers)
+REPROVE CtiLockCirClean RESULT: UNSAT t=13.57s C=268 step=58 model=core (proof transfers)
+REPROVE CtiLockCirValid RESULT: UNSAT t=13.27s C=261 step=53 model=core (proof transfers)
+REPROVE CtiRs2BypassIsPreRegsClean RESULT: UNSAT t=16.02s C=264 step=56 model=core (proof transfers)
+REPROVE CtiLockImpliesJumpOrBranch RESULT: UNSAT t=13.03s C=262 step=54 model=core (proof transfers)
+REPROVE CtiLockImpliesTakenJump RESULT: UNSAT t=33.99s C=269 step=59 model=core (proof transfers)
+REPROVE CtiRs2BypassIsPreRegsV3 RESULT: UNSAT t=15.92s C=266 step=57 model=core (proof transfers)
+REPROVE CtiRs1BypassIsPreRegsClean RESULT: UNSAT t=16.27s C=264 step=56 model=core (proof transfers)
+REPROVE CtiLockNoRawHazard RESULT: UNSAT t=12.72s C=263 step=55 model=core (proof transfers)
+REPROVE CtiGhostTracksPcV4 RESULT: UNSAT t=154.71s C=271 step=61 depth=1
+REPROVE CtiSeqNextPcAgreesV2 RESULT: UNSAT t=299.34s C=260 step=52 depth=1
+REPROVE AhbDphWdataStable IC3-TIMEOUT-OR-ERR rc=124 step=0 (retry ic3e: -e kind, 5400 s)
+REPROVE CtiLockedJumpTargetAgrees RESULT: UNSAT t=362.84s C=270 step=60 depth=1
+=== re-prove complete 20:12: 265 of 265 re-proved; NOT re-proved (left in place, NOT stripped):  ===
+=== goals, CTI-first: 20 targets 20:12 ===
+GOAL-BMC WrapMie no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMstatus no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMcause no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMtvec no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMscratch no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC WrapMepc no-cex-to-depth 15 (cap 300 s, --end 15)
+GOAL-BMC MemNoSecondGranule no-cex-to-depth 15 (cap 300 s, --end 15)
+RESULT SpecEnUnreach REFUTED in depth 5 C=272 (GOAL -- read it)
+GOAL-BMC MemWe no-cex-to-depth 7 (cap 300 s, --end 15)
+GOAL-BMC StoreAddr no-cex-to-depth 4 (cap 300 s, --end 15)
+GOAL-BMC LoadEn no-cex-to-depth 12 (cap 300 s, --end 15)
+GOAL-BMC StoreEn no-cex-to-depth 14 (cap 300 s, --end 15)
+GOAL-BMC NoMem no-cex-to-depth 7 (cap 300 s, --end 15)
+GOAL-BMC StoreBe no-cex-to-depth 8 (cap 300 s, --end 15)
+GOAL-BMC StoreWData no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC SpecEnUnreachIdex no-cex-to-depth 6 (cap 300 s, --end 15)
+GOAL-BMC LoadAddr no-cex-to-depth 4 (cap 300 s, --end 15)
+GOAL-BMC WrapPc no-cex-to-depth 13 (cap 300 s, --end 15)
+ICTI WrapMie NO-INDUCTION-CTI k=1
+ICTI WrapMtvec NO-INDUCTION-CTI k=1
+ICTI WrapMstatus NO-INDUCTION-CTI k=1
+ICTI WrapMcause NO-INDUCTION-CTI k=1
+ICTI WrapMepc NO-INDUCTION-CTI k=1
+ICTI WrapMscratch NO-INDUCTION-CTI k=1
+ICTI MemNoSecondGranule NO-INDUCTION-CTI k=1
+ICTI LoadEn NO-INDUCTION-CTI k=1
+ICTI StoreEn NO-INDUCTION-CTI k=1
+ICTI NoMem NO-INDUCTION-CTI k=1
+ICTI MemWe NO-INDUCTION-CTI k=1
+ICTI StoreBe NO-INDUCTION-CTI k=1
+ICTI WrapPc NO-INDUCTION-CTI k=1
+ICTI SpecEnUnreachIdex NO-INDUCTION-CTI k=1
+RESULT WrapMie RESULT: UNSAT t=162.37s C=272 step=62 (GOAL)
+RESULT WrapMtvec RESULT: UNSAT t=163.62s C=272 step=62 (GOAL)
+RESULT WrapMstatus RESULT: UNSAT t=164.01s C=272 step=62 (GOAL)
+RESULT WrapMcause RESULT: UNSAT t=163.93s C=272 step=62 (GOAL)
+RESULT WrapMepc RESULT: UNSAT t=163.78s C=272 step=62 (GOAL)
+RESULT WrapMscratch RESULT: UNSAT t=165.54s C=272 step=62 (GOAL)
+ICTI StoreWData NO-INDUCTION-CTI k=1
+RESULT MemNoSecondGranule RESULT: UNSAT t=164.72s C=272 step=62 (GOAL)
+ICTI StoreAddr NO-INDUCTION-CTI k=1
+RESULT LoadEn RESULT: UNSAT t=160.32s C=272 step=62 (GOAL)
+RESULT StoreEn RESULT: UNSAT t=160.54s C=272 step=62 (GOAL)
+RESULT MemWe RESULT: UNSAT t=159.83s C=272 step=62 (GOAL)
+RESULT NoMem RESULT: UNSAT t=161.05s C=272 step=62 (GOAL)
+RESULT StoreBe RESULT: UNSAT t=160.26s C=272 step=62 (GOAL)
+ICTI LoadAddr NO-INDUCTION-CTI k=1
+RESULT WrapPc RESULT: UNSAT t=164.56s C=272 step=62 (GOAL)
+RESULT SpecEnUnreachIdex RESULT: UNSAT t=158.59s C=272 step=62 (GOAL)
+RESULT StoreWData RESULT: UNSAT t=213.73s C=272 step=62 (GOAL)
+RESULT StoreAddr RESULT: UNSAT t=201.74s C=272 step=62 (GOAL)
+RESULT LoadAddr RESULT: UNSAT t=221.18s C=272 step=62 (GOAL)
+GOAL-BMC WrapRegA no-cex-to-depth 7 (cap 300 s, --end 15)
+GOAL-BMC WrapRegB no-cex-to-depth 6 (cap 300 s, --end 15)
+ICTI WrapRegA NO-INDUCTION-CTI k=1
+ICTI WrapRegB NO-INDUCTION-CTI k=1
+RESULT WrapRegA RESULT: UNSAT t=176.69s C=272 step=62 (GOAL)
+RESULT WrapRegB RESULT: UNSAT t=172.52s C=272 step=62 (GOAL)
+=== chain_check3 on every goal ===
+CHAIN LoadAddr: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN LoadEn: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN MemNoSecondGranule: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN MemWe: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN NoMem: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN SpecEnUnreach: VERDICT: NOT PROVEN (MISSING)
+CHAIN SpecEnUnreachIdex: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN StoreAddr: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN StoreBe: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN StoreEn: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN StoreWData: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMcause: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMepc: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMie: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMscratch: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMstatus: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapMtvec: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapPc: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapRegA: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+CHAIN WrapRegB: VERDICT: PROVEN MODULO AXIOMS [CtiWbMulDiv] — every other constraint present and validly proven; the axioms were never attempted (user decision)
+ROUND-reproduce-DONE 20:38
+EXIT=0

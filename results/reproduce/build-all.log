@@ -1,0 +1,120 @@
+warning: ignoring untrusted flake configuration setting 'extra-substituters'.
+Pass '--accept-flake-config' to trust it
+warning: ignoring untrusted flake configuration setting 'extra-trusted-public-keys'.
+Pass '--accept-flake-config' to trust it
+========================================================================================
+This is the development shell. By default it is identical to the .#formal shell.
+In order to use dev dependencies (e.g. psgen or Sail), prepend the new binaries to PATH:
+  export PATH=<bindir>:$PATH
+If developing the Sail sources, also update LOWRISC_SAIL_SRC:
+  export LOWRISC_SAIL_SRC=<dirname>
+To use a local version of Ibex's sail-riscv model, also update LOWRISC_SAIL_RISCV_SRC:
+  export LOWRISC_SAIL_RISCV_SRC=<dirname>
+========================================================================================
+mkdir -p build
+cd build && /nix/store/cidmcc56gan05kmqdgzqc9ldl12fydnf-ocaml5.4.1-sail-0.20.1/bin/sail /opt/verif/h3formal/sail-riscv-h3/model/prelude.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_xlen32.sail /opt/verif/h3formal/sail-riscv-h3/model/prelude_mem_metadata.sail /opt/verif/h3formal/sail-riscv-h3/model/prelude_mem.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_types_common.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_types_ext.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_types.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_vmem_types.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_reg_type.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_regs.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_pc_access.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_sys_regs.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_pmp_regs.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_pmp_control.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_ext_regs.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_addr_checks_common.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_addr_checks.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_misa_ext.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_csr_map.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_sys_exceptions.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_sync_exception.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_csr_ext.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_sys_control.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_platform.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_mem.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_begin.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_base.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_cext.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_mext.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_zicsr.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_jalr_seq.sail /opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_end.sail ../spec/main.sail -sv --sv-comb --sv-inregs --sv-outregs --sv-nostrings --sv-nopacked --sv-nomem -Oconstant_fold -memo-z3 --sv-unreachable translate --sv-unreachable lookup_TLB --sv-unreachable translate_tlb_miss --sv-unreachable translate_tlb_hit --sv-unreachable pt_walk --sv-fun2wires 2:read_ram --sv-fun2wires 2:write_ram --sv-fun2wires wX -sv_unreachable execute_C_J -sv_unreachable execute_C_JALR -sv_unreachable execute_C_LW -sv_unreachable execute_C_ADDIW -sv_unreachable execute_C_LI -sv_unreachable execute_C_ANDI -sv_unreachable execute_C_BEQZ -sv_unreachable execute_C_LD -sv_unreachable execute_C_ILLEGAL -sv_unreachable execute_C_AND -sv_unreachable execute_C_JAL -sv_unreachable execute_C_MV -sv_unreachable execute_C_XOR -sv_unreachable execute_C_ADD -sv_unreachable execute_C_EBREAK -sv_unreachable execute_C_SDSP -sv_unreachable execute_C_ADDI4SPN -sv_unreachable execute_C_SW -sv_unreachable execute_C_SUB -sv_unreachable execute_C_SWSP -sv_unreachable execute_C_SRLI -sv_unreachable execute_C_LDSP -sv_unreachable execute_C_SD -sv_unreachable execute_C_SRAI -sv_unreachable execute_C_LUI -sv_unreachable execute_C_OR -sv_unreachable execute_C_SUBW -sv_unreachable execute_C_JR -sv_unreachable execute_C_ADDI -sv_unreachable execute_C_ADDW -sv_unreachable execute_C_BNEZ -sv_unreachable execute_C_ADDI16SP -sv_unreachable execute_C_NOP -sv_unreachable execute_C_SLLI -o ibexspec
+[93mWarning[0m: Deprecated [96m/opt/verif/h3formal/sail-riscv-h3/model/prelude.sail[0m:42.14-100:
+42[96m |[0mval int_power = {ocaml: "int_power", interpreter: "int_power", lem: "pow", coq: "pow", c: "pow_int"} : (int, int) -> int
+  [91m |[0m              [91m^------------------------------------------------------------------------------------^[0m
+  [91m |[0m 
+All external bindings should be marked as either pure or impure
+
+[93mWarning[0m: Deprecated [96m/opt/verif/h3formal/sail-riscv-h3/model/riscv_pmp_regs.sail[0m:101.47-54:
+101[96m |[0mfunction pmpLockBit(cfg: Pmpcfg_ent) -> bool = cfg.L() == 0b1
+   [91m |[0m                                               [91m^-----^[0m
+   [91m |[0m 
+Old bitfield syntax, use '<bitfield>[L]' instead
+
+[93mWarning[0m: Deprecated [96m/opt/verif/h3formal/sail-riscv-h3/model/riscv_pmp_control.sail[0m:52.80-93:
+52[96m |[0mval pmpCheckPerms: (Pmpcfg_ent, AccessType(ext_access_type), Privilege) -> bool effect {rreg}
+  [91m |[0m                                                                                [91m^-----------^[0m
+  [91m |[0m 
+Explicit effect annotations are deprecated. They are no longer used and can be removed.
+
+[93mWarning[0m: Duplicate function type definition for min_int
+[96m/opt/verif/h3formal/sail-riscv-h3/model/prelude.sail[0m:58.4-11:
+58[96m |[0mval min_int = {ocaml: "min_int", interpreter: "min_int", lem: "min", coq: "min_atom", c: "min_int"} : forall 'x 'y.
+  [91m |[0m    [91m^-----^[0m
+  [91m |[0m This duplicate definition is being ignored!
+  [91m |[0m [96m/nix/store/cidmcc56gan05kmqdgzqc9ldl12fydnf-ocaml5.4.1-sail-0.20.1/share/sail/lib/arith.sail[0m:217.4-11:
+  [91m |[0m 217[96m |[0mval min_int = pure {lem: "integerMin", coq: "Z.min", _: "min_int"} : forall 'x 'y.
+  [91m |[0m    [91m |[0m    [91m^-----^[0m [91mprevious definition here[0m
+[93mWarning[0m: Incomplete pattern match statement at [96m/opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_base.sail[0m:549.2-7:
+549[96m |[0m  match cur_privilege {
+   [91m |[0m  [91m^---^[0m
+   [91m |[0m 
+The following expression is unmatched: [93mSupervisor[0m
+
+[93mWarning[0m: Incomplete pattern match statement at [96m/opt/verif/h3formal/sail-riscv-h3/model/riscv_insts_end.sail[0m:15.0-8:
+15[96m |[0mfunction clause execute (ILLEGAL(s)) = { handle_illegal(); RETIRE_FAIL }
+  [91m |[0m[91m^------^[0m
+  [91m |[0m 
+The following expression is unmatched: [93mC_ADD(undefined)[0m
+
+[93mWarning[0m: 82 warnings have been suppressed. Use --all-warnings to display them.
+python3 spec/fix_bugs.py
+mkdir -p build
+sed -n '1,/^);/p' spec/spec_api.sv > build/spec_api_bb.sv
+echo 'endmodule' >> build/spec_api_bb.sv
+mkdir -p build
+sed -e "s|LOWRISC_SAIL_SRC|/nix/store/sakkzq2qzidm4lgasky62j9a99ln8hdm-source|g" build_h3_spec.ys > build/build_h3_spec.ys
+yosys -m /nix/store/gaizbcfah78a6lgfdz3kv4mwqkb9n22a-yosys-slang-0.0.1/lib/slang.so -m build/yosys_formal.so -v 1 -s build/build_h3_spec.ys
+1. Executing SLANG frontend.
+2. Executing PROC pass (convert processes to netlists).
+3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+4. Executing OPT_CLEAN pass (remove unused cells and wires).
+5. Printing statistics.
+6. Executing RTLIL backend.
+End of script. Logfile hash: 12e3cdf5e2, CPU: user 403.33s system 11.63s, MEM: 15829.41 MB peak
+Yosys 0.62 (git sha1 v0.62, g++ 15.2.0 -fPIC -O3)
+Time spent: 73% 1x opt_muxtree_2 (304 sec), 6% 1x proc_prune (26 sec), ...
+Top level design units:
+    spec_api
+
+Build succeeded: 0 errors, 0 warnings
+mkdir -p build
+sed -e "s|LOWRISC_SAIL_SRC|/nix/store/sakkzq2qzidm4lgasky62j9a99ln8hdm-source|g" -e "s|HAZARD3_RTL|/opt/verif/h3formal/build/hazard3-rtl|g" -e "s|AHBL_SLAVE_ASSUMPTIONS_V|/opt/verif/hazard3/test/formal/common/ahbl_slave_assumptions.v|g" build_h3_fast.ys > build/build_h3_fast.ys
+yosys -m /nix/store/gaizbcfah78a6lgfdz3kv4mwqkb9n22a-yosys-slang-0.0.1/lib/slang.so -m build/yosys_formal.so -v 1 -s build/build_h3_fast.ys
+1. Executing SLANG frontend.
+in file included from build/hazard3-rtl/hazard3_core.v:1583:
+build/hazard3-rtl/hazard3_rvfi_monitor.vh:48:14: warning: asynchronous load value missing for variable '\cpu.core.rvfm_m_instr'
+        if (!rst_n) begin
+                    ^~~~~
+build/hazard3-rtl/hazard3_rvfi_monitor.vh:47:10: note: asynchronous load pattern implied by edge sensitivity on multiple signals
+always @ (posedge clk or negedge rst_n) begin
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Warning: Selection "spec_api" did not match any module.
+2. Executing RTLIL frontend.
+3. Executing PROC pass (convert processes to netlists).
+4. Executing GLOBAL_CLK pass.
+5. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+6. Executing OPT_CLEAN pass (remove unused cells and wires).
+7. Executing FLATTEN pass (flatten design).
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+9. Executing MEMORY_NORDFF pass (extracting $dff cells from memories).
+10. Executing SETUNDEF pass (replace undef values with defined constants).
+11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+12. Executing EXPOSE pass (exposing internal signals as outputs).
+13. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+14. Executing OPT_EXPR pass (perform const folding).
+15. Executing OPT_DFF pass (perform DFF optimizations).
+16. Executing OPT_CLEAN pass (remove unused cells and wires).
+17. Executing TECHMAP pass (map to technology primitives).
+18. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+19. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+20. Executing OPT_CLEAN pass (remove unused cells and wires).
+21. Printing statistics.
+22. Executing AIGMAP pass (map logic to AIG).
+23. Executing AIGER backend.
+Warnings: 1 unique messages, 2 total
+End of script. Logfile hash: 4db4ea160f, CPU: user 431.72s system 21.62s, MEM: 30603.21 MB peak
+Yosys 0.62 (git sha1 v0.62, g++ 15.2.0 -fPIC -O3)
+Time spent: 31% 2x write_aiger_2 (130 sec), 25% 143x opt_clean (105 sec), ...
+Top level design units:
+    top
+
+
+Build succeeded: 0 errors, 1 warning
+python3 fix_ywmap.py build/all.ywmap
+/nix/store/7i7jakg9nxi44vx333gdrwah9v55cj5q-ibex-env/bin/python3.13: can't open file '/opt/verif/h3formal/fix_ywmap.py': [Errno 2] No such file or directory
+make: *** [Makefile:159: build/all.aig] Error 2

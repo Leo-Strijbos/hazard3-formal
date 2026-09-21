@@ -1,9 +1,11 @@
 # Reproducing the proof
 
-Status: a full re-run on a fresh machine (a new instance from the same AMI as
-the proof machine, with only the Ibex checkout and its Nix toolchain on it)
-was started on 2026-09-20 with `tools/bootstrap_box.sh` and
-`tools/reproduce_prove.sh`; its outcome is recorded at the end of this page.
+Status: done once. On 2026-09-20 a fresh machine (a new r7i.12xlarge from the
+same AMI as the proof machine, holding only the Ibex checkout and its Nix
+toolchain) was laid out with `tools/bootstrap_box.sh` and ran
+`tools/reproduce_prove.sh`: every one of the 265 lemmas re-proved and all 18
+goals came back `PROVEN MODULO AXIOMS [CtiWbMulDiv]`. The log and the chain
+outputs are in `results/reproduce/`; details in the last section.
 
 ## What you need
 
@@ -77,3 +79,38 @@ rules it runs under.
   `findings/upstream/repro/run.sh`, which needs only Yosys and a C++ compiler.
 - The bounded multiplier experiment (`results/mulexp` on the proof machine);
   its outcome is recorded in the axiom comment in the proof file.
+
+## The reproduction run of 2026-09-20
+
+Machine: AWS r7i.12xlarge (48 vCPUs, 371 GB), fresh from the AMI that holds
+Ibex `405c6d1d` and its Nix toolchain. Tools as reported by the shell: rIC3
+1.4.1, Yosys 0.62, Sail 0.20.1, psgen 20250805. Sources: Hazard3 `8af99293`,
+lowRISC sail-riscv `81a266b6` plus the three spec patches, this repository's
+harness and tools.
+
+| phase | start (UTC) | result |
+|---|---|---|
+| aig-manip and core model build | 16:58 | ok; PATCH_MANIFEST lists the six conformance patches |
+| full model build | 16:58 | ok after two packaging fixes (see below); check_env PASS, both models L=4762 B=286 C=6 |
+| core pre-screen, 265 lemmas | 17:01 | done 18:10; 106 proved on the core model, none refuted |
+| step-0 IC3, 48 stragglers | 18:10 | done 18:44; 47 within the 1800 s cap, one (AhbDphWdataStable) timed out |
+| full-model k-induction, 111 lemmas | 18:44 | done 20:12; 265 of 265 lemmas re-proved, nothing refuted |
+| goals, 18 + 2 measure properties | 20:12 | all 18 proved by k-induction, no induction counterexample; SpecEnUnreach refuted at depth 5 as documented, SpecEnUnreachIdex proved |
+| chain check per goal | 20:38 | 18 of 18 `PROVEN MODULO AXIOMS [CtiWbMulDiv]`, 266 constraints each |
+
+Wall clock 3 h 40 min. The verdicts were re-derived by hand afterwards from
+the saved log with `tools/chain_check3.py` (`results/reproduce/chain_all.txt`).
+
+The one timeout was solver seed variance, not a proof problem: the same lemma
+proved in 180 s with `--rseed 7`, 285 s with `--rseed 1234`, 336 s with
+`--ic3-inn`, 1992 s at the default seed with a longer cap, and 2578 s with
+`--ic3-no-ctg`; only k-induction did not close it in 5400 s. The original runs
+had it at 134 s and 263 s. `reproduce_prove.sh` now retries a step-0 timeout
+with a second seed.
+
+Two packaging mistakes surfaced and are fixed in the repository: the Sail glue
+must be at `harness/spec/` (it had been renamed), and `fix_ywmap.py` must be in
+`harness/` where the Makefile runs it after `write_aiger`.
+
+Not part of this run: proof certificates. rIC3 can emit them; that is the next
+step for checking without trusting the solver.

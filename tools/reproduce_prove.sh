@@ -103,7 +103,17 @@ ic3_one() {
     echo "REPROVE $P RESULT: UNSAT t=$(tail -1 "$R/$P.ic3.t")s step=0 engine=ic3 model=core (spec-free; proof transfers)"
   elif [ "$rc" = "10" ] || grep -qa "RESULT: SAT" "$R/$P.ic3.log"; then
     echo "REPROVE $P REFUTED-IC3 step=0 (spec-free lemma: REAL -- read it)"
-  else echo "REPROVE $P IC3-TIMEOUT-OR-ERR rc=$rc step=0"; fi
+  else
+    # IC3 run time on these lemmas depends on the seed (the reproduction run saw one
+    # lemma take 1992 s at the default seed and 180 s at --rseed 7); try one more seed.
+    echo "REPROVE $P IC3-TIMEOUT-OR-ERR rc=$rc step=0 (retrying with --rseed 7)"
+    /usr/bin/time -f "%e" -o "$R/$P.ic3b.t" timeout $IC3_CAP $NIX rIC3 --rseed 7 "$F" > "$R/$P.ic3b.log" 2>&1; rc=$?
+    if [ "$rc" = "20" ] || grep -qa "RESULT: UNSAT" "$R/$P.ic3b.log"; then
+      echo "REPROVE $P RESULT: UNSAT t=$(tail -1 "$R/$P.ic3b.t")s step=0 engine=ic3 --rseed 7 model=core (spec-free; proof transfers)"
+    elif [ "$rc" = "10" ] || grep -qa "RESULT: SAT" "$R/$P.ic3b.log"; then
+      echo "REPROVE $P REFUTED-IC3 step=0 (spec-free lemma: REAL -- read it)"
+    else echo "REPROVE $P IC3-TIMEOUT-OR-ERR rc=$rc step=0 (second seed)"; fi
+  fi
 }
 S0LIST=$(for P in $STEP0; do [ -f "$R/$P.coreproved" ] || [ -f "$R/$P.corerefuted" ] || echo "$P"; done)
 echo "=== step-0 IC3 pass ($IC3_CAP s, $IC3_PAR-wide): $(echo $S0LIST | wc -w) stragglers $(date -u +%H:%M) ==="

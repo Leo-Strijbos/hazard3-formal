@@ -91,13 +91,14 @@ conformance patches in `harness/patch_hazard3_rtl.sh` applied. No RISC-V
 toolchain is needed; the binaries are hand-assembled by `mkrepro.py` and each
 comes with a listing.
 
-The proof itself is meant to re-run from the pinned sources with
-`reproduce.sh` inside the lowRISC Ibex formal tool environment (a Nix dev
-shell): rebuild both models, re-prove every lemma with nothing stripped, print
-the 18 chain verdicts. It needs a large machine (the original ran on 48 cores
-and 384 GB) and about three hours. The runner scripts still carry the proof
-machine's paths and this has not yet been done on a fresh machine;
-[`docs/REPRODUCE.md`](docs/REPRODUCE.md) says what to point where.
+The proof itself re-runs from the pinned sources with `reproduce.sh` inside
+the lowRISC Ibex formal tool environment (a Nix dev shell): rebuild both
+models, re-prove every lemma with nothing stripped, print the 18 chain
+verdicts. It needs a large machine and takes about three and a half hours on
+48 cores. It was done once on a fresh machine on 20 September 2026: 265 of 265
+lemmas re-proved and 18 of 18 goals came back with the same verdict
+([`results/reproduce/`](results/reproduce/),
+[`docs/REPRODUCE.md`](docs/REPRODUCE.md)).
 
 ## Scope
 

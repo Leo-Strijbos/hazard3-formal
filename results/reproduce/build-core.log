@@ -1,0 +1,85 @@
+warning: ignoring untrusted flake configuration setting 'extra-substituters'.
+Pass '--accept-flake-config' to trust it
+warning: ignoring untrusted flake configuration setting 'extra-trusted-public-keys'.
+Pass '--accept-flake-config' to trust it
+========================================================================================
+This is the development shell. By default it is identical to the .#formal shell.
+In order to use dev dependencies (e.g. psgen or Sail), prepend the new binaries to PATH:
+  export PATH=<bindir>:$PATH
+If developing the Sail sources, also update LOWRISC_SAIL_SRC:
+  export LOWRISC_SAIL_SRC=<dirname>
+To use a local version of Ibex's sail-riscv model, also update LOWRISC_SAIL_RISCV_SRC:
+  export LOWRISC_SAIL_RISCV_SRC=<dirname>
+========================================================================================
+mkdir -p build
+/nix/store/r1aw4xrhkr6cf7r8f6wgkqh9fdak7fa6-psgen-20250805/bin/psgen -path thm/hazard3.proof -root hazard3 -task -sv-out build/psgen-h3.sv -clocking -covers -cover-assert -step-prefix
+rm -rf build/hazard3-rtl
+mkdir -p build
+cp -r /opt/verif/hazard3/hdl build/hazard3-rtl
+./patch_hazard3_rtl.sh build/hazard3-rtl
+--- PATCH_MANIFEST ---
+TOOL: function -> function automatic (hazard3_csr.v, hazard3_instr_decompress.v) [no behavioural change]
+CONFORMANCE: C.ADDI4SPN reserved nzuimm==0 now traps (FINDING_C_ADDI4SPN.md) [BEHAVIOURAL]
+CONFORMANCE: mstatus.MPRV read-only 0 when U_MODE=0 (FINDING_MPRV.md) [BEHAVIOURAL]
+CONFORMANCE: meicontext write to mie gated on EXTENSION_XH3IRQ (FINDING_MEICONTEXT.md) [BEHAVIOURAL]
+CONFORMANCE: FENCE ignores rs1/rd instead of trapping (FINDING_FENCE_FIELDS.md) [BEHAVIOURAL]
+CONFORMANCE: FENCE decode forces rs1/rs2/rd to x0 (FINDING_FENCE_FIELDS.md) [BEHAVIOURAL]
+CONFORMANCE: vectored trap entry uses mtvec + offset instead of mtvec | offset (FINDING_MTVEC_VECTORED_OR.md) [BEHAVIOURAL]
+touch build/hazard3-rtl # Fix timestamps for Makefile
+mkdir -p build
+sed -n 's|^file |/opt/verif/h3formal/build/hazard3-rtl/|p' /opt/verif/hazard3/hdl/hazard3.f | grep -v hazard3_cpu_2port > build/hazard3.scr
+mkdir -p build
+sed -e "s|HAZARD3_RTL|/opt/verif/h3formal/build/hazard3-rtl|g" -e "s|AHBL_SLAVE_ASSUMPTIONS_V|/opt/verif/hazard3/test/formal/common/ahbl_slave_assumptions.v|g" build_h3_core.ys > build/build_h3_core.ys
+yosys-config --build build/yosys_formal.so yosys_formal/global_clock.cc yosys_formal/write_aiger.cc yosys_formal/opt_muxtree.cc
+yosys_formal/global_clock.cc: In member function ‘virtual void {anonymous}::GlobalClockPass::execute(std::vector<std::__cxx11::basic_string<char> >, Yosys::RTLIL::Design*)’:
+yosys_formal/global_clock.cc:50:39: warning: ‘std::vector<Yosys::RTLIL::Module*> Yosys::RTLIL::Design::selected_whole_modules() const’ is deprecated: Use select_unboxed_whole_modules() to maintain prior behaviour, or consider one of the other selected whole module helpers. [-Wdeprecated-declarations]
+   50 |     if (design->selected_whole_modules().size() != 1) {
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /nix/store/5l888hkz1ry9giipr8j0s8sdg37mh23c-yosys-0.62/share/yosys/include/kernel/yosys.h:43,
+                 from /nix/store/5l888hkz1ry9giipr8j0s8sdg37mh23c-yosys-0.62/share/yosys/include/kernel/ff.h:23,
+                 from yosys_formal/global_clock.cc:11:
+/nix/store/5l888hkz1ry9giipr8j0s8sdg37mh23c-yosys-0.62/share/yosys/include/kernel/rtlil.h:2016:37: note: declared here
+ 2016 |         std::vector<RTLIL::Module*> selected_whole_modules() const { return selected_modules(SELECT_WHOLE_ONLY, SB_UNBOXED_WARN); }
+      |                                     ^~~~~~~~~~~~~~~~~~~~~~
+yosys_formal/global_clock.cc:54:47: warning: ‘std::vector<Yosys::RTLIL::Module*> Yosys::RTLIL::Design::selected_whole_modules() const’ is deprecated: Use select_unboxed_whole_modules() to maintain prior behaviour, or consider one of the other selected whole module helpers. [-Wdeprecated-declarations]
+   54 |     auto *mod = design->selected_whole_modules()[0];
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/nix/store/5l888hkz1ry9giipr8j0s8sdg37mh23c-yosys-0.62/share/yosys/include/kernel/rtlil.h:2016:37: note: declared here
+ 2016 |         std::vector<RTLIL::Module*> selected_whole_modules() const { return selected_modules(SELECT_WHOLE_ONLY, SB_UNBOXED_WARN); }
+      |                                     ^~~~~~~~~~~~~~~~~~~~~~
+yosys -m /nix/store/gaizbcfah78a6lgfdz3kv4mwqkb9n22a-yosys-slang-0.0.1/lib/slang.so -m build/yosys_formal.so -v 1 -s build/build_h3_core.ys
+1. Executing SLANG frontend.
+in file included from build/hazard3-rtl/hazard3_core.v:1583:
+build/hazard3-rtl/hazard3_rvfi_monitor.vh:48:14: warning: asynchronous load value missing for variable '\cpu.core.rvfm_m_instr'
+        if (!rst_n) begin
+                    ^~~~~
+build/hazard3-rtl/hazard3_rvfi_monitor.vh:47:10: note: asynchronous load pattern implied by edge sensitivity on multiple signals
+always @ (posedge clk or negedge rst_n) begin
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Executing PROC pass (convert processes to netlists).
+3. Executing GLOBAL_CLK pass.
+4. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+5. Executing OPT_CLEAN pass (remove unused cells and wires).
+6. Executing MEMORY_NORDFF pass (extracting $dff cells from memories).
+7. Executing SETUNDEF pass (replace undef values with defined constants).
+8. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+9. Executing EXPOSE pass (exposing internal signals as outputs).
+10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+11. Executing OPT_EXPR pass (perform const folding).
+12. Executing OPT_DFF pass (perform DFF optimizations).
+13. Executing OPT_CLEAN pass (remove unused cells and wires).
+14. Executing TECHMAP pass (map to technology primitives).
+15. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+16. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+17. Executing OPT_CLEAN pass (remove unused cells and wires).
+18. Printing statistics.
+19. Executing AIGMAP pass (map logic to AIG).
+20. Executing AIGER backend.
+End of script. Logfile hash: 310fb0b89c, CPU: user 32.51s system 1.10s, MEM: 2613.78 MB peak
+Yosys 0.62 (git sha1 v0.62, g++ 15.2.0 -fPIC -O3)
+Time spent: 43% 18x proc_mux (13 sec), 21% 2x write_aiger_2 (6 sec), ...
+Top level design units:
+    top
+
+
+Build succeeded: 0 errors, 1 warning
