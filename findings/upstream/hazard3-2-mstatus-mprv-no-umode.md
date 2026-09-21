@@ -1,4 +1,4 @@
-<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Not yet filed. -->
+<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Filed 2026-09-21 as https://github.com/Wren6991/Hazard3/issues/45 -->
 
 # mstatus.MPRV is writable when U_MODE = 0
 

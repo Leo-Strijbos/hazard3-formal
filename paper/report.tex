@@ -404,7 +404,9 @@ dozen instructions on Hazard3's own CXXRTL testbench at v1.1.1
 (\code{findings/upstream/repro/}). Each program exits 1 on v1.1.1 and 0 on
 v1.1.1 with the patch applied; the same programs were run on the \code{develop}
 head of 29 August 2026 (\code{ba0c83c6}). Hazard3's contribution guide asks
-that reports contain no RTL suggestions, so the drafts describe behaviour only.
+that reports contain no RTL suggestions, so the reports describe behaviour
+only. Findings 1, 2, 3 and 5 were filed on 21 September 2026 as Hazard3
+issues 44 to 47.
 
 \paragraph{1. Reserved C.ADDI4SPN encodings execute.}
 \code{C.ADDI4SPN} has $\mathit{nzuimm} = \mathit{instr}[12{:}5]$ and the

@@ -1,4 +1,4 @@
-<!-- Draft issue for https://github.com/Wren6991/Hazard3 (question / ISA conformance). Not yet filed. -->
+<!-- Draft issue for https://github.com/Wren6991/Hazard3 (question / ISA conformance). Filed 2026-09-21 as https://github.com/Wren6991/Hazard3/issues/47 -->
 
 # Vectored mode with an unaligned mtvec BASE: entry address is BASE | 4*cause, and BASE is not legalised
 

@@ -62,11 +62,11 @@ instructions ([`findings/upstream/repro/`](findings/upstream/repro/)).
 
 | # | behaviour | side | v1.1.1 | develop | status |
 |---|---|---|---|---|---|
-| 1 | seven reserved `C.ADDI4SPN` encodings (nzuimm = 0, rd' ≠ 0) execute as `addi rd', sp, 0` instead of trapping | Hazard3 | present | present | to be filed |
-| 2 | `mstatus.MPRV` is writable and reads back set when `U_MODE = 0`; the spec says read-only 0 | Hazard3 | present | present | to be filed |
-| 3 | a write to `meicontext` traps as illegal when `EXTENSION_XH3IRQ = 0` but still modifies `mie` | Hazard3 | present | present | to be filed |
+| 1 | seven reserved `C.ADDI4SPN` encodings (nzuimm = 0, rd' ≠ 0) execute as `addi rd', sp, 0` instead of trapping | Hazard3 | present | present | [filed, #44](https://github.com/Wren6991/Hazard3/issues/44) |
+| 2 | `mstatus.MPRV` is writable and reads back set when `U_MODE = 0`; the spec says read-only 0 | Hazard3 | present | present | [filed, #45](https://github.com/Wren6991/Hazard3/issues/45) |
+| 3 | a write to `meicontext` traps as illegal when `EXTENSION_XH3IRQ = 0` but still modifies `mie` | Hazard3 | present | present | [filed, #46](https://github.com/Wren6991/Hazard3/issues/46) |
 | 4 | `FENCE` with rs1 or rd non-zero raises illegal-instruction; the spec says ignore the fields | Hazard3 | present | fixed 2026-08-22 | rediscovered; not filed |
-| 5 | vectored trap entry computes `BASE \| 4·cause`, the spec says `BASE + 4·cause`, and an unaligned BASE is accepted rather than legalised | Hazard3 (documented) | present | present | to be filed as a conformance question |
+| 5 | vectored trap entry computes `BASE \| 4·cause`, the spec says `BASE + 4·cause`, and an unaligned BASE is accepted rather than legalised | Hazard3 (documented) | present | present | [filed as a question, #47](https://github.com/Wren6991/Hazard3/issues/47) |
 | 6 | `legalize_mstatus` lets `TW` be set with U-mode absent; the spec says read-only 0 | Sail, lowRISC `ibex` branch | present at branch head | fixed upstream 2025-02-19 | not filed: fixed upstream, and harmless to Ibex (which has U-mode) |
 
 None of the five Hazard3 items can be reached by code a compiler emits, and

@@ -1,16 +1,16 @@
 # Upstream reports
 
-Status of each finding against the projects it concerns. Issues are filed
-before this repository is made public; the "filed" column carries the issue
-link once it exists.
+Status of each finding against the projects it concerns. The four Hazard3
+reports were filed on 2026-09-21, before this repository was made public; the
+reproducer files went with them as gists.
 
 | # | draft | project | branch state at time of writing | filed |
 |---|---|---|---|---|
-| 1 | hazard3-1-c-addi4spn-reserved.md | Wren6991/Hazard3 | present on stable (v1.1.1) and develop (ba0c83c6) | not yet |
-| 2 | hazard3-2-mstatus-mprv-no-umode.md | Wren6991/Hazard3 | present on stable and develop | not yet |
-| 3 | hazard3-3-meicontext-side-effect.md | Wren6991/Hazard3 | present on stable and develop | not yet |
+| 1 | hazard3-1-c-addi4spn-reserved.md | Wren6991/Hazard3 | present on stable (v1.1.1) and develop (ba0c83c6) | [#44](https://github.com/Wren6991/Hazard3/issues/44), 2026-09-21 |
+| 2 | hazard3-2-mstatus-mprv-no-umode.md | Wren6991/Hazard3 | present on stable and develop | [#45](https://github.com/Wren6991/Hazard3/issues/45), 2026-09-21 |
+| 3 | hazard3-3-meicontext-side-effect.md | Wren6991/Hazard3 | present on stable and develop | [#46](https://github.com/Wren6991/Hazard3/issues/46), 2026-09-21 |
 | 4 | hazard3-4-fence-fields-NOT-FILED.md | Wren6991/Hazard3 | fixed on develop by 6adda670 (2026-08-22), independently of this work; still on stable | not filed |
-| 5 | hazard3-5-mtvec-vectored-unaligned.md | Wren6991/Hazard3 | present on stable and develop; documented behaviour, filed as a conformance question | not yet |
+| 5 | hazard3-5-mtvec-vectored-unaligned.md | Wren6991/Hazard3 | present on stable and develop; documented behaviour, filed as a conformance question | [#47](https://github.com/Wren6991/Hazard3/issues/47), 2026-09-21 |
 | 6 | sail-riscv-6-mstatus-tw-no-umode.md | lowRISC/sail-riscv, branch ibex | present at branch head 5fca3f99; fixed in riscv/sail-riscv by 8de2591 (2025-02-19) | not filed (decision 2026-09-21): fixed upstream, and Ibex has U-mode so its proof is unaffected |
 
 Hazard3's Contributing.md asks that bug reports contain no suggested changes to

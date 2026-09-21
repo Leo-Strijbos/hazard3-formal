@@ -1,4 +1,4 @@
-<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Not yet filed. -->
+<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Filed 2026-09-21 as https://github.com/Wren6991/Hazard3/issues/44 -->
 
 # C.ADDI4SPN with nzuimm = 0 executes as `addi rd', sp, 0` instead of raising illegal-instruction
 

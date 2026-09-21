@@ -1,4 +1,4 @@
-<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Not yet filed. -->
+<!-- Draft issue for https://github.com/Wren6991/Hazard3 (bug report). Filed 2026-09-21 as https://github.com/Wren6991/Hazard3/issues/46 -->
 
 # A trapping write to meicontext still modifies mie when EXTENSION_XH3IRQ = 0
 
