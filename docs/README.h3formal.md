@@ -1,3 +1,8 @@
+<!-- This is lowRISC's README for ibex/dv/formal at commit 405c6d1d (Apache-2.0,
+lowRISC contributors, original author Louis-Emile Ploix), kept verbatim as the
+reference for the flow this harness is a port of. It describes Ibex, not
+Hazard3; for this repository's build see docs/REPRODUCE.md and docs/BRINGUP.md. -->
+
 # End-to-End Formal Verification of Ibex Trace Equivalence against the Sail Model
 
 ## Building & Running the flow

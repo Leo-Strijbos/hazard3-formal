@@ -6,7 +6,7 @@
 #   "AXIOM <name> assumed ..." (chain_check3.py reads these and reports PROVEN MODULO AXIOMS) and a
 #   "RESULT <name> RESULT: AXIOM" line so the round's bookkeeping stays aligned.  The Ibex/Oxford proof
 #   did exactly this for the M-type spec-compliance lemma ("Never actually proved, just assumed").
-# v4.0 (2026-09-19 evening, built at the user's request after the efficiency review):
+# v4.0 (2026-09-19 evening, built after the efficiency review of the v3 runner):
 #  * ICTI (k=ICTI_K, default 1) still runs IN PARALLEL with kind for every candidate.  The log data
 #    (16 lemmas with a k=1 aigicti CTI later proved by kind at depth 1) shows the k=1 CTI does NOT
 #    predict kind failure, so v4 does NOT skip kind on CTI-positive candidates.
