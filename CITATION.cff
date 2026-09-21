@@ -4,6 +4,8 @@ title: "hazard3-formal: formal equivalence of Hazard3 and the RISC-V Sail model"
 authors:
   - family-names: Strijbos
     given-names: Leo
+  - family-names: de Vrieze
+    given-names: Tom
 version: 1.0.0
 date-released: 2026-09-20
 license: Apache-2.0
